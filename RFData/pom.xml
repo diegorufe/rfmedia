@@ -16,6 +16,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<jpa.version>2.2.1</jpa.version>
+		<rfcore.version>0.0.1-SNAPSHOT</rfcore.version>
 	</properties>
 
 	<dependencies>
@@ -24,6 +26,18 @@
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
 			<version>2.2.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>${jpa.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>RFCore</artifactId>
+			<version>${rfcore.version}</version>
 		</dependency>
 
 	</dependencies>
