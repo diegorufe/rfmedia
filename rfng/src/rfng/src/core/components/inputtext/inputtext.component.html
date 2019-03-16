@@ -1,0 +1,25 @@
+<!-- When type is a text -->
+<div *ngIf="this.rendered && this.type == 'text' " class="InputTextComponentCardDiv">
+    <label for="{{name}}" class="InputTextComponentLabel">{{this.label}}</label>
+    <!-- When only get a one model and a property -->
+    <input id="{{name}}" *ngIf="this.model2 == null || this.model2 == undefined" rfInputText autocomplete="off" [attr.name]="name" [attr.data-label]="this.label"
+        class="{{this.disabled ? this.styleClass : this.styleClassView}}" [(ngModel)]="this.model[this.property]" (change)="valuechangeEvent($event)"
+        disabled="{{this.disabled}}" [required]="this.required" size="{{this.size}}" />
+    <!-- When get a two models and a property -->
+    <input id="{{name}}" *ngIf="this.model2 != null && this.model2 != undefined" rfInputText autocomplete="off" [attr.name]="name" [attr.data-label]="this.label"
+        class="{{this.styleClassView}}" [(ngModel)]="this.model[this.model2][this.property]" (change)="valuechangeEvent($event)" disabled="{{this.disabled}}"
+        [required]="this.required" size="{{this.size}}" />
+</div>
+
+<!-- When type is a number -->
+<div *ngIf="this.rendered && this.type == 'number' " class="InputTextComponentCardDiv">
+    <label for="{{name}}" class="InputTextComponentLabel">{{this.label}}</label>
+    <!-- When only get a one model and a property -->
+    <input id="{{name}}" type="number" *ngIf="this.model2 == null || this.model2 == undefined" rfInputText [attr.name]="name" [attr.data-label]="this.label"
+        class="{{this.disabled ? this.styleClass : this.styleClassView}}" [(ngModel)]="this.model[this.property]"
+        disabled="{{this.disabled}}" [required]="this.required" size="{{this.size}}" min="{{this.min}}" max="{{this.max}}" />
+    <!-- When get a two models and a property -->
+    <input id="{{name}}" type="number" *ngIf="this.model2 != null && this.model2 != undefined" rfInputText [attr.name]="name" [attr.data-label]="this.label"
+        class="{{this.styleClassView}}" [(ngModel)]="this.model[this.model2][this.property]" disabled="{{this.disabled}}"
+        [required]="this.required" size="{{this.size}}" min="{{this.min}}" max="{{this.max}}" />
+</div>

@@ -1,0 +1,9 @@
+<div *ngIf="!this.disabled" class="FileComponent">
+    <label class="FileComponentLabel" for="{{this.property}}">{{this.label}}</label>
+    <input class="FileComponentInput" name="file" type="file" id="{{this.property}}" (change)="this.onChange($event)" accept="{{this.accept}}">
+</div>
+<div *ngIf="this.disabled" class="FileComponent">
+    <label class="FileComponentLabel" for="{{this.property}}">{{this.label}}</label>
+    <input class="FileComponentInput" name="file" type="file" id="{{this.property}}" (change)="this.onChange($event)" accept="{{this.accept}}"
+        disabled>
+</div>

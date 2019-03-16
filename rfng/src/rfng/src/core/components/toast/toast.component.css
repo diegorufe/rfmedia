@@ -1,0 +1,73 @@
+.ToastComponent{
+    position: absolute;
+    top:0;
+    right:0;
+    max-height: 100%;
+    overflow-x: auto;
+}
+
+.ToastComponentMessage{
+    position: relative;
+    min-width: 250px;
+    min-height: 60px;
+    float: right;
+    clear: both;
+    margin-top: 5px;
+    margin-right: 15px;
+}
+
+.ToastComponentMessageSucces{
+    background-color: #b7d8b7;
+    box-sizing: border-box;
+}
+
+.ToastComponentMessageInfo{
+    background-color: #7fbcec;
+    box-sizing: border-box;
+}
+
+.ToastComponentMessageWarn{
+    background-color: #ffe399;
+    box-sizing: border-box;
+}
+
+.ToastComponentMessageError{
+    background-color: #f8b7bd;
+    box-sizing: border-box;
+}
+
+
+
+.ToastComponentMessageText{
+    float: left;
+    width: 100%;
+}
+
+.ToastComponentMessageTextContent{
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+
+.ToastComponentMessageIcon{
+    float: left;
+    width: 100%;
+}
+
+.ToastComponentMessageIconClose{
+    float: right;
+    color: rgb(70, 98, 253);
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.ToastComponentMessageIconClose{
+    color: black;
+}
+
+.ToastComponentMessageIconClose:focus{
+    outline: none;
+}

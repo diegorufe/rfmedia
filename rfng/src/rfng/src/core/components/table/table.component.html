@@ -1,0 +1,140 @@
+<div class="TableComponentCardDiv">
+    <!-- This a caption from table -->
+    <div *ngIf="captionTemplate">
+        <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+    </div>
+    <div *ngIf="this.loading" class="TableComponentCardDivLoading"></div>
+    <div *ngIf="this.loading" class="TableComponentCardDivContent">
+        <i class="fas fa-circle-notch fa-spin" style="font-size:24px; color:gray"></i>
+    </div>
+    <!-- This a paginator from table -->
+    <div class="TableComponentCardDivFooter">
+        <div class="TableComponentCardDivFooterSummary">
+            <div class="TableComponentCardDivFooterSummaryTotalRecords"> {{'i18nAppCore.i18nComponents.i18n_rf_table_total_registros' | rftranslate}}{{this.totalRecords}}</div>
+        </div>
+        <div *ngIf="this.totalRecords > 0" class="TableComponentCardDivFooterPaginator">
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goFirstPage()">
+                    <i class="fas fa-angle-double-left"></i>
+                </button>
+            </div>
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goPrevPage()">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            <ng-container *ngFor="let pageView of pagesView">
+                <div class="TableComponentCardDivPage">
+                    <button type="button" class="TableComponentCardDivPageButtom {{this.page == (pageView.page - 1) ? 'TableComponentCardDivPageActivate' : ''}}"
+                        (click)="goToPage(pageView)">{{pageView.page}}</button>
+                </div>
+            </ng-container>
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goNextPage()">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+            </div>
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goLastPage()">
+                    <i class="fas fa-angle-double-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <table *ngIf="this.totalRecords > 0" class="TableComponentCardTable">
+        <tr class="TableComponentCardDivPageColumnsHeaders">
+            <ng-container *ngIf="this.hasActions">
+                <th [ngStyle]="this.styleAcctions">
+                    {{'i18nAppCore.i18nComponents.i18n_rf_table_acciones' | rftranslate}}
+                </th>
+            </ng-container>
+            <ng-container *ngFor="let col of this.columnsTable">
+                <th *ngIf="col.sorttable" [ngStyle]="col.styleInColumn" (click)="this.sort(col)" class="TableComponentCardColumnSortable">
+                    {{col.header | rftranslate}}&nbsp;
+                    <i *ngIf="col.sortOrder == 1" class="fas fa-angle-double-up"></i>
+                    <i *ngIf="col.sortOrder == -1" class="fas fa-angle-double-down"></i>
+                </th>
+                <th *ngIf="!col.sorttable">
+                    {{col.header | rftranslate}}
+                </th>
+            </ng-container>
+            <!--Set the table haders-->
+            <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columnsTable}"></ng-container>
+        </tr>
+        <ng-container *ngFor="let rowData of this.dataView; let rowIndexTable = index">
+            <!--Set the content of table-->
+            <tr (dblclick)="this.dblClickRow(rowData, rowIndex)" (click)="this.clickRow(rowData, rowIndexTable)" class="TableComponentCardDivPageColumnsBody {{rowIndexTable == this.rowIndex ? 'TableComponentCardDivPageColumnsBodySelected' : ''}}">
+                <ng-container *ngIf="this.hasActions">
+                    <td>
+                        <button *ngIf="this.renderedSelect" class="TableComponentCardDivPageColumnsBodyActions {{rowIndexTable == this.rowIndex ? 'TableComponentCardDivPageColumnsBodySelected' : ''}}"
+                            type="button" (click)="this.goActions('T', rowData, rowIndexTable)">
+                            <i class="far fa-check-square"></i>
+                        </button>
+                        <button *ngIf="this.renderedShow" class="TableComponentCardDivPageColumnsBodyActions {{rowIndexTable == this.rowIndex ? 'TableComponentCardDivPageColumnsBodySelected' : ''}}"
+                            type="button" (click)="this.goActions('S', rowData, rowIndexTable)">
+                            <i class="far fa-eye"></i>
+                        </button>
+                        <button *ngIf="this.renderedEdit" class="TableComponentCardDivPageColumnsBodyActions {{rowIndexTable == this.rowIndex ? 'TableComponentCardDivPageColumnsBodySelected' : ''}}"
+                            type="button" (click)="this.goActions('E', rowData, rowIndexTable)">
+                            <i class="far fa-edit"></i>
+                        </button>
+                        <button *ngIf="this.renderedDelete" class="TableComponentCardDivPageColumnsBodyActions {{rowIndexTable == this.rowIndex ? 'TableComponentCardDivPageColumnsBodySelected' : ''}}"
+                            type="button" (click)="this.goActions('D', rowData, rowIndexTable)">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container *ngFor="let col of this.columnsTable">
+                    <ng-container *ngIf="col.cover">
+                        <td>
+                            <rf-cover [model]="rowData" [property]="col.field" [imageData]="rowData[col.field]"> </rf-cover>
+                        </td>
+                    </ng-container>
+                    <ng-container *ngIf="!col.cover">
+                        <td>
+                            {{rowData[col.field]}}
+                        </td>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: columnsTable}"></ng-container>
+            </tr>
+        </ng-container>
+    </table>
+    <div *ngIf="this.totalRecords == 0" class="TableComponentCardTableNoReg">
+        {{'i18nAppCore.i18nComponents.i18n_rf_table_empty_message' | rftranslate}}
+    </div>
+    <!-- This a paginator from table -->
+    <div class="TableComponentCardDivFooter">
+        <div class="TableComponentCardDivFooterSummary">
+            <div class="TableComponentCardDivFooterSummaryTotalRecords"> {{'i18nAppCore.i18nComponents.i18n_rf_table_total_registros' | rftranslate}}{{this.totalRecords}}</div>
+        </div>
+        <div *ngIf="this.totalRecords > 0" class="TableComponentCardDivFooterPaginator">
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goFirstPage()">
+                    <i class="fas fa-angle-double-left"></i>
+                </button>
+            </div>
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goPrevPage()">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            <ng-container *ngFor="let pageView of pagesView">
+                <div class="TableComponentCardDivPage">
+                    <button type="button" class="TableComponentCardDivPageButtom {{this.page == (pageView.page - 1) ? 'TableComponentCardDivPageActivate' : ''}}"
+                        (click)="goToPage(pageView)">{{pageView.page}}</button>
+                </div>
+            </ng-container>
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goNextPage()">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+            </div>
+            <div class="TableComponentCardDivPage">
+                <button class="TableComponentCardDivPageButtom" type="button" (click)="goLastPage()">
+                    <i class="fas fa-angle-double-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

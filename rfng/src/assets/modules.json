@@ -1,0 +1,9 @@
+[
+    {
+        "path": "mod1",
+        "location": "./assets/mod1.umd.min.js",
+        "moduleName": "Mod1Module",
+        "description": "Mod1",
+        "registered": true
+    }
+]
