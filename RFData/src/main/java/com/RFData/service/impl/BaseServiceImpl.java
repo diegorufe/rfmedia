@@ -15,22 +15,15 @@ import com.RFData.service.IBaseService;
  * @author diego
  *
  */
-public class BaseServiceImpl<T extends BaseCoreEntity> implements IBaseService<T> {
-
-	@SuppressWarnings("rawtypes")
-	private IBaseDao dao;
+public abstract class BaseServiceImpl<T extends BaseCoreEntity> implements IBaseService<T> {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public IBaseDao getDao() {
-		return this.dao;
-	}
+	public abstract IBaseDao getDao();
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void setDao(IBaseDao dao) {
-		this.dao = dao;
-	}
+	public abstract void setDao(IBaseDao dao);
 
 	@SuppressWarnings("unchecked")
 	@Override

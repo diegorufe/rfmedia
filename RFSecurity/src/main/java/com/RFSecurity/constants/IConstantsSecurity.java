@@ -13,5 +13,6 @@ public interface IConstantsSecurity {
 	public static final String HEADER_STRING = "Authorization";
 	public static final String AUTHORITIES_KEY = "scopes";
 	public static final String URL_TOKEN = "/token/*";
-	public static final String URL_SING_UP = "/signup";
+	public static final String URL_SIGNUP = "/login";
+	public static final String SERVICE_USER = "userService";
 }

@@ -72,7 +72,7 @@ public class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBaseDao<PK, T
 	}
 
 	@Override
-	public void delete(BaseCoreEntity entidad) {
+	public void delete(T entidad) {
 		getEntityManager().remove(getEntityManager().contains(entidad) ? entidad : getEntityManager().merge(entidad));
 	}
 
