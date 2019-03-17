@@ -10,6 +10,7 @@ import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
 import com.RFData.beans.Order;
 import com.RFData.entities.BaseCoreEntity;
+import com.RFData.event.IAuditEventFactory;
 
 /**
  * 
@@ -20,13 +21,17 @@ import com.RFData.entities.BaseCoreEntity;
  *        {@link #BaseCoreEntity}
  */
 public interface IBaseDao<PK, T extends BaseCoreEntity> {
-	
+
 	public static final String ID = "id";
 	public static final String CODE = "codigo";
 	public static final String DESCRIPTION = "descripcion";
-	
+
 	public EntityManager getEntityManager();
-	
+
+	public IAuditEventFactory getAuditEventFactory();
+
+	public void setAuditEventFactory(IAuditEventFactory auditEventFactory);
+
 	public T save(T entidad);
 
 	public T update(T entidad);
@@ -42,5 +47,5 @@ public interface IBaseDao<PK, T extends BaseCoreEntity> {
 	public List<T> find(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, int... limits);
 
 	public CriteriaQuery<T> createQuery(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders);
-	
+
 }

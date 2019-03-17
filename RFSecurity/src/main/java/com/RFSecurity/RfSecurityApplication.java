@@ -1,13 +1,13 @@
-package com.Rest;
+package com.RFSecurity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RfRestApplication {
+public class RfSecurityApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RfRestApplication.class, args);
+		SpringApplication.run(RfSecurityApplication.class, args);
 	}
 
 }

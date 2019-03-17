@@ -29,6 +29,7 @@ import com.RFData.constants.EnumFetchs;
 import com.RFData.constants.EnumOrders;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
+import com.RFData.event.IAuditEventFactory;
 
 /**
  * 
@@ -42,10 +43,21 @@ public class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBaseDao<PK, T
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	private IAuditEventFactory auditEventFactory;
 
 	@Override
 	public EntityManager getEntityManager() {
 		return this.entityManager;
+	}
+
+	@Override
+	public IAuditEventFactory getAuditEventFactory() {
+		return this.auditEventFactory;
+	}
+
+	@Override
+	public void setAuditEventFactory(IAuditEventFactory auditEventFactory) {
+		this.auditEventFactory = auditEventFactory;
 	}
 
 	@Override
