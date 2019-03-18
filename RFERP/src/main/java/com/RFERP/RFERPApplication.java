@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RferpApplication {
+public class RFERPApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RferpApplication.class, args);
+		SpringApplication.run(RFERPApplication.class, args);
 	}
 
 }

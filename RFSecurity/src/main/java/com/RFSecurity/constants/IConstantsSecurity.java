@@ -15,4 +15,6 @@ public interface IConstantsSecurity {
 	public static final String URL_TOKEN = "/token/*";
 	public static final String URL_SIGNUP = "/login";
 	public static final String SERVICE_USER = "userService";
+	public static final String REST_URL_AUTHENTICATION = "/toke";
+	public static final String REST_URL_AUTHENTICATION_GENERATE_TOKEN = "/generate-token";
 }
