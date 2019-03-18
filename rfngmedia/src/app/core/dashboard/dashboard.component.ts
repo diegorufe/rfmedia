@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, ElementRef, ComponentFactoryResolver, AfterViewInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { BaseComponent } from 'src/rfng/src/public_api';
+import { BaseComponent, DynamicLoaderComponent } from 'src/rfng/src/public_api';
 import { CoreUtils } from 'src/rfng/src/core/utils/core.utils';
 
 

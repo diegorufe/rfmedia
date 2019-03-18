@@ -1,7 +1,8 @@
-<div class="DashboardComponent">
+<div *ngIf="this.isLogged()" class="DashboardComponent">
     <rf-header [dashBoardComponent]="this"></rf-header>
     <rf-menu [dashBoardComponent]="this"></rf-menu>
     <div class="DashboardComponentBody" #dashboardComponentBody>
 
     </div>
 </div>
+<rf-login *ngIf="this.isLogged()"></rf-login>

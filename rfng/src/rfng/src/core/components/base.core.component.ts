@@ -46,4 +46,16 @@ export abstract class BaseCoreComponent extends BasePropertiesComponent {
 
     }
 
+    /**
+     * Method to know user is logged
+     */
+    isLogged():boolean{
+        let principal = localStorage.getItem("principal");
+        let logged = false;
+        if(principal != null && principal != undefined){
+            logged = true;
+        }
+        return logged;
+    }
+
 }

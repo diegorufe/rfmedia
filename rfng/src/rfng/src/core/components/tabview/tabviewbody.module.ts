@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { TabViewComponent } from "./tabview.component";
 import { TabViewBodyComponent } from "./tabviewbody.component";
 import { DynamicComponentLoaderModule } from "../dynamic/dynamic.loader.module";
 import { ToastModule } from "../toast/toast.module";

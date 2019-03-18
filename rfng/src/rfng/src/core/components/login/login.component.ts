@@ -21,10 +21,19 @@ export class LoginComponent extends BaseComponent implements OnInit {
         super(changeDetectorRef, el, componentFactoryResolver, translateService, service);
     }
 
+    /**
+     * Method to set login in application
+     */
     async login() {
         if (this.isAwait) {
-            let loginResult = await this.service.login(this.loginModel);
+            //let loginResult = await this.service.login(this.loginModel);
+            let loginResult = "asd";
             console.log(loginResult);
+            if(loginResult != null && loginResult != undefined){
+                localStorage.setItem("principal", "principal")
+            }else{
+                localStorage.setItem("principal", null)
+            }
         } else {
 
         }
