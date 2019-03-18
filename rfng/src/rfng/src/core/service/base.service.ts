@@ -1,20 +1,22 @@
 import { RequestHeader } from "../beans/requestheader";
 import { BaseModel } from "../model/base.model";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AppContants } from "../constants/app.constants";
 /**
  * This class is base class from service
  */
 export abstract class BaseService {
     http: HttpClient;
-    baseHost: String = 'http://localhost:8888';
+    baseHost: String = AppContants.BASE_HOST_APP;
     urlRequest: String;
     /**
      * 
      * @param http module http to request
      */
-    constructor(http: HttpClient, urlRequest?: String) {
+    constructor(http: HttpClient, urlRequest?: String, baseHost?: String) {
         this.http = http;
         this.urlRequest = urlRequest;
+        this.baseHost = baseHost;
     }
 
     /**

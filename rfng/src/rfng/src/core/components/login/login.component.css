@@ -1,0 +1,10 @@
+.LoginComponent{
+    width: 100%;
+    height: 100%;
+    float: left;
+    clear: left;
+}
+
+.LoginComponentDivContainer{
+    margin: 0 auto;
+}

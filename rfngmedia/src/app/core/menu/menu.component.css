@@ -1,0 +1,13 @@
+.MenuComponent{
+    height: calc(100% - 50px);
+    box-sizing: border-box;
+    width: 170px;
+    /* background-color: #423e3ef5; */
+    background-color: gray;
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    margin-top: 50px;
+    z-index: 9999999999999;
+}
