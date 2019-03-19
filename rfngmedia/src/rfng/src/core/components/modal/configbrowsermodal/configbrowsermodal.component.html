@@ -1,0 +1,25 @@
+<div class="ConfigBrowserModalComponent">
+    <div class="ConfigBrowserModalComponentAcciones">
+        <button type="button" class="ConfigBrowserModalComponentAccionesButtons" (click)="this.save()">
+            <i class="fas fa-save"></i>
+        </button>
+        <button type="button" class="ConfigBrowserModalComponentAccionesButtons" (click)="this.reset()">
+            <i class="fas fa-recycle"></i>
+        </button>
+    </div>
+    <div class="ConfigBrowserModalComponentPickList">
+        <rf-picklist *ngIf="this.loadedConfig" [source]="this.baseBrowserComponent.columnsTableConfig" [propertySource]="'header'"
+            [basePickComponent]="this" [propertyLoad]="loadedConfig" [target]="this.baseBrowserComponent.columnsDefaultTableConfig"
+            [propertyTarget]="'header'">
+
+        </rf-picklist>
+    </div>
+    <div *ngIf="this.loadedConfig" class="ConfigBrowserModalComponentItemsContainer">
+        <ng-container *ngFor="let rowData of this.baseBrowserComponent.columnsDefaultTableConfig; let rowIndex = index">
+            <div *ngIf="rowData != null" class="ConfigBrowserModalComponentItems">
+                <rf-inputtext name="rowData{{rowData['header']}}" [(ngModel)]="rowData['size']" [model]="rowData"
+                    [property]="'size'" [size]="3" [min]="0" [max]="100" [type]="'number'" [label]="rowData['header'] | rftranslate"></rf-inputtext>
+            </div>
+        </ng-container>
+    </div>
+</div>

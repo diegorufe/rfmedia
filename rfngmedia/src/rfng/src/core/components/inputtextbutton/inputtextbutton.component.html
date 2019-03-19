@@ -1,0 +1,28 @@
+<!-- When type is a text -->
+<div class="InputTextButtonComponentCardDiv">
+    <div class="InputTextButtonComponentCardDivItem">
+        <rf-inputtext *ngIf="this.model2 == null || this.model2 == undefined" name="{{this.name}}" [(ngModel)]="this.model[this.property]"
+            [model]="this.model" [property]="this.property" [disabled]="this.disabled" [required]="this.required" [size]="this.size"
+            [nameService]="this.nameService" [label]="this.label"></rf-inputtext>
+        <rf-inputtext *ngIf="this.model2 != null && this.model2 != undefined" name="{{this.name}}" [(ngModel)]="this.model[this.model2][this.property]"
+            [model]="this.model" [model2]="this.model2" [property]="this.property" [disabled]="this.disabled" [required]="this.required"
+            [nameService]="this.nameService"
+            [size]="this.size" [label]="this.label"></rf-inputtext>
+    </div>
+    <div class="InputTextButtonComponentCardDivItem">
+        <button *ngIf="this.disabled" disabled class="InputTextButtonComponentButtons" type="button" (click)="this.openSearchModal()">
+            <i class="fas fa-search"></i>
+        </button>
+        <button *ngIf="!this.disabled" class="InputTextButtonComponentButtons" type="button" (click)="this.openSearchModal()">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="InputTextButtonComponentCardDivItem">
+        <rf-inputtext *ngIf="this.model2 == null || this.model2 == undefined" name="{{this.name}}_descripcion" [(ngModel)]="this.model[this.propertyDescri]"
+            [model]="this.model" [property]="this.propertyDescri" [disabled]="true" [required]="false" [size]="this.sizeDescri"
+            [label]="this.labelDescri"></rf-inputtext>
+        <rf-inputtext *ngIf="this.model2 != null && this.model2 != undefined" name="{{this.name}}_descripcion" [(ngModel)]="this.model[this.model2][this.propertyDescri]"
+            [model]="this.model" [model2]="this.model2" [property]="this.propertyDescri" [disabled]="true" [required]="false"
+            [size]="this.sizeDescri" [label]="this.labelDescri"></rf-inputtext>
+    </div>
+</div>

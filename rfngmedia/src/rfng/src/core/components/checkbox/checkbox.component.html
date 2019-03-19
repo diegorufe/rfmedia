@@ -1,0 +1,15 @@
+<!-- When type is a text -->
+<div *ngIf="this.rendered" class="CheckBoxComponentCardDiv">
+    <div class="CheckBoxDivInput">
+        <label class="{{this.styleClassView}}">
+            <!-- When only get a one model and a property -->
+            <input type="checkbox" *ngIf="this.model2 == null || this.model2 == undefined" [attr.name]="name" [attr.data-label]="this.label"
+                [checked]="this.model[this.property]" (change)="valuechangeEvent($event)" [disabled]="this.disabled" />
+            <!-- When get a two models and a property -->
+            <input *ngIf="this.model2 != null && this.model2 != undefined" rfInputText [attr.name]="name" [attr.data-label]="this.label"
+                [checked]="this.model[this.property]" (change)="valuechangeEvent($event)" [disabled]="this.disabled" />
+            <span class="CheckBoxComponentCardCheckmark"></span>
+        </label>
+    </div>
+    <label class="CheckBoxLabel">{{this.label}}</label>
+</div>

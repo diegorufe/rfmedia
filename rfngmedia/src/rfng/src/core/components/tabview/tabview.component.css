@@ -1,0 +1,37 @@
+.TabViewComponent{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+.TabViewComponentHeaders{
+    width: 100%;
+    height: 38px;
+    max-height: 38px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #3F51B5;
+    float: left;
+    padding-left: 10px !important;
+}
+
+.TabViewComponentBody{
+    width: 100%;
+    height: calc(100% - 38px);
+    position: relative;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+.TabViewComponentVisible{
+    display: block !important;
+}
+
+.TabViewComponentInVisible{
+    display: none !important;
+}

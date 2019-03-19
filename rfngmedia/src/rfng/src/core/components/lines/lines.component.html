@@ -1,0 +1,20 @@
+<div style="width: 100% !important;">
+    <rf-tablegrid [sinHeader]="true">
+        <rf-tablegrid-fieldsGrid-sin>
+            <div style="width: 100% !important;" *ngIf="this.baseItem != null && this.baseItem != undefined" class="ui-g-12 ui-md-12 ui-lg-12 ui-g-nopad">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+                        <button type="button" class="LinesComponentButtons" (click)="this.refresh()"><i class="fas fa-sync-alt"></i></button>
+                        <button type="button" class="LinesComponentButtons" (click)="this.save()"><i class="far fa-save"></i></button>
+                        <button type="button" class="LinesComponentButtons" (click)="this.add()"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div *ngFor="let item of this.items; let i = index" [attr.data-index]="i">
+                    <ng-template [ngTemplateOutlet]="templateVariable" [ngTemplateOutletContext]="{item: item, i: i, list: this}">
+
+                    </ng-template>
+                </div>
+            </div>
+        </rf-tablegrid-fieldsGrid-sin>
+    </rf-tablegrid>
+</div>

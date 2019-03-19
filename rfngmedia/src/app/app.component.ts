@@ -1,8 +1,9 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ElementRef, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
-import { BaseComponent, DynamicLoaderComponent } from 'src/rfng/src/public_api';
 import { TranslateService } from '@ngx-translate/core';
-import { AppConfig } from 'src/rfng/src/core/beans/appconfig';
+import { BaseComponent } from 'src/rfng/src/core/components/base.component';
+import { DynamicLoaderComponent } from 'src/rfng/src/core/components/dynamic/dynamic.loader.component';
 import { CoreUtils } from 'src/rfng/src/core/utils/core.utils';
+import { AppConfig } from 'src/rfng/src/core/beans/appconfig';
 
 @Component({
   selector: 'app-root',

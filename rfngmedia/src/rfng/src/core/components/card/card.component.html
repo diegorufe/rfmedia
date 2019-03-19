@@ -1,0 +1,9 @@
+<div class="CardComponent">
+    <div class="CardComponentHeader" (click)="this.toggleCard()">
+        <div class="CardComponentHeaderIcon"><i class="{{this.classCardHeader}}"></i></div>
+        <div class="CardComponentHeaderLabel">{{this.label}}</div>
+    </div>
+    <div class="CardComponentBody {{this.classCardBody}}">
+        <ng-content select="rf-card-body"></ng-content>
+    </div>
+</div>

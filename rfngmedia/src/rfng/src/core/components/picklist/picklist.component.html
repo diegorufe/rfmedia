@@ -1,0 +1,22 @@
+<div class="PickListComponent">
+    <div class="PickListComponentSource">
+        <ng-container *ngFor="let rowData of this.source; let rowIndex = index">
+            <div *ngIf="this.i18nColumn" class="PickListComponentItems" (dblclick)="this.onRowDblClickSource(rowIndex)">
+                {{rowData[this.propertySource] | rftranslate}}
+            </div>
+            <div *ngIf="!this.i18nColumn" class="PickListComponentItems" (dblclick)="this.onRowDblClickSource(rowIndex)">
+                {{rowData[this.propertySource]}}
+            </div>
+        </ng-container>
+    </div>
+    <div class="PickListComponentTarget">
+        <ng-container *ngFor="let rowData of this.target; let rowIndex = index">
+            <div *ngIf="this.i18nColumn" class="PickListComponentItems" (dblclick)="this.onRowDblClickTarget(rowIndex)">
+                {{rowData[this.propertyTarget] | rftranslate}}
+            </div>
+            <div *ngIf="!this.i18nColumn" class="PickListComponentItems" (dblclick)="this.onRowDblClickTarget(rowIndex)">
+                {{rowData[this.propertyTarget]}}
+            </div>
+        </ng-container>
+    </div>
+</div>

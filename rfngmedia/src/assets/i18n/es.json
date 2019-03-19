@@ -1,7 +1,7 @@
 {
     "i18nAppCore": {
         "login": {
-            "username": "User name",
+            "username": "Username",
             "password": "Password",
             "login": "Login"
         }

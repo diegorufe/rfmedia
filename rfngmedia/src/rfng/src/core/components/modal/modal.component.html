@@ -1,0 +1,16 @@
+<div class="ModalComponent">
+    <div class="ModalComponentMask" (click)="this.closeModal()" [style.z-index]="this.zindex"></div>
+    <div class="ModalComponentContainer {{this.getStyleClassBaseComponent()}}" [style.z-index]="this.zindex">
+        <div class="ModalComponentHeader">
+            <div class="ModalComponentHeaderLabel">{{this.label | rftranslate}}</div>
+            <div class="ModalComponentHeaderIcon">
+                <button class="ModalComponentHeaderIconButton" type="button" (click)="this.closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div #modalViewBody class="ModalComponentBody">
+
+        </div>
+    </div>
+</div>

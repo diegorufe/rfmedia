@@ -1,7 +1,8 @@
 import { Component, ChangeDetectorRef, ElementRef, ComponentFactoryResolver, AfterViewInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { BaseComponent, DynamicLoaderComponent } from 'src/rfng/src/public_api';
 import { CoreUtils } from 'src/rfng/src/core/utils/core.utils';
+import { BaseComponent } from 'src/rfng/src/core/components/base.component';
+import { DynamicLoaderComponent } from 'src/rfng/src/core/components/dynamic/dynamic.loader.component';
 
 
 @Component({
@@ -24,11 +25,13 @@ export class DashboardComponent extends BaseComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.addComponentDynamic(this.dashboardComponentBody, 'tabview', true, this.dynamicComponentLoader);
+        if (this.isLogged()) {
+            this.addComponentDynamic(this.dashboardComponentBody, 'tabview', true, this.dynamicComponentLoader);
+        }
     }
 
-    closeTabs(){
-        if(CoreUtils.haveAppConfig()){
+    closeTabs() {
+        if (CoreUtils.haveAppConfig()) {
             CoreUtils.APP_CONFIG.tabViewComponent.closeTabs();
         }
     }

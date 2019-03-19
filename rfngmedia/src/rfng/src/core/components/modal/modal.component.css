@@ -1,0 +1,59 @@
+.ModalComponent{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+}
+
+.ModalComponentMask{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.ModalComponentContainer{
+    position: relative;
+    /*margin: 0 auto;*/
+    max-width: 90%;
+    max-height: 90%;
+    background: white;
+    overflow-y: auto;
+}
+
+.ModalComponentHeader{
+    float: left;
+    width: 100%;
+    height: 40px;
+    background: #3F51B5;
+    color: white;
+}
+
+.ModalComponentHeaderLabel{
+    float: left;
+    width: calc(100% - 40px);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.ModalComponentHeaderIcon{
+    float: left;
+    width: 20px;
+    margin-top: 10px;
+}
+
+.ModalComponentHeaderIconButton{
+    float: left;
+    color: white;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.ModalComponentBody{
+    position: relative;
+    float: left;
+    width: 100%;
+    max-height: calc(100% - 40px);
+}

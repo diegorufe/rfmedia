@@ -1,0 +1,10 @@
+@import '../../rfng/src/core/resources/fontawesome-free-5.2.0-web/css/all.min.css';
+
+body, html{
+    float: left;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
