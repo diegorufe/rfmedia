@@ -3,6 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { CoreUtils } from 'src/rfng/src/core/utils/core.utils';
 import { BaseComponent } from 'src/rfng/src/core/components/base.component';
 import { DynamicLoaderComponent } from 'src/rfng/src/core/components/dynamic/dynamic.loader.component';
+import { DynamicUtils } from 'src/rfng/src/core/utils/dynamic.utils';
 
 
 @Component({
@@ -34,6 +35,14 @@ export class DashboardComponent extends BaseComponent implements AfterViewInit {
         if (CoreUtils.haveAppConfig()) {
             CoreUtils.APP_CONFIG.tabViewComponent.closeTabs();
         }
+    }
+
+    /**
+     * Method to close session 
+     */
+    closeSession(){
+        localStorage.removeItem("principal");
+        DynamicUtils.refreshAppView();
     }
 
 }

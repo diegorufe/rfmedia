@@ -1,0 +1,13 @@
+{
+    "i18nAppCore": {
+        "login": {
+            "username": "Username",
+            "password": "Password",
+            "login": "Login"
+        },
+        "i18nComponents": {
+            "i18n_genericos_cerrar_pestanas": "Cerrar pestañas",
+            "i18n_genericos_cerrar_session": "Cerrar sesión"
+        }
+    }
+}

@@ -30,9 +30,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
             let loginResult = "asd";
             console.log(loginResult);
             if(loginResult != null && loginResult != undefined){
-                localStorage.setItem("principal", "principal")
+                localStorage.setItem("principal", "user");
             }else{
-                localStorage.setItem("principal", null)
+                localStorage.removeItem("principal");
             }
         } else {
 

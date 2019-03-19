@@ -7,6 +7,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader, DynamicComponentLoaderModule, DynamicLoaderManifestComponent } from 'src/rfng/src/public_api';
+import {MultiTranslateHttpLoader} from "ngx-translate-multi-http-loader";
+
+/**
+ * Method to load i18n for multiple folders 
+ * @param http 
+ */
+export function HttpLoaderFactory(http: HttpClient) {
+  return new MultiTranslateHttpLoader(http, [
+      {prefix: "./assets/i18n/core/", suffix: ".json"},
+      {prefix: "./assets/i18n/app/", suffix: ".json"},
+  ]);
+}
 
 let manifests: DynamicLoaderManifestComponent[] = [
   {
@@ -29,7 +41,7 @@ let manifests: DynamicLoaderManifestComponent[] = [
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
+        useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
     }),

@@ -38,3 +38,7 @@
     border: none !important;
     outline: none !important;
 }
+
+.BotonCerrarSesionDiv{
+    float: right;
+}
