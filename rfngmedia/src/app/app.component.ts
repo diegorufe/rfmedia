@@ -10,7 +10,7 @@ import { AppConfig } from 'src/rfng/src/core/beans/appconfig';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent extends BaseComponent implements AfterViewInit {
+export class AppComponent extends BaseComponent {
 
   title = 'rfngmedia';
   dynamicComponentLoader: DynamicLoaderComponent;
@@ -28,15 +28,4 @@ export class AppComponent extends BaseComponent implements AfterViewInit {
     // CoreUtils.APP_CONFIG.componentResolver = new AppComponentResolver();
   }
 
-  ngAfterViewInit() {
-    this.loadComponent('rf_dashboard');
-  }
-
-  /**
-   * Method to load components by id
-   * @param id 
-   */
-  loadComponent(id) {
-    this.addComponentDynamic(this.mainDiv, id, true, this.dynamicComponentLoader);
-  }
 }

@@ -6,7 +6,6 @@ import { MenuModule } from "../menu/menu.module";
 import { HeaderModule } from "../header/header.module";
 import { I18nTranslateModule } from 'src/rfng/src/core/i18n/i18ntranslate.module';
 import { DynamicComponentLoaderModule, DynamicLoaderManifestComponent } from 'src/rfng/src/public_api';
-import { LoginModule } from 'src/rfng/src/core/components/login/login.module';
 
 
 // This array defines which "componentId" maps to which lazy-loaded module.
@@ -54,7 +53,6 @@ let mainefestRoutes: DynamicLoaderManifestComponent[] = [
     I18nTranslateModule,
     DynamicComponentLoaderModule.forChild(DashboardComponent),
     DynamicComponentLoaderModule.forRoot(mainefestRoutes),
-    LoginModule
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent],

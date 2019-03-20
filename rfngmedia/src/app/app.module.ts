@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { createTranslateLoader, DynamicComponentLoaderModule, DynamicLoaderManifestComponent } from 'src/rfng/src/public_api';
 import {MultiTranslateHttpLoader} from "ngx-translate-multi-http-loader";
+import { DashboardModule } from './core/dashboard/dashboard.module';
 
 /**
  * Method to load i18n for multiple folders 
@@ -19,14 +19,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       {prefix: "./assets/i18n/app/", suffix: ".json"},
   ]);
 }
-
-let manifests: DynamicLoaderManifestComponent[] = [
-  {
-    componentId: 'rf_dashboard',
-    path: 'rf_dashboard', // some globally-unique identifier, used internally by the router
-    loadChildren: './core/dashboard/dashboard.module#DashboardModule',
-  }
-];
 
 @NgModule({
   declarations: [
@@ -45,7 +37,8 @@ let manifests: DynamicLoaderManifestComponent[] = [
         deps: [HttpClient]
       }
     }),
-    DynamicComponentLoaderModule.forRoot(manifests),
+    LoginModule,
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
