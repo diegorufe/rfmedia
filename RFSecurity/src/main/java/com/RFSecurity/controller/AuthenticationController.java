@@ -32,7 +32,7 @@ import com.RFSecurity.service.impl.UserServiceImpl;
 @CrossOrigin(origins = IConstantsRest.REST_URL_CROSS_ORIGIN, maxAge = IConstantsRest.MAX_AGE_CROSS_ORIGIN)
 @RestController
 @RequestMapping(IConstantsSecurity.REST_URL_AUTHENTICATION)
-public abstract class AuthenticationController {
+public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
