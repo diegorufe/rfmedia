@@ -21,7 +21,7 @@ import com.RFSecurity.filters.JwtAuthenticationFilter;
  * @author diego
  *
  */
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public abstract class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Resource(name = "userService")
 	private UserDetailsService userDetailsService;

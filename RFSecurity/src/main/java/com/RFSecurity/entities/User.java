@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -24,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = IUserDao.TABLE_NAME)
-@NamedQueries({ @NamedQuery(name = IUserDao.NAMED_QUERY_FIND_BY_USERNAME, query = IUserDao.QUERY_FIND_BY_USERNAME) })
+@NamedQuery(name = IUserDao.NAMED_QUERY_FIND_BY_USERNAME, query = IUserDao.QUERY_FIND_BY_USERNAME)
 public class User extends BaseEntity {
 
 	/**

@@ -1,12 +1,15 @@
 package com.RFSecurity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +32,7 @@ import com.RFSecurity.service.impl.UserServiceImpl;
 @CrossOrigin(origins = IConstantsRest.REST_URL_CROSS_ORIGIN, maxAge = IConstantsRest.MAX_AGE_CROSS_ORIGIN)
 @RestController
 @RequestMapping(IConstantsSecurity.REST_URL_AUTHENTICATION)
-public class AuthenticationController {
+public abstract class AuthenticationController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -44,9 +47,16 @@ public class AuthenticationController {
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_GENERATE_TOKEN, method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
 		final Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginUser.getUsername(),
+						loginUser.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final String token = jwtTokenUtil.generateToken(authentication);
 		return ResponseEntity.ok(new RequestResponse(new AuthToken(token), null));
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
 	}
 }

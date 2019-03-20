@@ -18,6 +18,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<jpa.version>2.2.1</jpa.version>
 		<rfcore.version>0.0.1-SNAPSHOT</rfcore.version>
+		<mylsq.version>8.0.15</mylsq.version>
 	</properties>
 
 	<dependencies>
@@ -27,18 +28,26 @@
 			<artifactId>javax.persistence</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
 			<version>${jpa.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com</groupId>
 			<artifactId>RFCore</artifactId>
 			<version>${rfcore.version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mylsq.version}</version>
+		</dependency>
+
 
 	</dependencies>
 
