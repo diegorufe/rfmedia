@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RfMediaApplication {
+public class RFMediaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RfMediaApplication.class, args);
+		SpringApplication.run(RFMediaApplication.class, args);
 	}
 
 }

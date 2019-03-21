@@ -12,10 +12,10 @@ import { LoginService } from '../../service/login/login.service';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
-    loginModel: Login;
+    loginModel: Login = new Login();
 
     @Input()
-    styleClass:string;
+    styleClass: string;
 
     constructor(changeDetectorRef: ChangeDetectorRef, el: ElementRef, componentFactoryResolver: ComponentFactoryResolver, translateService: TranslateService, @Inject(LoginService) service) {
         super(changeDetectorRef, el, componentFactoryResolver, translateService, service);
@@ -26,20 +26,24 @@ export class LoginComponent extends BaseComponent implements OnInit {
      */
     async login() {
         if (this.isAwait) {
-            //let loginResult = await this.service.login(this.loginModel);
-            let loginResult = "asd";
-            console.log(loginResult);
-            if(loginResult != null && loginResult != undefined){
-                localStorage.setItem("principal", "user");
-            }else{
+            try {
+                let loginResult = await this.service.login(this.loginModel).toPromise();
+                if (loginResult != null && loginResult != undefined && loginResult.data != null && loginResult.data != undefined) {
+                    localStorage.setItem("principal", loginResult.data);
+                } else {
+                    localStorage.removeItem("principal");
+                }
+            } catch (ex) {
+                console.log(ex);
                 localStorage.removeItem("principal");
             }
+
         } else {
 
         }
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.loginModel = new Login();
         this.styleClass = this.styleClass || "LoginComponent";
     }

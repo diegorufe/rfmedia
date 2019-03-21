@@ -1,10 +1,10 @@
-package com.RFERP.config;
+package com.RFMedia.config;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import com.RFSecurity.config.WebSecurityConfig;
 
 @EnableWebSecurity
-public class ERPSecurityConfig extends WebSecurityConfig {
+public class RFMediaSecurityConfig extends WebSecurityConfig {
 
 }

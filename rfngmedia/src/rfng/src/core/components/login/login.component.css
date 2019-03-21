@@ -46,3 +46,9 @@
 .LoginButtonComponentLabel{
     margin-left: 5px;
 }
+
+.LoginForm{
+    float: left;
+    width: 100%;
+    height: 100%;
+}

@@ -7,7 +7,7 @@ import { AppContants } from "../constants/app.constants";
  */
 export abstract class BaseService {
     http: HttpClient;
-    baseHost: String = AppContants.BASE_HOST_APP;
+    baseHost: String;
     urlRequest: String;
     /**
      * 
@@ -16,7 +16,7 @@ export abstract class BaseService {
     constructor(http: HttpClient, urlRequest?: String, baseHost?: String) {
         this.http = http;
         this.urlRequest = urlRequest;
-        this.baseHost = baseHost;
+        this.baseHost = baseHost || AppContants.BASE_HOST_APP;
     }
 
     /**

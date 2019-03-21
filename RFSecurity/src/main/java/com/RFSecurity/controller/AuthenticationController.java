@@ -20,6 +20,7 @@ import com.RFRest.beans.RequestResponse;
 import com.RFRest.constants.IConstantsRest;
 import com.RFSecurity.beans.AuthToken;
 import com.RFSecurity.beans.LoginUser;
+import com.RFSecurity.beans.Principal;
 import com.RFSecurity.config.TokenProvider;
 import com.RFSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.service.impl.UserServiceImpl;
@@ -51,7 +52,10 @@ public class AuthenticationController {
 						loginUser.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final String token = jwtTokenUtil.generateToken(authentication);
-		return ResponseEntity.ok(new RequestResponse(new AuthToken(token), null));
+		Principal principal = new Principal();
+		principal.setToken(token);
+		principal.setUser(loginUser.getUsername());
+		return ResponseEntity.ok(new RequestResponse(principal, null));
 	}
 	
 	@Bean

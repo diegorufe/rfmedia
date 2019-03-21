@@ -15,7 +15,7 @@ export class LoginService extends BaseService {
                 'Content-Type': 'application/json'
             })
         };
-        const requestHeader = new RequestHeader(null, null, null, loginModel);
-        return this.http.post(this.baseHost + '' + this.urlRequest + '/generateToken', requestHeader, httpOptions);
+        const requestHeader = loginModel;
+        return this.http.post(this.baseHost + '' + this.urlRequest + '/generate-token', requestHeader, httpOptions);
     }
 }
