@@ -34,7 +34,7 @@ public abstract class BaseServiceImpl<T extends BaseCoreEntity> implements IBase
 	@SuppressWarnings("unchecked")
 	@Override
 	public T update(T entidad) {
-		return (T) getDao().update(entidad);
+		return (T) getDao().save(entidad);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,6 +53,17 @@ public abstract class BaseServiceImpl<T extends BaseCoreEntity> implements IBase
 	@Override
 	public List<T> find(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, int... limits) {
 		return getDao().find(fetchs, filters, orders, limits);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findAll() {
+		return getDao().findAll();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T loadNew() throws InstantiationException, IllegalAccessException {
+		return (T) this.getDao().getClasegenerica().newInstance();
 	}
 
 }

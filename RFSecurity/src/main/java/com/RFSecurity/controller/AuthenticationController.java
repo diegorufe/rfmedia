@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.RFRest.beans.RequestResponse;
 import com.RFRest.constants.IConstantsRest;
-import com.RFSecurity.beans.AuthToken;
 import com.RFSecurity.beans.LoginUser;
 import com.RFSecurity.beans.Principal;
 import com.RFSecurity.config.TokenProvider;
@@ -55,6 +54,7 @@ public class AuthenticationController {
 		Principal principal = new Principal();
 		principal.setToken(token);
 		principal.setUser(loginUser.getUsername());
+		
 		return ResponseEntity.ok(new RequestResponse(principal, null));
 	}
 	

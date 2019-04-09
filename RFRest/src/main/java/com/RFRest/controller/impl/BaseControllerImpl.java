@@ -114,4 +114,12 @@ public abstract class BaseControllerImpl<T extends BaseCoreEntity> implements IB
 		return (Class<T>) thisType.getActualTypeArguments()[0];
 	}
 
+	@Override
+	@RequestMapping(value = IConstantsRest.URL_LAOD_NEW, method = RequestMethod.POST)
+	public ResponseEntity<RequestResponse> loadNew(@RequestBody RequestHeader<T> requestHeader)
+			throws InstantiationException, IllegalAccessException {
+		T entity = this.getService().loadNew();
+		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.OK);
+	}
+
 }

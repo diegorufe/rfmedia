@@ -16,7 +16,7 @@
 	<description>Security for boot applications</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<boot.version>2.1.3.RELEASE</boot.version>
@@ -50,14 +50,5 @@
             <version>${jwt.version}</version>
         </dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

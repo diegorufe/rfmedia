@@ -47,5 +47,4 @@ public interface IBaseDao<PK, T extends BaseCoreEntity> {
 	public List<T> find(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, int... limits);
 
 	public CriteriaQuery<T> createQuery(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders);
-
 }

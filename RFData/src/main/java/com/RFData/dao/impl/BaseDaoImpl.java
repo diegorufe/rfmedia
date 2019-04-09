@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
@@ -39,7 +40,7 @@ import com.RFData.event.IAuditEventFactory;
  * @param <BaseCoreEntity> is the base class form database
  *        {@link #BaseCoreEntity}
  */
-public class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBaseDao<PK, T> {
+public abstract class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBaseDao<PK, T> {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -78,8 +79,12 @@ public class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBaseDao<PK, T
 
 	@Override
 	public List<T> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(getClasegenerica());
+		Root<T> root = criteriaQuery.from(getClasegenerica());
+		CriteriaQuery<T> all = criteriaQuery.select(root);
+		TypedQuery<T> allQuery = this.getEntityManager().createQuery(all);
+		return allQuery.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")

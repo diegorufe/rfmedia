@@ -27,4 +27,7 @@ public interface IBaseController<T extends BaseCoreEntity> {
 	public ResponseEntity<RequestResponse> first(RequestHeader<T> requestHeader);
 
 	public Class<T> getClasegenerica();
+
+	public ResponseEntity<RequestResponse> loadNew(RequestHeader<T> requestHeader)
+			throws InstantiationException, IllegalAccessException;
 }

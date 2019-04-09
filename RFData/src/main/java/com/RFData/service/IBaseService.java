@@ -34,4 +34,8 @@ public interface IBaseService<T extends BaseCoreEntity> {
 	public int count(LinkedList<Filter> filters);
 
 	public List<T> find(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, int... limits);
+	
+	public List<T> findAll();
+	
+	public T loadNew() throws InstantiationException, IllegalAccessException;
 }
