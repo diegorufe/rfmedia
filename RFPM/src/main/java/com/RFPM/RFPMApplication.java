@@ -1,13 +1,13 @@
-package com.RFCoreMedia;
+package com.RFPM;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RfCoreMediaApplication {
+public class RFPMApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RfCoreMediaApplication.class, args);
+		SpringApplication.run(RFPMApplication.class, args);
 	}
 
 }
