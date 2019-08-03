@@ -1,0 +1,44 @@
+.ToolBarDesktopComponent{
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: calc(100% - 4px);
+    height: 26px;
+    padding: 2px;
+    background: silver;
+}
+
+.ToolBarDesktopComponentDivShape{
+    background: silver;
+    border-bottom: 1px solid gray;
+    box-shadow: inset 1px 1px #dfdfdf, 1px 0 #000, 0 1px #000;
+    height: calc(100%); 
+    width: calc(100%);
+}
+
+.ToolBarDesktopComponentStart{
+    width: 150px;
+    float: left;
+    height: 100%;
+}
+
+.ToolBarDesktopComponentStartButton{
+    background: transparent;
+    margin-top: 3px;
+    margin-left: 4px;
+    font-weight: bold;
+}
+
+.ToolBarDesktopComponentStartButton:focus{
+    outline: none !important;
+}
+
+.ToolBarDesktopComponentStartButtonIcon{
+    
+}
+
+.ToolBarDesktopComponentAccess{
+    float: left;
+    width: calc(100% - 150px);
+    height: 100%;
+}

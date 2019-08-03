@@ -1,0 +1,24 @@
+@import '../resources/css/fontawesome-free-5.2.0-web/css/all.min.css';
+
+.styleSpan{
+    display: none;
+}
+
+body, html, #root{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: px_sans_nouveaux, Arial, Helvetica, sans-serif !important;
+    font-size: 12px;
+  }
+
+  .div{
+    box-sizing: border-box;
+  }
+
+  .rfFontFamily{
+    font-family: px_sans_nouveaux, Arial, Helvetica, sans-serif !important;
+    font-size: 12px;
+  }
