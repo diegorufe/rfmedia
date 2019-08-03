@@ -1,8 +1,0 @@
-.BodyDesktopComponent{
-    margin: 0;
-    padding: 0;
-    float: left;
-    width: 100%;
-    height: calc(100% - 30px);
-    position: relative;
-}

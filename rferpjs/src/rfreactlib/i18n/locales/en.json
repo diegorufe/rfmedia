@@ -1,6 +1,10 @@
 {
-    "lib": "rfreact",
-    "desktop": {
-        "start": "Start"
+    "rf": {
+        "login": {
+            "singin": "Sing in",
+            "login": "Login",
+            "username": "Nick",
+            "password": "Password"
+        }
     }
 }
