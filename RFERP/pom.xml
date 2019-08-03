@@ -15,7 +15,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RFERP</name>
 	<description>Security for boot applications</description>
-	<packaging>war</packaging>
+<!-- 	<packaging>war</packaging> -->
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>8</java.version>
