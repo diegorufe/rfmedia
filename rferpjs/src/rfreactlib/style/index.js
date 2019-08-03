@@ -6,7 +6,7 @@ import BaseComponent from '../base/baseComponent';
  * Class for load style for application
  */
 export default class StyleComponent extends BaseComponent {
-    render(){
+    defaultRender(){
         return(<span className="styleSpan"></span>)
     }
 }

@@ -2,19 +2,22 @@ import React from 'react';
 import './index.css';
 import BaseComponent from '../base/baseComponent';
 import PropTypes from 'prop-types';
+
 /**
- * Base class for menu for modules application
+ * Base class for body for modules application
  */
-export default class MenuComponent extends BaseComponent {
+export default class BodyComponent extends BaseComponent {
 
     constructor(props){
         super(props);
+        
     }
 
     defaultRender(){
 
         let data = (
-            <div className="MenuComponent">
+            <div className="BodyComponent">
+                
             </div>
         );
         
@@ -23,6 +26,6 @@ export default class MenuComponent extends BaseComponent {
 
 }
 
-MenuComponent.propTypes = {
+BodyComponent.propTypes = {
     app: PropTypes.object
 }

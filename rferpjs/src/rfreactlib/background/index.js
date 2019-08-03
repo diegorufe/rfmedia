@@ -66,7 +66,7 @@ export class BackgroundComponent extends BaseComponent {
 
     }
 
-    render() {
+    defaultRender() {
         const { className, loader } = this.props;
         const { loading } = this.state;
         if (loading) {

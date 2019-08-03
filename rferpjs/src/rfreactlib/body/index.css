@@ -1,9 +1,9 @@
-.MenuComponent{
+.BodyComponent{
     float: left;
-    width: 150px;
-    margin-top: 5px;
+    width: calc(100% - 155px);
     height: calc(100% - 55px);
+    margin-top: 5px;
+    margin-left: 5px;
     background-color: rgba(0,0,0,.5);
-    border-right: 4px solid rgba(255,255,255,.1);
     box-sizing: border-box;
 }

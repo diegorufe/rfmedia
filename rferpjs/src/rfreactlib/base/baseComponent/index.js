@@ -5,7 +5,7 @@ import React, { Component } from 'react';
  */
 export default class BaseComponent extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = this.defaultStateProps();
     }
@@ -13,16 +13,33 @@ export default class BaseComponent extends Component {
     /**
      * Method to get default State props
      */
-    defaultStateProps(){
+    defaultStateProps() {
         return {};
     }
 
-    render() {
+    defaultRender() {
         return (
 
             <span>
             </span>
 
         );
+    }
+
+    hideToolTip(){
+        let toolTipContainer = document.getElementById("tooltipcontainer");
+
+        if(toolTipContainer != null && toolTipContainer != undefined){
+            toolTipContainer.innerText = '';
+            toolTipContainer.style.display = 'none';
+        }
+    }
+
+    render() {
+        // Hide tooltip
+
+        this.hideToolTip();
+
+        return this.defaultRender();
     }
 }

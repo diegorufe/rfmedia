@@ -6,7 +6,7 @@ import BaseComponent from '../base/baseComponent';
  */
 class TestComponent extends BaseComponent {
 
-    render() {
+    defaultRender() {
         return (
            
                 <div>

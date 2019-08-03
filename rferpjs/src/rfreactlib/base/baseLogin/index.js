@@ -22,16 +22,12 @@ export default class BaseLogin extends BaseComponent {
         if (nickValue != null && nickValue != undefined && passwordValue != null && passwordValue != undefined) {
             let userLoggued = new RFUserSession();
             userLoggued.nick = nickValue;
-
             setUserLogged(userLoggued);
-
-            console.log(this.props.app);
-
             this.props.app.setState({ changed: true });
         }
     }
 
-    render() {
+    defaultRender() {
         return (
             <div className="Login">
                 <div className="LoginPage">

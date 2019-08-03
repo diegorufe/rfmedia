@@ -26,7 +26,7 @@ export class RFUserPermision {
  */
 export function isUserLogged() {
     let userLogged = getUserLogged();
-    return userLogged != null && userLogged != undefined && userLogged.nick != undefined && userLogged.nick != undefined != null && userLogged.nick.trim() != '';
+    return userLogged != null && userLogged != undefined && userLogged.nick != undefined && userLogged.nick != undefined != null && userLogged.nick.trim() !== '';
 }
 
 /**
@@ -36,7 +36,7 @@ export function getUserLogged() {
     let userLogged = null;
     let data = sessionStorage.getItem(RF_USER_KEY_SESSION_STORAGE);
     if (data != null && data != undefined) {
-        userLogged = Object.assign(new RFUserSession(), data);
+        userLogged = Object.assign(new RFUserSession(), JSON.parse(data));
     }
     return userLogged;
 }
@@ -46,7 +46,9 @@ export function getUserLogged() {
  * Mhetod to set user logged
  */
 export function setUserLogged(userLogged) {
-    if (userLogged != null && userLogged != undefined && userLogged.nick != undefined && userLogged.nick != undefined != null && userLogged.nick.trim() != '') {
+    if (userLogged != null && userLogged != undefined && userLogged.nick != undefined && userLogged.nick != undefined != null && userLogged.nick.trim() !== '') {
         sessionStorage.setItem(RF_USER_KEY_SESSION_STORAGE, JSON.stringify(userLogged));
+    } else {
+        sessionStorage.setItem(RF_USER_KEY_SESSION_STORAGE, null);
     }
 }

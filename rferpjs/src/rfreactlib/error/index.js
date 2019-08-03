@@ -37,7 +37,7 @@ export default class ErrorHandlerComponent extends BaseComponent {
         // You can also log error messages to an error reporting service here
     }
 
-    render() {
+    defaultRender() {
         if (this.state.errorInfo) {
             // Error path
             return (

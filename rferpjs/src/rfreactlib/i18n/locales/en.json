@@ -5,6 +5,9 @@
             "login": "Login",
             "username": "Nick",
             "password": "Password"
+        },
+        "header": {
+            "logouttooltip": "Logout"
         }
     }
 }

@@ -6,6 +6,10 @@ import BackgroundComponent from '../../background';
 import React from 'react';
 import { isUserLogged } from '../../session';
 import BaseLogin from '../baseLogin/';
+import HeaderComponent from '../../header';
+import MenuComponent from '../../menu';
+import DashboardComponent from '../../dashboard';
+import BodyComponent from '../../body';
 
 /**
  * Base class for application
@@ -18,6 +22,7 @@ export default class BaseApp extends BaseComponent {
                 <div className="BaseApp">
                     <BackgroundComponent />
                     <StyleComponent />
+                    <DashboardComponent app={this} menu={<MenuComponent app={this} />} header={<HeaderComponent app={this} />} body={<BodyComponent app={this} />} />
                 </div>
             </ErrorHandlerComponent>
         );
@@ -35,7 +40,7 @@ export default class BaseApp extends BaseComponent {
         );
     }
 
-    render() {
+    defaultRender() {
         return isUserLogged() ? this.renderHome() : this.renderLogin();
     }
 }

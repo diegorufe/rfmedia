@@ -1,0 +1,13 @@
+.ToolTipComponent{
+    display: none;
+}
+
+.ToolTipComponentContainer{
+    position: fixed;
+    float: left;
+    text-align: center;
+    background: white;
+    border: 2px solid gray;
+    padding: 5px;
+    font-weight: bold;
+}
