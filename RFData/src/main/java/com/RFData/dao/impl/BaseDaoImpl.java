@@ -181,7 +181,7 @@ public abstract class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBase
 			LinkedList<Filter> filters) {
 		if (filters != null) {
 			LinkedList<Predicate> restrinctions = new LinkedList<Predicate>();
-			Expression<String> expresion = null;
+			Expression expresion = null;
 			// Expression<Date> campoFecha = null;
 			// Date fecha1 = null;
 			// Date fecha2 = null;
