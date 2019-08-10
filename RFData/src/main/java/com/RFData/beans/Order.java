@@ -7,36 +7,32 @@ public class Order implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5077075809230860093L;
-	private String campo;
-	private String tipo;
+	private String field;
+	private String type;
 
 	public Order() {
 	}
-	
-	
 
-	public Order(String campo, String tipo) {
+	public Order(String field, String type) {
 		super();
-		this.campo = campo;
-		this.tipo = tipo;
+		this.field = field;
+		this.type = type;
 	}
 
-
-
-	public String getCampo() {
-		return campo;
+	public String getField() {
+		return field;
 	}
 
-	public void setCampo(String campo) {
-		this.campo = campo;
+	public void setField(String field) {
+		this.field = field;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

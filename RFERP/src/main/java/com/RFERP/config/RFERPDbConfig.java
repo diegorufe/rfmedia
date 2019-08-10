@@ -28,10 +28,14 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 @Configuration
 @ComponentScan(basePackages = { IERPConstants.PACKAGES_SCAN_COMPONENTS })
-public class RFERPConfig {
+public class RFERPDbConfig {
 	@Primary
 	@Bean(name = "dataSourceERP")
 	public DataSource dataSourceERP() {
+		return new HikariDataSource(this.dataSourceDev());
+	}
+
+	private HikariConfig dataSourceProd() {
 		HikariConfig config = new HikariConfig();
 		config.setDataSourceClassName("com.mysql.cj.jdbc.MysqlDataSource");
 		config.addDataSourceProperty("url", "jdbc:mysql://localhost:3306/erp?serverTimezone=UTC");
@@ -41,7 +45,20 @@ public class RFERPConfig {
 		config.setAutoCommit(true);
 		config.setConnectionTimeout(20000);
 
-		return new HikariDataSource(config);
+		return config;
+	}
+
+	private HikariConfig dataSourceDev() {
+		HikariConfig config = new HikariConfig();
+		config.setDriverClassName("com.p6spy.engine.spy.P6SpyDriver");
+		config.setJdbcUrl("jdbc:p6spy:mysql://localhost:3306/erp?serverTimezone=UTC");
+		config.addDataSourceProperty("user", "root");
+		config.addDataSourceProperty("password", "root");
+		config.setIdleTimeout(300000);
+		config.setAutoCommit(true);
+		config.setConnectionTimeout(20000);
+
+		return config;
 	}
 
 	@Primary

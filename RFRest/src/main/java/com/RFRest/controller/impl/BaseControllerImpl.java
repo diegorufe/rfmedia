@@ -3,6 +3,7 @@ package com.RFRest.controller.impl;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,10 +25,21 @@ import com.RFRest.controller.IBaseController;
  *
  * @param <T>
  */
-public abstract class BaseControllerImpl<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
-		implements IBaseController<DAO, T, PK> {
+public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+		implements IBaseController<SERVICE, DAO, T, PK> {
 
-	public abstract IBaseService<DAO, T, PK> getService();
+	@Autowired
+	private SERVICE service;
+
+	@Override
+	public SERVICE getService() {
+		return this.service;
+	}
+
+	@Override
+	public void setService(SERVICE service) {
+		this.service = service;
+	}
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_FIND, method = RequestMethod.POST)
@@ -36,10 +48,7 @@ public abstract class BaseControllerImpl<DAO extends IBaseDao<PK, T>, T extends 
 		if (requestHeader != null) {
 
 			dataRes = getService().find(requestHeader.getFetchs(), requestHeader.getFilters(),
-					requestHeader.getOrders(),
-					requestHeader.getLimit() != null
-							? new int[] { requestHeader.getLimit().getStart(), requestHeader.getLimit().getEnd() }
-							: null);
+					requestHeader.getOrders(), requestHeader.getLimit());
 		}
 		return new ResponseEntity<RequestResponse>(new RequestResponse(dataRes, null), HttpStatus.OK);
 	}

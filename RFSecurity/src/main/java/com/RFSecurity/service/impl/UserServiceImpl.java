@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.RFData.service.impl.BaseServiceImpl;
+import com.RFSecurity.beans.RFUserDetails;
 import com.RFSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.dao.IUserDao;
 import com.RFSecurity.entities.User;
@@ -30,8 +31,7 @@ public class UserServiceImpl extends BaseServiceImpl<IUserDao, User, Integer>
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				getAuthority(user));
+		return new RFUserDetails(user.getUsername(), user.getPassword(), getAuthority(user), user.getId());
 	}
 
 	/**

@@ -2,7 +2,6 @@ package com.RFData.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import com.RFData.beans.Filter;
 import com.RFData.beans.Order;
 import com.RFData.constants.EnumConditionFilter;
 import com.RFData.constants.EnumFetchs;
+import com.RFData.constants.EnumOperatorFilter;
 import com.RFData.constants.EnumOrders;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.event.IAuditEventFactory;
@@ -59,7 +59,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 			setFetchsInCriteria(criteriaQuery, criteriaBuilder, root, fetchs);
 		}
 		if (filters != null && filters.size() > 0) {
-			setFiltersInCriteria(criteriaQuery, criteriaBuilder, root, filters);
+			fixFiltersInCriteria(criteriaQuery, criteriaBuilder, root, filters);
 		}
 		List<javax.persistence.criteria.Order> orderList = this.getOrdersCriteriaQuery(criteriaBuilder, root, orders);
 		if (orderList != null && orderList.size() > 0) {
@@ -81,11 +81,11 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 		List<javax.persistence.criteria.Order> orderList = new ArrayList<javax.persistence.criteria.Order>();
 		if (orders != null && orders.size() > 0) {
 			for (Order order : orders) {
-				if (order != null && !order.getTipo().toUpperCase().equals(EnumOrders.NONE.getValue().toUpperCase())) {
-					if (order.getTipo().toUpperCase().equals(EnumOrders.ASC.getValue().toUpperCase())) {
-						orderList.add(criteriaBuilder.asc(root.get(order.getCampo())));
-					} else if (order.getTipo().toUpperCase().equals(EnumOrders.DESC.getValue().toUpperCase())) {
-						orderList.add(criteriaBuilder.desc(root.get(order.getCampo())));
+				if (order != null && !order.getType().toUpperCase().equals(EnumOrders.NONE.getValue().toUpperCase())) {
+					if (order.getType().toUpperCase().equals(EnumOrders.ASC.getValue().toUpperCase())) {
+						orderList.add(criteriaBuilder.asc(root.get(order.getField())));
+					} else if (order.getType().toUpperCase().equals(EnumOrders.DESC.getValue().toUpperCase())) {
+						orderList.add(criteriaBuilder.desc(root.get(order.getType())));
 					}
 				}
 			}
@@ -133,58 +133,184 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 	 * @param root
 	 * @param filters
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public default void setFiltersInCriteria(CriteriaQuery criteria, CriteriaBuilder builder, Root<T> root,
+	@SuppressWarnings("rawtypes")
+	public default Predicate fixFiltersInCriteria(CriteriaQuery criteria, CriteriaBuilder builder, Root<T> root,
 			List<Filter> filters) {
+		return this.fixFiltersInCriteria(criteria, builder, root, filters, null);
+	}
+
+	/**
+	 * Method to set filters in criteria query
+	 * 
+	 * @param criteria
+	 * @param builder
+	 * @param root
+	 * @param filters
+	 * @param parentPredicate
+	 */
+	@SuppressWarnings({ "rawtypes" })
+	public default Predicate fixFiltersInCriteria(CriteriaQuery criteria, CriteriaBuilder builder, Root<T> root,
+			List<Filter> filters, Predicate parentPredicate) {
 		if (filters != null) {
-			LinkedList<Predicate> restrinctions = new LinkedList<Predicate>();
+			List<Predicate> restrinctions = new ArrayList<Predicate>();
 			Expression expresion = null;
 			// Expression<Date> campoFecha = null;
 			// Date fecha1 = null;
 			// Date fecha2 = null;
 			Join otherEntity = null;
 			String[] splitValues = null;
-			Object valor = null;
+			Object value = null;
+			Predicate predicate = null;
 			for (Filter filter : filters) {
 				otherEntity = null;
-				valor = filter.getValor();
-				if (filter.getCondicion() != null && valor != null) {
-					splitValues = filter.getCampo().split("\\.");
+				value = filter.getValue();
+				predicate = null;
+				if (filter.getCondition() != null && value != null) {
+					
+					splitValues = filter.getField().split("\\.");
+					
 					if (splitValues != null && splitValues.length > 1) {
 						otherEntity = root.join(splitValues[0].trim(), JoinType.LEFT);
 					}
-					if (valor != null && valor instanceof Map) {
-						valor = ((Map) valor).get(splitValues[1].trim());
+					
+					if (value != null && value instanceof Map) {
+						value = ((Map) value).get(splitValues[1].trim());
 					}
+					
 					if (otherEntity != null) {
 						expresion = otherEntity.get(splitValues[1].trim());
 					} else {
-						expresion = root.get(filter.getCampo());
+						expresion = root.get(filter.getField());
 					}
 
-					if (valor != null) {
-						switch (EnumConditionFilter.convert(filter.getCondicion())) {
-						case LIKE:
-							restrinctions
-									.add(builder.like(expresion, "%" + ((String) valor).trim().toUpperCase() + "%"));
-							break;
-						case IGUAL:
-							restrinctions.add(builder.equal(expresion, valor));
-							break;
-						default:
-							break;
-						}
-					}
+					predicate = this.getPredicateConditionCriteria(builder, filter.getOperator(), filter.getCondition(),
+							expresion, filter.getValue());
+
 				}
+
+				if (predicate == null && filter.getFilters() != null && filter.getFilters().size() > 0) {
+					predicate = this.getPredicateConditionCriteria(builder, filter.getOperator(),
+							EnumConditionFilter.DISJUNCTION.getValue(), null, true);
+				}
+
+				if (filter.getFilters() != null && filter.getFilters().size() > 0) {
+					this.fixFiltersInCriteria(criteria, builder, root, filter.getFilters(), predicate);
+				}
+
+				if (parentPredicate != null) {
+					parentPredicate.getExpressions().add(predicate);
+				} else {
+					restrinctions.add(predicate);
+				}
+
 			}
-			criteria.where(restrinctions.toArray(new Predicate[restrinctions.size()]));
+
+			if (parentPredicate == null) {
+				criteria.where(restrinctions.toArray(new Predicate[restrinctions.size()]));
+			}
 		}
+		return parentPredicate;
 	}
 
 	@SuppressWarnings("unchecked")
 	public default Class<T> getGenericClass() {
 		ParameterizedType thisType = (ParameterizedType) getClass().getGenericSuperclass();
 		return (Class<T>) thisType.getActualTypeArguments()[1];
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public default Predicate getPredicateConditionCriteria(CriteriaBuilder builder, String operator, String condition,
+			Expression expresion, Object value) {
+		Predicate predicate = null;
+
+		if (value != null) {
+			switch (EnumConditionFilter.convert(condition)) {
+
+			case DISJUNCTION:
+				predicate = builder.disjunction();
+				break;
+
+			case EQUAL:
+				predicate = builder.equal(expresion, value.getClass());
+				break;
+
+			case GE:
+				if (value instanceof String) {
+					predicate = builder.greaterThan(expresion, (String) value);
+				} else {
+					predicate = builder.ge(expresion, (Expression<? extends Number>) value);
+				}
+				break;
+
+			case GT:
+				if (value instanceof String) {
+					predicate = builder.greaterThanOrEqualTo(expresion, (String) value);
+				} else {
+					predicate = builder.gt(expresion, (Expression<? extends Number>) value);
+				}
+				break;
+
+			case IN:
+				predicate = expresion.in(value);
+				break;
+
+			case IS_NOT_NULL:
+				predicate = expresion.isNotNull();
+				break;
+
+			case IS_NULL:
+				predicate = expresion.isNull();
+				break;
+
+			case NOT_IN:
+				predicate = expresion.in(value).not();
+				break;
+
+			case LIKE:
+				predicate = builder.like(expresion, "%" + ((String) value).trim().toUpperCase() + "%");
+				break;
+
+			case LE:
+				if (value instanceof String) {
+					predicate = builder.lessThan(expresion, (String) value);
+				} else {
+					predicate = builder.le(expresion, (Expression<? extends Number>) value);
+				}
+				break;
+
+			case LT:
+				if (value instanceof String) {
+					predicate = builder.lessThanOrEqualTo(expresion, (String) value);
+				} else {
+					predicate = builder.lt(expresion, (Expression<? extends Number>) value);
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		if (predicate != null) {
+			predicate = this.getPredicateOperatorCriteria(builder, operator, predicate);
+		}
+
+		return predicate;
+	}
+
+	@SuppressWarnings("incomplete-switch")
+	public default Predicate getPredicateOperatorCriteria(CriteriaBuilder builder, String operator,
+			Predicate predicateCondition) {
+
+		if (operator != null) {
+			switch (EnumOperatorFilter.convert(operator)) {
+			case OR:
+				predicateCondition = builder.or(predicateCondition);
+				break;
+			}
+		}
+
+		return predicateCondition;
 	}
 
 }

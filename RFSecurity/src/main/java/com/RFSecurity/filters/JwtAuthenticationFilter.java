@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -27,9 +25,6 @@ import io.jsonwebtoken.SignatureException;
  *
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-	@Autowired
-	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private TokenProvider jwtTokenUtil;
@@ -56,11 +51,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-			if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+			if (jwtTokenUtil.validateToken(authToken, username)) {
 				UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(authToken,
-						SecurityContextHolder.getContext().getAuthentication(), userDetails);
+						SecurityContextHolder.getContext().getAuthentication(), username);
 				// UsernamePasswordAuthenticationToken authentication = new
 				// UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new
 				// SimpleGrantedAuthority("ROLE_ADMIN")));

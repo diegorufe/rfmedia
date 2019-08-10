@@ -10,6 +10,7 @@ import javax.persistence.criteria.Root;
 
 import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
+import com.RFData.beans.Limit;
 import com.RFData.beans.Order;
 import com.RFData.entities.BaseCoreEntity;
 
@@ -47,7 +48,7 @@ public interface IBaseSearchDao<PK, T extends BaseCoreEntity> extends IBaseSimpl
 		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
 		Root<T> root = criteriaQuery.from(getGenericClass());
 		criteriaQuery.select(criteriaBuilder.count(root));
-		setFiltersInCriteria(criteriaQuery, criteriaBuilder, root, filters);
+		fixFiltersInCriteria(criteriaQuery, criteriaBuilder, root, filters);
 		Long result = getEntityManager().createQuery(criteriaQuery).getSingleResult();
 		return result != null ? result.intValue() : 0;
 	}
@@ -62,12 +63,12 @@ public interface IBaseSearchDao<PK, T extends BaseCoreEntity> extends IBaseSimpl
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public default List<T> find(List<Fetch> fetchs, List<Filter> filters, List<Order> orders, int... limits) {
+	public default List<T> find(List<Fetch> fetchs, List<Filter> filters, List<Order> orders, Limit limit) {
 		List<T> data = null;
 		Query query = getEntityManager().createQuery(createQuery(fetchs, filters, orders));
-		if (limits != null && limits.length > 0 && limits.length <= 2) {
-			query.setFirstResult(limits[0]);
-			query.setMaxResults(limits[1]);
+		if (limit != null && limit.getStart() != null && limit.getEnd() != null) {
+			query.setFirstResult(limit.getStart());
+			query.setMaxResults(limit.getEnd());
 		}
 		try {
 			data = query.getResultList();

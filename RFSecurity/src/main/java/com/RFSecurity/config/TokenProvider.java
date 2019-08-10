@@ -10,8 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+import com.RFSecurity.beans.RFUserDetails;
 import com.RFSecurity.constants.IConstantsSecurity;
 
 import io.jsonwebtoken.Claims;
@@ -51,8 +51,10 @@ public class TokenProvider {
 	public String generateToken(Authentication authentication) {
 		final String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(","));
+		RFUserDetails user = (RFUserDetails) authentication.getPrincipal();
 		return Jwts.builder().setSubject(authentication.getName())
 				.claim(IConstantsSecurity.AUTHORITIES_KEY, authorities)
+				.claim(IConstantsSecurity.USER_ID, user.getUserId())
 				.signWith(SignatureAlgorithm.HS256, IConstantsSecurity.SIGNING_KEY)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(
@@ -60,13 +62,13 @@ public class TokenProvider {
 				.compact();
 	}
 
-	public Boolean validateToken(String token, UserDetails userDetails) {
-		final String username = getUsernameFromToken(token);
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	public Boolean validateToken(String token, String username) {
+		final String usernameToken = getUsernameFromToken(token);
+		return (usernameToken.equals(username) && !isTokenExpired(token));
 	}
 
 	public UsernamePasswordAuthenticationToken getAuthentication(final String token, final Authentication existingAuth,
-			final UserDetails userDetails) {
+			final String username) {
 
 		final JwtParser jwtParser = Jwts.parser().setSigningKey(IConstantsSecurity.SIGNING_KEY);
 
@@ -78,6 +80,8 @@ public class TokenProvider {
 				.stream(claims.get(IConstantsSecurity.AUTHORITIES_KEY).toString().split(","))
 				.map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
-		return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
+		return new UsernamePasswordAuthenticationToken(
+				new RFUserDetails(username, "", authorities, (Integer) claims.get(IConstantsSecurity.USER_ID)), "",
+				authorities);
 	}
 }

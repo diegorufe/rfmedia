@@ -24,6 +24,7 @@
 		<jpa.version>2.2.1</jpa.version>
 		<rfcore.version>0.0.1-SNAPSHOT</rfcore.version>
 		<mylsq.version>8.0.15</mylsq.version>
+		<p6spy.version>3.8.5</p6spy.version>
 	</properties>
 
 	<dependencies>
@@ -46,6 +47,12 @@
 			<version>${mylsq.version}</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>${p6spy.version}</version>
+		</dependency>
 
 	</dependencies>
 

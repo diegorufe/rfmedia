@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
+import com.RFData.beans.Limit;
 import com.RFData.beans.Order;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
@@ -23,8 +24,8 @@ public interface IBaseSearchService<DAO extends IBaseDao<PK, T>, T extends BaseC
 		return getDao().count(filters);
 	}
 
-	public default List<T> find(List<Fetch> fetchs, List<Filter> filters, List<Order> orders, int... limits) {
-		return getDao().find(fetchs, filters, orders, limits);
+	public default List<T> find(List<Fetch> fetchs, List<Filter> filters, List<Order> orders, Limit limit) {
+		return getDao().find(fetchs, filters, orders, limit);
 	}
 
 	public default List<T> findAll() {
