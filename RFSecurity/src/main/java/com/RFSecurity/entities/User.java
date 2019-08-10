@@ -2,15 +2,12 @@ package com.RFSecurity.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,10 +44,11 @@ public class User extends BaseUser {
 	@JsonIgnore
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = IUserDao.COLUMN_USER_ROLES, joinColumns = {
-			@JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-	private Set<BaseRole> roles;
+//	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinTable(name = IUserDao.COLUMN_USER_ROLES, joinColumns = {
+//			@JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private Set<Role> roles;
 
 	public Integer getId() {
 		return id;
@@ -76,12 +74,14 @@ public class User extends BaseUser {
 		this.password = password;
 	}
 
-	public Set<BaseRole> getRoles() {
-		return roles;
+	@Override
+	public Set<Role> getRoles() {
+		return this.roles;
 	}
 
-	public void setRoles(Set<BaseRole> roles) {
-		this.roles = roles;
+	@Override
+	public <R extends BaseRole> void setRoles(Set<R> roles) {
+		this.roles = (Set<Role>) roles;
 	}
 
 }

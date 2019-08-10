@@ -16,7 +16,7 @@ public abstract class BaseUser extends BaseCoreEntity {
 
 	public abstract String getUsername();
 
-	public abstract Set<BaseRole> getRoles();
+	public abstract <LR extends Set<BaseRole>> LR getRoles();
 
-	public abstract void setRoles(Set<BaseRole> roles);
+	public abstract <R extends BaseRole> void setRoles(Set<R> roles);
 }

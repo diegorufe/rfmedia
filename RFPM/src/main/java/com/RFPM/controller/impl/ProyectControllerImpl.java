@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RFData.service.IBaseService;
 import com.RFPM.constants.IRFPMConstantsURL;
 import com.RFPM.controller.IProyectController;
+import com.RFPM.dao.IProyectDao;
 import com.RFPM.entities.Proyect;
 import com.RFPM.service.IProyectService;
 import com.RFRest.beans.RequestResponse;
@@ -26,19 +26,19 @@ import com.RFRest.controller.impl.BaseControllerImpl;
 @CrossOrigin(origins = IConstantsRest.REST_URL_CROSS_ORIGIN, maxAge = IConstantsRest.MAX_AGE_CROSS_ORIGIN)
 @RestController
 @RequestMapping(IRFPMConstantsURL.REST_URL_PROYECTS)
-public class ProyectControllerImpl extends BaseControllerImpl<Proyect> implements IProyectController {
+public class ProyectControllerImpl extends BaseControllerImpl<IProyectDao, Proyect, Integer>
+		implements IProyectController {
 
 	@Autowired
 	private IProyectService service;
 
 	@Override
-	public IBaseService<Proyect> getService() {
-		return this.service;
+	public IProyectService getService() {
+		return service;
 	}
 
-	@Override
-	public void setService(IBaseService<Proyect> service) {
-		this.service = (IProyectService) service;
+	public void setService(IProyectService service) {
+		this.service = service;
 	}
 
 	@RequestMapping(value = "/findAll", method = RequestMethod.POST)

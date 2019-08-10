@@ -3,14 +3,12 @@ package com.RFSecurity.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.RFData.dao.IBaseDao;
 import com.RFData.service.impl.BaseServiceImpl;
 import com.RFSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.dao.IUserDao;
@@ -23,10 +21,8 @@ import com.RFSecurity.service.IUserService;
  *
  */
 @Service(value = IConstantsSecurity.SERVICE_USER)
-public class UserServiceImpl extends BaseServiceImpl<User> implements UserDetailsService, IUserService {
-
-	@Autowired
-	private IUserDao dao;
+public class UserServiceImpl extends BaseServiceImpl<IUserDao, User, Integer>
+		implements UserDetailsService, IUserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,17 +32,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserDetail
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				getAuthority(user));
-	}
-
-	@Override
-	public IUserDao getDao() {
-		return this.dao;
-	}
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void setDao(IBaseDao dao) {
-		this.dao = (IUserDao) dao;
 	}
 
 	/**

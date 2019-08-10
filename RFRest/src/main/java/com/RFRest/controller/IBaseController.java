@@ -2,6 +2,7 @@ package com.RFRest.controller;
 
 import org.springframework.http.ResponseEntity;
 
+import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFRest.beans.RequestHeader;
 import com.RFRest.beans.RequestResponse;
@@ -12,7 +13,7 @@ import com.RFRest.beans.RequestResponse;
  *
  * @param <T>
  */
-public interface IBaseController<T extends BaseCoreEntity> {
+public interface IBaseController<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK> {
 
 	public ResponseEntity<RequestResponse> find(RequestHeader<T> requestHeader);
 
@@ -26,7 +27,7 @@ public interface IBaseController<T extends BaseCoreEntity> {
 
 	public ResponseEntity<RequestResponse> first(RequestHeader<T> requestHeader);
 
-	public Class<T> getClasegenerica();
+	public Class<T> getGenericClass();
 
 	public ResponseEntity<RequestResponse> loadNew(RequestHeader<T> requestHeader)
 			throws InstantiationException, IllegalAccessException;

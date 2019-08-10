@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.RFCore.utils.UtilsFields;
+import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.service.IBaseService;
 import com.RFRest.beans.RequestHeader;
@@ -23,11 +24,10 @@ import com.RFRest.controller.IBaseController;
  *
  * @param <T>
  */
-public abstract class BaseControllerImpl<T extends BaseCoreEntity> implements IBaseController<T> {
+public abstract class BaseControllerImpl<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+		implements IBaseController<DAO, T, PK> {
 
-	public abstract IBaseService<T> getService();
-
-	public abstract void setService(IBaseService<T> service);
+	public abstract IBaseService<DAO, T, PK> getService();
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_FIND, method = RequestMethod.POST)
@@ -109,7 +109,7 @@ public abstract class BaseControllerImpl<T extends BaseCoreEntity> implements IB
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Class<T> getClasegenerica() {
+	public Class<T> getGenericClass() {
 		ParameterizedType thisType = (ParameterizedType) getClass().getGenericSuperclass();
 		return (Class<T>) thisType.getActualTypeArguments()[0];
 	}
