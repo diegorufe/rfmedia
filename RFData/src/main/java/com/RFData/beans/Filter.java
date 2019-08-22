@@ -3,6 +3,9 @@ package com.RFData.beans;
 import java.io.Serializable;
 import java.util.List;
 
+import com.RFData.constants.EnumConditionFilter;
+import com.RFData.constants.EnumOperatorFilter;
+
 /**
  * 
  * @author diego
@@ -22,6 +25,35 @@ public class Filter implements Serializable {
 	private List<Filter> filters;
 
 	public Filter() {
+	}
+
+	public Filter(Object value, String operator, String condition, String field, List<Filter> filters) {
+		super();
+		this.value = value;
+		this.operator = operator;
+		this.condition = condition;
+		this.field = field;
+		this.filters = filters;
+	}
+
+	public Filter(Object value, String condition, String field, List<Filter> filters) {
+		this(value, EnumOperatorFilter.AND.getValue(), condition, field, filters);
+	}
+
+	public Filter(Object value, String condition, String field) {
+		this(value, EnumOperatorFilter.AND.getValue(), condition, field, null);
+	}
+
+	public Filter(Object value, String field, List<Filter> filters) {
+		this(value, EnumOperatorFilter.AND.getValue(), EnumConditionFilter.EQUAL.getValue(), field, filters);
+	}
+	
+	public Filter(List<Filter> filters) {
+		this(null, null, null, null, filters);
+	}
+
+	public Filter(Object value, String field) {
+		this(value, EnumOperatorFilter.AND.getValue(), EnumConditionFilter.EQUAL.getValue(), field, null);
 	}
 
 	public Object getValue() {

@@ -1,4 +1,4 @@
-package com.RFCore.utils;
+package com.RFCore.utils.reflection;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashMap;

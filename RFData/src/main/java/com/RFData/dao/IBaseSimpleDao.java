@@ -166,17 +166,17 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 				value = filter.getValue();
 				predicate = null;
 				if (filter.getCondition() != null && value != null) {
-					
+
 					splitValues = filter.getField().split("\\.");
-					
+
 					if (splitValues != null && splitValues.length > 1) {
 						otherEntity = root.join(splitValues[0].trim(), JoinType.LEFT);
 					}
-					
+
 					if (value != null && value instanceof Map) {
 						value = ((Map) value).get(splitValues[1].trim());
 					}
-					
+
 					if (otherEntity != null) {
 						expresion = otherEntity.get(splitValues[1].trim());
 					} else {
@@ -231,7 +231,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 				break;
 
 			case EQUAL:
-				predicate = builder.equal(expresion, value.getClass());
+				predicate = builder.equal(expresion, value);
 				break;
 
 			case GE:
@@ -298,12 +298,14 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 		return predicate;
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	public default Predicate getPredicateOperatorCriteria(CriteriaBuilder builder, String operator,
 			Predicate predicateCondition) {
 
 		if (operator != null) {
 			switch (EnumOperatorFilter.convert(operator)) {
+			case AND:
+				predicateCondition = builder.and(predicateCondition);
+				break;
 			case OR:
 				predicateCondition = builder.or(predicateCondition);
 				break;

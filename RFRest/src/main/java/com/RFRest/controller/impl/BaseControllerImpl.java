@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.RFCore.utils.UtilsFields;
+import com.RFCore.utils.reflection.UtilsFields;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.service.IBaseService;
