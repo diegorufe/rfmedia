@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/files/RFUtilsFiles.o \
 	${OBJECTDIR}/math/RFUtilsFinancial.o
 
 # Test Directory
@@ -42,10 +43,12 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
+	${TESTDIR}/TestFiles/f2 \
 	${TESTDIR}/TestFiles/f1
 
 # Test Object Files
 TESTOBJECTFILES= \
+	${TESTDIR}/tests/RFUtilsFileTest.o \
 	${TESTDIR}/tests/RFUtilsFinancialTest.o
 
 # C Compiler Flags
@@ -72,6 +75,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libRFUtilsCpp.${CND_DLIB_EXT}: ${OBJE
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libRFUtilsCpp.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
+${OBJECTDIR}/files/RFUtilsFiles.o: files/RFUtilsFiles.cpp
+	${MKDIR} -p ${OBJECTDIR}/files
+	${RM} "$@.d"
+	$(COMPILE.cc) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/files/RFUtilsFiles.o files/RFUtilsFiles.cpp
+
 ${OBJECTDIR}/math/RFUtilsFinancial.o: math/RFUtilsFinancial.cpp
 	${MKDIR} -p ${OBJECTDIR}/math
 	${RM} "$@.d"
@@ -84,9 +92,19 @@ ${OBJECTDIR}/math/RFUtilsFinancial.o: math/RFUtilsFinancial.cpp
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/RFUtilsFileTest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
+
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/RFUtilsFinancialTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
+
+
+${TESTDIR}/tests/RFUtilsFileTest.o: tests/RFUtilsFileTest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/RFUtilsFileTest.o tests/RFUtilsFileTest.cpp
 
 
 ${TESTDIR}/tests/RFUtilsFinancialTest.o: tests/RFUtilsFinancialTest.cpp 
@@ -94,6 +112,19 @@ ${TESTDIR}/tests/RFUtilsFinancialTest.o: tests/RFUtilsFinancialTest.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/RFUtilsFinancialTest.o tests/RFUtilsFinancialTest.cpp
 
+
+${OBJECTDIR}/files/RFUtilsFiles_nomain.o: ${OBJECTDIR}/files/RFUtilsFiles.o files/RFUtilsFiles.cpp 
+	${MKDIR} -p ${OBJECTDIR}/files
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/files/RFUtilsFiles.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/files/RFUtilsFiles_nomain.o files/RFUtilsFiles.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/files/RFUtilsFiles.o ${OBJECTDIR}/files/RFUtilsFiles_nomain.o;\
+	fi
 
 ${OBJECTDIR}/math/RFUtilsFinancial_nomain.o: ${OBJECTDIR}/math/RFUtilsFinancial.o math/RFUtilsFinancial.cpp 
 	${MKDIR} -p ${OBJECTDIR}/math
@@ -112,6 +143,7 @@ ${OBJECTDIR}/math/RFUtilsFinancial_nomain.o: ${OBJECTDIR}/math/RFUtilsFinancial.
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${TESTDIR}/TestFiles/f2 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	else  \
 	    ./${TEST} || true; \

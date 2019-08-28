@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>files/RFUtilsFiles.h</itemPath>
       <itemPath>math/RFUtilsFinancial.h</itemPath>
       <itemPath>collections/RFUtilsHCollections.h</itemPath>
       <itemPath>out/RFUtilsHOut.h</itemPath>
@@ -15,12 +16,20 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>files/RFUtilsFiles.cpp</itemPath>
       <itemPath>math/RFUtilsFinancial.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f2"
+                     displayName="RFUtilsFiles"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/RFUtilsFileTest.cpp</itemPath>
+        <itemPath>test.txt</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="RFUtilsFinancialTest"
                      projectFiles="true"
@@ -62,11 +71,34 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <item path="files/RFUtilsFiles.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="files/RFUtilsFiles.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="math/RFUtilsFinancial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="math/RFUtilsFinancial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="out/RFUtilsHOut.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RFUtilsFileTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/RFUtilsFinancialTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -108,11 +140,34 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <item path="files/RFUtilsFiles.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="files/RFUtilsFiles.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="math/RFUtilsFinancial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="math/RFUtilsFinancial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="out/RFUtilsHOut.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RFUtilsFileTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/RFUtilsFinancialTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
