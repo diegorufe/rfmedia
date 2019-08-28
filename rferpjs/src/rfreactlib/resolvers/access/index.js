@@ -7,12 +7,12 @@ export default class AccessResolver {
 
     constructor() {
         // Quick acess for application 
-        this.quickaccess = [];
+        this.permisionsAll = [];
     }
 
     /**
-   * Method to generate unique id
-   */
+     * Method to generate unique id
+     */
     randomId() {
         return Math.random().toString(36).slice(2);
     }

@@ -1,5 +1,7 @@
 package com.RFSecurity.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,8 @@ import com.RFSecurity.service.impl.UserServiceImpl;
 @RequestMapping(IConstantsSecurity.REST_URL_AUTHENTICATION)
 public class AuthenticationController {
 
+	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -46,20 +50,22 @@ public class AuthenticationController {
 
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_GENERATE_TOKEN, method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("User is triying auntetication...");
+		}
 		final Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginUser.getUsername(),
-						loginUser.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final String token = jwtTokenUtil.generateToken(authentication);
 		Principal principal = new Principal();
 		principal.setToken(token);
 		principal.setUser(loginUser.getUsername());
-		
+
 		return ResponseEntity.ok(new RequestResponse(principal, null));
 	}
-	
+
 	@Bean
-	public PasswordEncoder passwordEncoder(){
+	public PasswordEncoder passwordEncoder() {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}

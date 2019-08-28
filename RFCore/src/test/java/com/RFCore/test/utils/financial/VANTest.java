@@ -7,7 +7,7 @@ import java.math.RoundingMode;
 
 import org.junit.Test;
 
-import com.RFCore.utils.financial.UtilsFinancial;
+import com.RFCore.utils.math.UtilsFinancial;
 
 /**
  * 

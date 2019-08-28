@@ -1,4 +1,4 @@
-package com.RFCore.utils.financial;
+package com.RFCore.utils.math;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

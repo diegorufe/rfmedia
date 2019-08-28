@@ -7,5 +7,5 @@ import loaderconfig from './rfreactlib/loaderconfig';
 loaderconfig([locales], null);
 
 export default class App extends BaseApp {
-
+    
 }

@@ -15,15 +15,24 @@ export default class BaseLogin extends BaseComponent {
         this.loginClick = this.loginClick.bind(this);
     }
 
-    loginClick() {
+    async loginClick() {
         let nickValue = document.getElementById("nick").value;
         let passwordValue = document.getElementById("password").value;
-
+        let usserLogedReturn = null;
         if (nickValue != null && nickValue != undefined && passwordValue != null && passwordValue != undefined) {
-            let userLoggued = new RFUserSession();
-            userLoggued.nick = nickValue;
-            setUserLogged(userLoggued);
-            this.props.app.setState({ changed: true });
+            if (this.props.app.props.serviceLogin != null && this.props.app.props.serviceLogin != undefined) {
+                usserLogedReturn = await this.props.app.props.serviceLogin.login(nickValue, passwordValue);
+            }
+            if (usserLogedReturn != null && usserLogedReturn != undefined) {
+                let userLoggued = new RFUserSession();
+                userLoggued.nick = nickValue;
+                setUserLogged(userLoggued);
+                this.props.app.setState({ changed: true });
+            }
+            // let userLoggued = new RFUserSession();
+            // userLoggued.nick = nickValue;
+            // setUserLogged(userLoggued);
+            // this.props.app.setState({ changed: true });
         }
     }
 

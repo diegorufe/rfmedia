@@ -10,6 +10,7 @@ import HeaderComponent from '../../header';
 import MenuComponent from '../../menu';
 import DashboardComponent from '../../dashboard';
 import BodyComponent from '../../body';
+import PropTypes from 'prop-types';
 
 /**
  * Base class for application
@@ -44,3 +45,8 @@ export default class BaseApp extends BaseComponent {
         return isUserLogged() ? this.renderHome() : this.renderLogin();
     }
 }
+
+BaseApp.propTypes = {
+    serviceLogin: PropTypes.object
+}
+

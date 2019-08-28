@@ -8,6 +8,7 @@ export default class RFUserSession {
     constructor() {
         this.nick = null;
         this.permisions = {};
+        this.modules = {};
     }
 }
 
@@ -18,6 +19,15 @@ export class RFUserPermision {
     constructor() {
         this.idUrl = null;
         this.roles = [];
+    }
+}
+
+/**
+ * Class to contains modules for user
+ */
+export class RFUserModule {
+    constructor() {
+        this.moduleName = null;
     }
 }
 

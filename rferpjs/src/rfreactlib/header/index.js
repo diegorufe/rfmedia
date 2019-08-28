@@ -26,16 +26,28 @@ export default class HeaderComponent extends BaseComponent {
     }
 
     /**
-     * Mhetod to show hide menú
+     * Mhetod to show hide menu
      */
     showHideMenu() {
         let menuComponent = document.getElementsByClassName("MenuComponent");
+        let bodyComponent = document.getElementsByClassName("BodyComponent");
+
+        if (bodyComponent != null && bodyComponent != undefined && bodyComponent.length > 0) {
+            bodyComponent = bodyComponent[0];
+        }
+
         if (menuComponent != null && menuComponent != undefined && menuComponent.length > 0) {
             menuComponent = menuComponent[0];
-            if (menuComponent.style.display == null || menuComponent.style.display == undefined || menuComponent.style.display === 'block') {
+            if (menuComponent.style.display == null || menuComponent.style.display == undefined || menuComponent.style.display.trim() === '' || menuComponent.style.display === 'block') {
                 menuComponent.style.display = 'none';
+                if (bodyComponent != null && bodyComponent != undefined) {
+                    bodyComponent.classList.add("BodyComponentMenuHide");
+                }
             } else {
                 menuComponent.style.display = 'block';
+                if (bodyComponent != null && bodyComponent != undefined) {
+                    bodyComponent.classList.remove("BodyComponentMenuHide");
+                }
             }
         }
     }
