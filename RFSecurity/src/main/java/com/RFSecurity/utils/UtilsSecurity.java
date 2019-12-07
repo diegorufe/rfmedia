@@ -2,6 +2,7 @@ package com.RFSecurity.utils;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.RFSecurity.beans.RFUserDetails;
 
@@ -28,5 +29,14 @@ public class UtilsSecurity {
 			}
 		}
 		return id;
+	}
+	
+	/**
+	 * Method to generate bcrypt password 
+	 * @param password
+	 * @return
+	 */
+	public static String generateBcryptPassword(String password) {
+		return new BCryptPasswordEncoder().encode(password);
 	}
 }

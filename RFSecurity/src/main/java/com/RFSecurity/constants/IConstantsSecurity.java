@@ -12,10 +12,10 @@ public interface IConstantsSecurity {
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String AUTHORITIES_KEY = "scopes";
-	public static final String URL_TOKEN = "/token/*";
+	public static final String URL_AUTH = "/auth/*";
 	public static final String URL_SIGNUP = "/login";
 	public static final String SERVICE_USER = "userService";
-	public static final String REST_URL_AUTHENTICATION = "/token";
-	public static final String REST_URL_AUTHENTICATION_GENERATE_TOKEN = "/generate-token";
+	public static final String REST_URL_AUTHENTICATION = "/auth";
+	public static final String REST_URL_AUTHENTICATION_GENERATE_TOKEN = "/token";
 	public static final String USER_ID = "userId";
 }

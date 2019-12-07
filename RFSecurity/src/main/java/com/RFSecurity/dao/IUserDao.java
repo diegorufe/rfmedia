@@ -16,9 +16,9 @@ public interface IUserDao extends IBaseDao<Integer, User> {
 	public static final String NAME_DAO = "userDao";
 
 	public static final String NAMED_QUERY_FIND_BY_USERNAME = "users.findByUsername";
-	public static final String QUERY_FIND_BY_USERNAME = "SELECT u FROM User u JOIN FETCH u.roles where u.username = :name";
+	public static final String QUERY_FIND_BY_USERNAME = "SELECT u FROM User u JOIN FETCH u.roles where u.nick = :name";
 
-	public static final String COLUMN_USERNAME = "username";
+	public static final String COLUMN_NICK = "nick";
 	public static final String COLUMN_PASSWORD = "password";
 	public static final String COLUMN_USER_ROLES = "user_roles";
 
@@ -32,6 +32,15 @@ public interface IUserDao extends IBaseDao<Integer, User> {
 		TypedQuery<User> query = this.getEntityManager().createNamedQuery(IUserDao.NAMED_QUERY_FIND_BY_USERNAME,
 				User.class);
 		query.setParameter("name", username);
-		return query.getSingleResult();
+		
+		User result = null;
+
+		try {
+			result = query.getSingleResult();
+		} catch (Exception e) {
+
+		}
+
+		return result;
 	}
 }

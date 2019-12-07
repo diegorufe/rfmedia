@@ -123,6 +123,9 @@ public class RFUtilsJavaCertified {
 
 					if (line.contains(KEY_QUESTION)) {
 						if (question != null) {
+							if(answer != null && !answers.contains(answer)) {
+								answers.add(answer);
+							}
 							question.setAnswers(answers);
 							if (question.getAnswers().size() > 0) {
 								questions.add(question);

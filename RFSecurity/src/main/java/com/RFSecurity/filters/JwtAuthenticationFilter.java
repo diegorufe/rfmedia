@@ -52,6 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			if (jwtTokenUtil.validateToken(authToken, username)) {
+
 				UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(authToken,
 						SecurityContextHolder.getContext().getAuthentication(), username);
 				// UsernamePasswordAuthenticationToken authentication = new
@@ -59,6 +60,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				// SimpleGrantedAuthority("ROLE_ADMIN")));
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
 				logger.info("authenticated user " + username + ", setting security context");
+				String token = jwtTokenUtil.generateToken(authentication);
+				res.addHeader(IConstantsSecurity.HEADER_STRING, IConstantsSecurity.TOKEN_PREFIX.concat(token));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		}

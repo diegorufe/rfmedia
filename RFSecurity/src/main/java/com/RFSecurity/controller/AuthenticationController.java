@@ -22,6 +22,7 @@ import com.RFRest.beans.RequestResponse;
 import com.RFRest.constants.IConstantsRest;
 import com.RFSecurity.beans.LoginUser;
 import com.RFSecurity.beans.Principal;
+import com.RFSecurity.beans.RFUserDetails;
 import com.RFSecurity.config.TokenProvider;
 import com.RFSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.service.impl.UserServiceImpl;
@@ -49,17 +50,19 @@ public class AuthenticationController {
 	private UserServiceImpl userService;
 
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_GENERATE_TOKEN, method = RequestMethod.POST)
-	public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
+	public ResponseEntity<?> token(@RequestBody LoginUser loginUser) throws AuthenticationException {
 		if (LOG.isDebugEnabled()) {
 			LOG.debug("User is triying auntetication...");
 		}
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		final String token = jwtTokenUtil.generateToken(authentication);
+
+		RFUserDetails rfUserDetails = (RFUserDetails) authentication.getPrincipal();
+
 		Principal principal = new Principal();
-		principal.setToken(token);
-		principal.setUser(loginUser.getUsername());
+		principal.setNick(rfUserDetails.getUsername());
+		principal.setId(rfUserDetails.getUserId());
 
 		return ResponseEntity.ok(new RequestResponse(principal, null));
 	}

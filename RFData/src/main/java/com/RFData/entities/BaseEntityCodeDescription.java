@@ -16,26 +16,26 @@ public class BaseEntityCodeDescription extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -7348047120647072398L;
 
-	@Column(name = "codigo", nullable = false, length = 10, unique = true)
-	private String codigo;
+	@Column(name = "code", nullable = false, length = 10, unique = true)
+	private String code;
 
-	@Column(name = "descripcion", nullable = false, length = 200)
-	private String descripcion;
+	@Column(name = "description", nullable = false, length = 200)
+	private String description;
 
-	public String getCodigo() {
-		return codigo;
+	public String getCode() {
+		return code;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

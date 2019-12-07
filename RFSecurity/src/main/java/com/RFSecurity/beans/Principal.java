@@ -14,34 +14,35 @@ public class Principal implements Serializable {
 	 */
 	private static final long serialVersionUID = -6841347646771955035L;
 
-	private String token;
-	private String user;
-	private Integer userId;
+	private Integer id;
+	private String nick;
+	private Object permisions;
 
 	public Principal() {
 	}
 
-	public String getToken() {
-		return token;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getUser() {
-		return user;
+	public String getNick() {
+		return nick;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public Object getPermisions() {
+		return permisions;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setPermisions(Object permisions) {
+		this.permisions = permisions;
 	}
+
 }

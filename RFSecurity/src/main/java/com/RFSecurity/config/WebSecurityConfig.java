@@ -83,7 +83,7 @@ public abstract class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @throws Exception
 	 */
 	public void authorizeRequestsPermitAll(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(IConstantsSecurity.URL_TOKEN, IConstantsSecurity.URL_SIGNUP).permitAll();
+		http.authorizeRequests().antMatchers(IConstantsSecurity.URL_AUTH, IConstantsSecurity.URL_SIGNUP).permitAll();
 	}
 
 	/**

@@ -31,7 +31,7 @@ public class UserServiceImpl extends BaseServiceImpl<IUserDao, User, Integer>
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
-		return new RFUserDetails(user.getUsername(), user.getPassword(), getAuthority(user), user.getId());
+		return new RFUserDetails(user.getNick(), user.getPassword(), getAuthority(user), user.getId());
 	}
 
 	/**

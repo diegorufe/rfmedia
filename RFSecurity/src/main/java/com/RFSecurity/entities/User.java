@@ -34,12 +34,9 @@ public class User extends BaseUser {
 	 */
 	private static final long serialVersionUID = -8019964445521394095L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
-	@Column(name = IUserDao.COLUMN_USERNAME, nullable = false)
-	private String username;
+
+	@Column(name = IUserDao.COLUMN_NICK, nullable = false)
+	private String nick;
 	@Column(name = IUserDao.COLUMN_PASSWORD, nullable = false)
 	@JsonIgnore
 	private String password;
@@ -50,20 +47,13 @@ public class User extends BaseUser {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private Set<Role> roles;
 
-	public Integer getId() {
-		return id;
+	@Override
+	public String getNick() {
+		return this.nick;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 
 	public String getPassword() {

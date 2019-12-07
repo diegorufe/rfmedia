@@ -34,8 +34,8 @@ import com.RFData.event.IAuditEventFactory;
 public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 
 	public static final String ID = "id";
-	public static final String CODE = "codigo";
-	public static final String DESCRIPTION = "descripcion";
+	public static final String CODE = "code";
+	public static final String DESCRIPTION = "description";
 
 	public EntityManager getEntityManager();
 

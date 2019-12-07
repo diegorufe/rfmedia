@@ -7,7 +7,7 @@ import java.util.Set;
  * @author diego
  *
  */
-public abstract class BaseRole extends BaseCoreEntity {
+public abstract class BaseRole extends BaseEntity {
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public abstract class BaseRole extends BaseCoreEntity {
 
 	public abstract String getDescription();
 
-	public abstract <U extends BaseUser>  Set<U> getUsers();
+	public abstract <U extends BaseUser> Set<U> getUsers();
 
 	public abstract <U extends BaseUser> void setUsers(Set<U> users);
 }

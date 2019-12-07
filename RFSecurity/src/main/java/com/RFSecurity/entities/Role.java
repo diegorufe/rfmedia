@@ -5,9 +5,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -33,27 +30,15 @@ public class Role extends BaseRole {
 	 */
 	private static final long serialVersionUID = -239761483324885038L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
 	@Column(nullable = false)
 	private String name;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = IUserDao.COLUMN_USER_ROLES, joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-	private Set<User> users;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	@Column(nullable = false)
 	private String description;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = IUserDao.COLUMN_USER_ROLES, joinColumns = @JoinColumn(name = "roleId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
+	private Set<User> users;
 
 	public String getName() {
 		return name;
