@@ -13,8 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.config.TokenProvider;
-import com.RFSecurity.constants.IConstantsSecurity;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;

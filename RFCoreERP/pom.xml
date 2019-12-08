@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com</groupId>
+	<artifactId>RFCoreERP</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>RFCoreERP</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<java.version>8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<boot.version>2.1.3.RELEASE</boot.version>
+		<rfboot.version>2.1.3.RELEASE</rfboot.version>
+		<rfcoresecurity.version>0.0.1-SNAPSHOT</rfcoresecurity.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>RFBoot</artifactId>
+			<version>${rfboot.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>RFCoreSecurity</artifactId>
+			<version>${rfcoresecurity.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

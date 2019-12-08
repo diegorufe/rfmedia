@@ -11,8 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.beans.RFUserDetails;
-import com.RFSecurity.constants.IConstantsSecurity;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

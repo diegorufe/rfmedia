@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFRest.beans.RequestResponse;
 import com.RFRest.constants.IConstantsRest;
 import com.RFSecurity.beans.LoginUser;
 import com.RFSecurity.beans.Principal;
 import com.RFSecurity.beans.RFUserDetails;
 import com.RFSecurity.config.TokenProvider;
-import com.RFSecurity.constants.IConstantsSecurity;
-import com.RFSecurity.service.impl.UserServiceImpl;
+import com.RFSecurity.service.impl.UserSecurityServiceImpl;
 
 /**
  * 
@@ -47,7 +47,7 @@ public class AuthenticationController {
 
 	@SuppressWarnings("unused")
 	@Autowired
-	private UserServiceImpl userService;
+	private UserSecurityServiceImpl userSecurityService;
 
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_GENERATE_TOKEN, method = RequestMethod.POST)
 	public ResponseEntity<?> token(@RequestBody LoginUser loginUser) throws AuthenticationException {

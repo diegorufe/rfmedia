@@ -9,21 +9,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.RFData.service.impl.BaseServiceImpl;
+import com.RFCoreSecurity.constants.IConstantsSecurity;
+import com.RFCoreSecurity.entities.User;
+import com.RFCoreSecurity.service.impl.UserServiceImpl;
 import com.RFSecurity.beans.RFUserDetails;
-import com.RFSecurity.constants.IConstantsSecurity;
-import com.RFSecurity.dao.IUserDao;
-import com.RFSecurity.entities.User;
-import com.RFSecurity.service.IUserService;
 
 /**
  * 
  * @author diego
  *
  */
-@Service(value = IConstantsSecurity.SERVICE_USER)
-public class UserServiceImpl extends BaseServiceImpl<IUserDao, User, Integer>
-		implements UserDetailsService, IUserService {
+@Service(value = IConstantsSecurity.SERVICE_USER_SECURITY)
+public class UserSecurityServiceImpl extends UserServiceImpl
+		implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

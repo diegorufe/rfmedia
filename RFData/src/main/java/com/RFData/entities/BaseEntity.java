@@ -3,9 +3,6 @@ package com.RFData.entities;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,7 +13,7 @@ import javax.persistence.TemporalType;
  *
  */
 @MappedSuperclass
-public abstract class BaseEntity extends BaseCoreEntity {
+public abstract class BaseEntity extends BaseIdEntity {
 
 	/**
 	 * 
@@ -26,11 +23,6 @@ public abstract class BaseEntity extends BaseCoreEntity {
 	public BaseEntity() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
-	
 	@Column(name = "createdAt", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
@@ -39,14 +31,6 @@ public abstract class BaseEntity extends BaseCoreEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
 	public Date getCreatedAt() {
 		return this.createdAt;
 	}

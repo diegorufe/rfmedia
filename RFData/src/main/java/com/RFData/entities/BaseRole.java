@@ -21,4 +21,6 @@ public abstract class BaseRole extends BaseEntity {
 	public abstract <U extends BaseUser> Set<U> getUsers();
 
 	public abstract <U extends BaseUser> void setUsers(Set<U> users);
+	
+	public abstract RFClient getRfClient();
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.RFCore.utils.reflection.UtilsFields;
+import com.RFData.constants.EnumResponseCode;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.service.IBaseService;
@@ -72,7 +73,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		}
 		if (entity != null) {
 			UtilsFields.resolveAsociations(entity);
-			entity = this.getService().update(entity);
+			entity = this.getService().update(entity).getEntity();
 		} else {
 			throw new Exception();
 		}
@@ -88,7 +89,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		}
 		if (entity != null) {
 			UtilsFields.resolveAsociations(entity);
-			entity = this.getService().save(entity);
+			entity = this.getService().save(entity).getEntity();
 		} else {
 			throw new Exception();
 		}
@@ -103,7 +104,9 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 			entity = (T) requestHeader.getData();
 		}
 		if (entity != null) {
-			this.getService().delete(entity);
+			if (this.getService().delete(entity).getCodeResponse() != EnumResponseCode.OK.getValue()) {
+				throw new Exception("Error delete");
+			}
 		} else {
 			throw new Exception();
 		}

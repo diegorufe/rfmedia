@@ -1,5 +1,6 @@
 package com.RFData.service;
 
+import com.RFData.beans.ResponseData;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
 
@@ -14,18 +15,16 @@ import com.RFData.entities.BaseCoreEntity;
 public interface IBaseCrudService<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
 		extends IBaseSimpleService<DAO, T, PK> {
 
-	public default T save(T entidad) {
-		getDao().save(entidad);
-		return entidad;
+	public default ResponseData<T> save(T entidad) {
+		return getDao().save(entidad);
 	}
 
-	public default T update(T entidad) {
-		getDao().update(entidad);
-		return entidad;
+	public default ResponseData<T> update(T entidad) {
+		return getDao().update(entidad);
 	}
 
-	public default void delete(T entidad) {
-		getDao().delete(entidad);
+	public default ResponseData<T> delete(T entidad) {
+		return getDao().delete(entidad);
 	}
 
 	public default T loadNew() throws InstantiationException, IllegalAccessException {

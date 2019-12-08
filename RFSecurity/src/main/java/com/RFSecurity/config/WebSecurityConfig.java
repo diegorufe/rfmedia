@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.RFSecurity.constants.IConstantsSecurity;
+import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.filters.JwtAuthenticationFilter;
 
 /**

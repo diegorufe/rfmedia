@@ -1,5 +1,7 @@
 package com.RFData.dao;
 
+import com.RFData.beans.ResponseData;
+import com.RFData.constants.EnumResponseCode;
 import com.RFData.entities.BaseCoreEntity;
 
 /**
@@ -17,9 +19,9 @@ public interface IBaseCrudDao<PK, T extends BaseCoreEntity> extends IBaseSimpleD
 	 * @param entidad
 	 * @return
 	 */
-	public default T save(T entidad) {
+	public default ResponseData<T> save(T entidad) {
 		getEntityManager().persist(entidad);
-		return entidad;
+		return new ResponseData<T>(entidad);
 	}
 
 	/**
@@ -28,8 +30,8 @@ public interface IBaseCrudDao<PK, T extends BaseCoreEntity> extends IBaseSimpleD
 	 * @param entidad
 	 * @return
 	 */
-	public default T update(T entidad) {
-		return getEntityManager().merge(entidad);
+	public default ResponseData<T> update(T entidad) {
+		return new ResponseData<T>(getEntityManager().merge(entidad));
 	}
 
 	/**
@@ -37,8 +39,9 @@ public interface IBaseCrudDao<PK, T extends BaseCoreEntity> extends IBaseSimpleD
 	 * 
 	 * @param entidad
 	 */
-	public default void delete(T entidad) {
+	public default ResponseData<T> delete(T entidad) {
 		getEntityManager().remove(getEntityManager().contains(entidad) ? entidad : getEntityManager().merge(entidad));
+		return new ResponseData<T>(EnumResponseCode.OK.getValue());
 	}
 
 }
