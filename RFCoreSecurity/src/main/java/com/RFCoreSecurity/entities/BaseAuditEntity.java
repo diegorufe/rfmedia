@@ -13,7 +13,7 @@ import com.RFData.entities.BaseEntity;
  *
  */
 @MappedSuperclass
-public abstract class BaseSecureEntity extends BaseEntity {
+public abstract class BaseAuditEntity extends BaseEntity {
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public abstract class BaseSecureEntity extends BaseEntity {
 	@JoinColumn(name = "userCreateId", referencedColumnName = "id")
 	private User userCreate;
 
-	public BaseSecureEntity() {
+	public BaseAuditEntity() {
 	}
 
 	public User getUserUpdate() {

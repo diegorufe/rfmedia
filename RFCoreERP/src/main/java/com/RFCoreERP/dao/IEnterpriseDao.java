@@ -15,5 +15,6 @@ public interface IEnterpriseDao extends IBaseDao<Integer, Enterprise> {
 
 	public static final String COLUMN_CODE = "code";
 	public static final String COLUMN_DESCRIPTION = "description";
+	public static final String COLUMN_RFCLIENT = "rfClient";
 
 }
