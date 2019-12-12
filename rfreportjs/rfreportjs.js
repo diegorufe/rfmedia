@@ -30,20 +30,41 @@ window.RFReport = window.RFReport || {};
         options = rfrt.normalizeOptions(options);
 
         if (container != null && container != undefined) {
+
             container.classList.add("ContainerReportApp");
+
+            let dataPaper = rfrt.loadConfigDataPaper(options);
+
             // Set background color
             container.style.backgroundColor = options.backgroundColor;
+
+            // Create div for tools 
+            let containerTools = document.createElement("DIV");
+            containerTools.classList.add("ContainerToolsDiv");
+
+            container.appendChild(containerTools);
+
+            // Load tools data
+            rfrt.loadToosDataPaper(containerTools , dataPaper);
+
+
+            // Create div for paper 
+            let containerPaperDiv = document.createElement("DIV");
+            containerPaperDiv.classList.add("ContainerPaperDiv");
+
+            container.appendChild(containerPaperDiv);
+
             // Create paper 
             let containerPaper = document.createElement("DIV");
             containerPaper.classList.add("ContainerPaper");
 
-            let dataPaper = rfrt.loadConfigDataPapter(options);
-
             // Load data of paper 
             containerPaper.style.width = rfrt.cmTopx(rfrt.mmTocm(dataPaper.paperWidth)) + "px";
+
+            // This is only for time to build report
             containerPaper.style.height = rfrt.cmTopx(rfrt.mmTocm(dataPaper.paperHeight)) + "px";
 
-            container.appendChild(containerPaper);
+            containerPaperDiv.appendChild(containerPaper);
 
         } else {
             throw new Error("Id container report not defined");
@@ -51,9 +72,16 @@ window.RFReport = window.RFReport || {};
     }
 
     /**
+     * Method to load data for tools
+     */
+    rfrt.loadToosDataPaper = function (containerTools, options) {
+
+    }
+
+    /**
      * Method to load config for paper
      */
-    rfrt.loadConfigDataPapter = function (options) {
+    rfrt.loadConfigDataPaper = function (options) {
 
         let jsonConfig = options;
 
@@ -61,7 +89,9 @@ window.RFReport = window.RFReport || {};
             // Width of page
             "paperWidth": jsonConfig.paperWidth,
             // heigth of page
-            "paperHeight": jsonConfig.paperHeight
+            "paperHeight": jsonConfig.paperHeight,
+            // Title
+            "title": jsonConfig.title
         }
 
         return dataPaper;
@@ -82,12 +112,19 @@ window.RFReport = window.RFReport || {};
             // heigth of page in mm
             "paperHeight": 297,
             // Paper json file for load configuration
-            "paperJson": null
+            "paperJson": null,
+            // Title
+            "title": "rfreports"
         };
 
         if (options == null || options == undefined) {
             options = {};
         }
+
+        // Add options in default options
+        Object.keys(options).forEach(function (key) {
+            defaultOptions[key] = options[key];
+        });
 
         return defaultOptions;
     }
