@@ -40,7 +40,7 @@ public enum EnumTypeAccess {
 		EnumTypeAccess data = EnumTypeAccess.LIST;
 		if (!UtilsString.isBlank(value)) {
 			for (EnumTypeAccess type : values()) {
-				if (type.equals(value)) {
+				if (type.getValue().equalsIgnoreCase(value)) {
 					data = type;
 					break;
 				}
