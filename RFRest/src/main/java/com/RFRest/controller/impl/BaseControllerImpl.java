@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.RFCore.utils.reflection.UtilsFields;
+import com.RFCore.utils.collection.UtilsCollection;
+import com.RFCore.utils.reflection.UtilsReflection;
+import com.RFData.beans.Limit;
 import com.RFData.constants.EnumResponseCode;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
@@ -43,8 +45,8 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 	}
 
 	@Override
-	@RequestMapping(value = IConstantsRest.URL_FIND, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> find(@RequestBody RequestHeader<T> requestHeader) {
+	@RequestMapping(value = IConstantsRest.URL_LIST, method = RequestMethod.POST)
+	public ResponseEntity<RequestResponse> list(@RequestBody RequestHeader<T> requestHeader) {
 		List<T> dataRes = null;
 		if (requestHeader != null) {
 
@@ -65,14 +67,14 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 	}
 
 	@Override
-	@RequestMapping(value = IConstantsRest.URL_UPDATE, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> update(@RequestBody RequestHeader<T> requestHeader) throws Exception {
+	@RequestMapping(value = IConstantsRest.URL_EDIT, method = RequestMethod.POST)
+	public ResponseEntity<RequestResponse> edit(@RequestBody RequestHeader<T> requestHeader) throws Exception {
 		T entity = null;
 		if (requestHeader != null) {
 			entity = (T) requestHeader.getData();
 		}
 		if (entity != null) {
-			UtilsFields.resolveAsociations(entity);
+			UtilsReflection.resolveAsociations(entity);
 			entity = this.getService().update(entity).getEntity();
 		} else {
 			throw new Exception();
@@ -81,14 +83,14 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 	}
 
 	@Override
-	@RequestMapping(value = IConstantsRest.URL_INSERT, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> insert(@RequestBody RequestHeader<T> requestHeader) throws Exception {
+	@RequestMapping(value = IConstantsRest.URL_ADD, method = RequestMethod.POST)
+	public ResponseEntity<RequestResponse> add(@RequestBody RequestHeader<T> requestHeader) throws Exception {
 		T entity = null;
 		if (requestHeader != null) {
 			entity = (T) requestHeader.getData();
 		}
 		if (entity != null) {
-			UtilsFields.resolveAsociations(entity);
+			UtilsReflection.resolveAsociations(entity);
 			entity = this.getService().save(entity).getEntity();
 		} else {
 			throw new Exception();
@@ -114,9 +116,18 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 	}
 
 	@Override
-	public ResponseEntity<RequestResponse> first(@RequestBody RequestHeader<T> requestHeader) {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value = IConstantsRest.URL_READ, method = RequestMethod.POST)
+	public ResponseEntity<RequestResponse> read(@RequestBody RequestHeader<T> requestHeader) {
+		List<T> dataRes = null;
+		T entity = null;
+		if (requestHeader != null) {
+			Limit limit = new Limit(0, 1);
+			dataRes = getService().find(requestHeader.getFetchs(), requestHeader.getFilters(), null, limit);
+			if (UtilsCollection.isListNotNull(dataRes)) {
+				entity = dataRes.get(0);
+			}
+		}
+		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.OK);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -130,7 +141,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 	@RequestMapping(value = IConstantsRest.URL_LAOD_NEW, method = RequestMethod.POST)
 	public ResponseEntity<RequestResponse> loadNew(@RequestBody RequestHeader<T> requestHeader)
 			throws InstantiationException, IllegalAccessException {
-		T entity = this.getService().loadNew();
+		T entity = this.getService().loadNew(null);
 		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.OK);
 	}
 

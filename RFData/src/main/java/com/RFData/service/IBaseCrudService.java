@@ -1,5 +1,8 @@
 package com.RFData.service;
 
+import java.util.Map;
+
+import com.RFCore.utils.collection.UtilsCollection;
 import com.RFData.beans.ResponseData;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
@@ -27,7 +30,22 @@ public interface IBaseCrudService<DAO extends IBaseDao<PK, T>, T extends BaseCor
 		return getDao().delete(entidad);
 	}
 
-	public default T loadNew() throws InstantiationException, IllegalAccessException {
-		return this.getDao().getGenericClass().newInstance();
+	/**
+	 * Method to load new instance
+	 * 
+	 * @param mapPropertiesFixLoad properties to fix in entity
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public default T loadNew(Map<String, Object> mapPropertiesFixLoad)
+			throws InstantiationException, IllegalAccessException {
+		T instace = this.getDao().getGenericClass().newInstance();
+		if (UtilsCollection.isMapNotNull(mapPropertiesFixLoad)) {
+			for (String key : mapPropertiesFixLoad.keySet()) {
+				// TODO set prperties
+			}
+		}
+		return instace;
 	}
 }

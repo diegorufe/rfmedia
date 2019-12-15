@@ -20,17 +20,17 @@ public interface IBaseController<SERVICE extends IBaseService<DAO, T, PK>, DAO e
 
 	public void setService(SERVICE service);
 
-	public ResponseEntity<RequestResponse> find(RequestHeader<T> requestHeader);
+	public ResponseEntity<RequestResponse> list(RequestHeader<T> requestHeader);
 
 	public ResponseEntity<RequestResponse> count(RequestHeader<T> requestHeader);
 
-	public ResponseEntity<RequestResponse> update(RequestHeader<T> requestHeader) throws Exception;
+	public ResponseEntity<RequestResponse> edit(RequestHeader<T> requestHeader) throws Exception;
 
-	public ResponseEntity<RequestResponse> insert(RequestHeader<T> requestHeader) throws Exception;
+	public ResponseEntity<RequestResponse> add(RequestHeader<T> requestHeader) throws Exception;
 
 	public ResponseEntity<RequestResponse> delete(RequestHeader<T> requestHeader) throws Exception;
 
-	public ResponseEntity<RequestResponse> first(RequestHeader<T> requestHeader);
+	public ResponseEntity<RequestResponse> read(RequestHeader<T> requestHeader);
 
 	public Class<T> getGenericClass();
 

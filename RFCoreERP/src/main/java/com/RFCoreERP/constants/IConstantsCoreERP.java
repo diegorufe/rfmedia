@@ -24,4 +24,9 @@ public interface IConstantsCoreERP {
 	 * Service for urlsystem
 	 */
 	public static final String SERVICE_URL_SYSTEM = "urlSystemService";
+	
+	/**
+	 * Service for user access
+	 */
+	public static final String SERVICE_USER_ACESS = "userAccessService";
 }

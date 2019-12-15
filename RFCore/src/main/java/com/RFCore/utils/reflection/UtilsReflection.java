@@ -7,7 +7,7 @@ import java.util.Set;
 import com.RFCore.beans.PairValues;
 import com.RFCore.constants.IConstantsFields;
 
-public class UtilsFields {
+public class UtilsReflection {
 
 	/**
 	 * Method to get all fields
@@ -23,7 +23,7 @@ public class UtilsFields {
 		}
 
 		if (type.getSuperclass() != null) {
-			LinkedHashMap<String, Field> fieldsSec = UtilsFields.getAllFields(type.getSuperclass());
+			LinkedHashMap<String, Field> fieldsSec = UtilsReflection.getAllFields(type.getSuperclass());
 			fieldsRe.putAll(fieldsSec);
 		}
 
@@ -32,7 +32,7 @@ public class UtilsFields {
 
 	public static PairValues<String, Integer> getId(Object data) {
 		PairValues<String, Integer> pairValues = null;
-		LinkedHashMap<String, Field> fields = UtilsFields.getAllFields(data.getClass());
+		LinkedHashMap<String, Field> fields = UtilsReflection.getAllFields(data.getClass());
 		Field field = fields.get(IConstantsFields.FIELD_ID);
 		field.setAccessible(true);
 		try {
@@ -49,7 +49,7 @@ public class UtilsFields {
 
 	public static void resolveAsociations(Object data) throws IllegalArgumentException, IllegalAccessException {
 		if (data != null) {
-			LinkedHashMap<String, Field> fields = UtilsFields.getAllFields(data.getClass());
+			LinkedHashMap<String, Field> fields = UtilsReflection.getAllFields(data.getClass());
 			Set<String> keys = fields.keySet();
 			Field field = null;
 			Object valueField = null;
@@ -60,7 +60,7 @@ public class UtilsFields {
 				valueField = field.get(data);
 				if (valueField != null
 						&& valueField.getClass().getSuperclass().getName().trim().toUpperCase().contains("BASE")) {
-					idField = UtilsFields.getId(valueField);
+					idField = UtilsReflection.getId(valueField);
 					if (idField == null || idField.getValueB() == null) {
 						field.set(data, null);
 					}
