@@ -1,5 +1,10 @@
 package com.RFSecurity.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,7 @@ import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFRest.beans.RequestResponse;
 import com.RFRest.constants.IConstantsRest;
 import com.RFSecurity.beans.LoginUser;
+import com.RFSecurity.beans.Performance;
 import com.RFSecurity.beans.Principal;
 import com.RFSecurity.beans.RFUserDetails;
 import com.RFSecurity.config.TokenProvider;
@@ -50,7 +56,7 @@ public class AuthenticationController {
 	private UserSecurityServiceImpl userSecurityService;
 
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_GENERATE_TOKEN, method = RequestMethod.POST)
-	public ResponseEntity<?> token(@RequestBody LoginUser loginUser) throws AuthenticationException {
+	public ResponseEntity<?> token(@RequestBody LoginUser loginUser, HttpServletResponse res) throws AuthenticationException {
 		if (LOG.isDebugEnabled()) {
 			LOG.debug("User is triying auntetication...");
 		}
@@ -60,11 +66,29 @@ public class AuthenticationController {
 
 		RFUserDetails rfUserDetails = (RFUserDetails) authentication.getPrincipal();
 
+		String token = jwtTokenUtil.generateToken(authentication);
+		// Se token in header for refresh in header
+		res.addHeader(IConstantsSecurity.HEADER_STRING, IConstantsSecurity.TOKEN_PREFIX.concat(token));
+
 		Principal principal = new Principal();
 		principal.setNick(rfUserDetails.getUsername());
 		principal.setId(rfUserDetails.getUserId());
+		principal.setToken(token);
 
-		return ResponseEntity.ok(new RequestResponse(principal, null));
+		return ResponseEntity.ok(new RequestResponse<Principal>(principal, null));
+	}
+	
+	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_TEST_PERFORMANCE, method = RequestMethod.POST)
+	public ResponseEntity<?> performance(){
+		List<Performance> listPerformance = new ArrayList<Performance>();
+		Performance performance = null;
+		for (int i = 0; i < 1000; i++) {
+			performance = new Performance();
+			performance.setId(15);
+			performance.setCode("Code "+i);
+			listPerformance.add(performance);
+		}
+		return ResponseEntity.ok(new RequestResponse<List<Performance>>(listPerformance, null));
 	}
 
 	@Bean

@@ -23,7 +23,7 @@ import com.RFSecurity.filters.JwtAuthenticationFilter;
  */
 public abstract class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Resource(name = "userService")
+	@Resource(name = IConstantsSecurity.SERVICE_USER_SECURITY)
 	private UserDetailsService userDetailsService;
 
 	@Autowired

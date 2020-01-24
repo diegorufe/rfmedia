@@ -1,4 +1,4 @@
-package com.RFSecurity.beans;
+package com.RFERP.testRestTemplate;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author diego
  *
  */
-public class Principal implements Serializable {
+public class PrincipalPost implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class Principal implements Serializable {
 	private Object permisions;
 	private String token;
 
-	public Principal() {
+	public PrincipalPost() {
 	}
 
 	public Integer getId() {

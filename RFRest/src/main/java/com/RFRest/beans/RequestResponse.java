@@ -7,30 +7,30 @@ import java.io.Serializable;
  * @author diego
  *
  */
-public class RequestResponse implements Serializable {
+public class RequestResponse<T> implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5212089258123802668L;
 
-	private Object data;
+	private T data;
 	private String messageResponse;
 	
 	public RequestResponse() {
 	}
 	
-	public RequestResponse(Object data, String messageResponse) {
+	public RequestResponse(T data, String messageResponse) {
 		super();
 		this.data = data;
 		this.messageResponse = messageResponse;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

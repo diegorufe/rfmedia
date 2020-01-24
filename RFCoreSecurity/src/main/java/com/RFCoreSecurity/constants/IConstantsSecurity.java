@@ -19,4 +19,5 @@ public interface IConstantsSecurity {
 	public static final String REST_URL_AUTHENTICATION = "/auth";
 	public static final String REST_URL_AUTHENTICATION_GENERATE_TOKEN = "/token";
 	public static final String USER_ID = "userId";
+	public static final String REST_URL_AUTHENTICATION_TEST_PERFORMANCE = "/performance";
 }
