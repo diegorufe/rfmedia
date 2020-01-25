@@ -14,7 +14,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.RFCore.utils.collection.UtilsCollection;
 import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
 import com.RFData.beans.Order;
@@ -206,8 +205,8 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 						if (filter.getFilters().get(0) != null && filter.getFilters().get(0).getOperator() != null) {
 							enumOperatorFilter = EnumOperatorFilter.convert(filter.getFilters().get(0).getOperator());
 						}
-						
-						if(predicate == null) {
+
+						if (predicate == null) {
 							predicate = oldPredicate;
 						}
 

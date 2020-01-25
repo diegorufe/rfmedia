@@ -102,6 +102,16 @@ public class RFERPDbConfig {
 		factory.setJpaVendorAdapter(vendorAdapter);
 		factory.setPackagesToScan("com");
 		factory.setDataSource(dataSourceERP());
+		// Inspect query without params
+//		Properties properties = new Properties();
+//		properties.put("hibernate.session_factory.statement_inspector", "com.RFERP.config.DbInspector");
+//		factory.setJpaProperties(properties);
+		
+//		Properties properties = new Properties();
+//		properties.put("hibernate.bytecode.use_reflection_optimizer", "true");
+//		factory.setJpaProperties(properties);
+		
+		
 		return factory;
 	}
 
