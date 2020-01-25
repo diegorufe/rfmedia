@@ -18,15 +18,15 @@ import com.RFData.entities.BaseCoreEntity;
 public interface IBaseCrudService<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
 		extends IBaseSimpleService<DAO, T, PK> {
 
-	public default ResponseData<T> save(T entidad) {
+	public default ResponseData<T> save(T entidad, Map<String, Object> params) {
 		return getDao().save(entidad);
 	}
 
-	public default ResponseData<T> update(T entidad) {
+	public default ResponseData<T> update(T entidad, Map<String, Object> params) {
 		return getDao().update(entidad);
 	}
 
-	public default ResponseData<T> delete(T entidad) {
+	public default ResponseData<T> delete(T entidad, Map<String, Object> params) {
 		return getDao().delete(entidad);
 	}
 
@@ -34,11 +34,12 @@ public interface IBaseCrudService<DAO extends IBaseDao<PK, T>, T extends BaseCor
 	 * Method to load new instance
 	 * 
 	 * @param mapPropertiesFixLoad properties to fix in entity
+	 * @paran params
 	 * @return
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	public default T loadNew(Map<String, Object> mapPropertiesFixLoad)
+	public default T loadNew(Map<String, Object> mapPropertiesFixLoad, Map<String, Object> params)
 			throws InstantiationException, IllegalAccessException {
 		T instace = this.getDao().getGenericClass().newInstance();
 		if (UtilsCollection.isMapNotNull(mapPropertiesFixLoad)) {

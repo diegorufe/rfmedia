@@ -28,11 +28,11 @@ public interface IRFERPService {
 	public default ResponseData<RFClient> createEditRFClient(RFClient rfClient) {
 		if (rfClient.getId() != null) {
 			// Create rfClient
-			this.getRfClientService().save(rfClient);
+			this.getRfClientService().save(rfClient, null);
 			// Create enterprise
 		} else {
 			// update rfClient
-			this.getRfClientService().update(rfClient);
+			this.getRfClientService().update(rfClient, null);
 		}
 		return new ResponseData<RFClient>(rfClient);
 	}

@@ -51,7 +51,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		if (requestHeader != null) {
 
 			dataRes = getService().find(requestHeader.getFetchs(), requestHeader.getFilters(),
-					requestHeader.getOrders(), requestHeader.getLimit());
+					requestHeader.getOrders(), requestHeader.getLimit(), null);
 		}
 		return new ResponseEntity<RequestResponse<List<T>>>(new RequestResponse<List<T>>(dataRes, null), HttpStatus.OK);
 	}
@@ -75,7 +75,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		}
 		if (entity != null) {
 			UtilsReflection.resolveAsociations(entity);
-			entity = this.getService().update(entity).getEntity();
+			entity = this.getService().update(entity, null).getEntity();
 		} else {
 			throw new Exception();
 		}
@@ -91,7 +91,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		}
 		if (entity != null) {
 			UtilsReflection.resolveAsociations(entity);
-			entity = this.getService().save(entity).getEntity();
+			entity = this.getService().save(entity, null).getEntity();
 		} else {
 			throw new Exception();
 		}
@@ -106,7 +106,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 			entity = (T) requestHeader.getData();
 		}
 		if (entity != null) {
-			if (this.getService().delete(entity).getCodeResponse() != EnumResponseCode.OK.getValue()) {
+			if (this.getService().delete(entity, null).getCodeResponse() != EnumResponseCode.OK.getValue()) {
 				throw new Exception("Error delete");
 			}
 		} else {
@@ -122,7 +122,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		T entity = null;
 		if (requestHeader != null) {
 			Limit limit = new Limit(0, 1);
-			dataRes = getService().find(requestHeader.getFetchs(), requestHeader.getFilters(), null, limit);
+			dataRes = getService().find(requestHeader.getFetchs(), requestHeader.getFilters(), null, limit, null);
 			if (UtilsCollection.isListNotNull(dataRes)) {
 				entity = dataRes.get(0);
 			}
@@ -141,7 +141,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 	@RequestMapping(value = IConstantsRest.URL_LAOD_NEW, method = RequestMethod.POST)
 	public ResponseEntity<RequestResponse<T>> loadNew(@RequestBody RequestHeader<T> requestHeader)
 			throws InstantiationException, IllegalAccessException {
-		T entity = this.getService().loadNew(null);
+		T entity = this.getService().loadNew(null, null);
 		return new ResponseEntity<RequestResponse<T>>(new RequestResponse<T>(entity, null), HttpStatus.OK);
 	}
 

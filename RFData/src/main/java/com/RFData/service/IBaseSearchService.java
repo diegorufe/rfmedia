@@ -1,6 +1,7 @@
 package com.RFData.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
@@ -24,11 +25,12 @@ public interface IBaseSearchService<DAO extends IBaseDao<PK, T>, T extends BaseC
 		return getDao().count(filters);
 	}
 
-	public default List<T> find(List<Fetch> fetchs, List<Filter> filters, List<Order> orders, Limit limit) {
+	public default List<T> find(List<Fetch> fetchs, List<Filter> filters, List<Order> orders, Limit limit,
+			Map<String, Object> params) {
 		return getDao().find(fetchs, filters, orders, limit);
 	}
 
-	public default List<T> findAll() {
+	public default List<T> findAll(Map<String, Object> params) {
 		return getDao().findAll();
 	}
 }

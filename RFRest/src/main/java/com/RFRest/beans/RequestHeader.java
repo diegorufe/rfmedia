@@ -2,6 +2,7 @@ package com.RFRest.beans;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
@@ -25,18 +26,26 @@ public class RequestHeader<T> implements Serializable {
 	private LinkedList<Order> orders;
 	private T data;
 	private Limit limit;
+	private Map<String, Object> params;
 
 	public RequestHeader() {
 
 	}
 
-	public RequestHeader(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, T data, Limit limit) {
+	public RequestHeader(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, T data,
+			Limit limit) {
 		super();
 		this.fetchs = fetchs;
 		this.filters = filters;
 		this.orders = orders;
 		this.data = data;
 		this.limit = limit;
+	}
+
+	public RequestHeader(LinkedList<Fetch> fetchs, LinkedList<Filter> filters, LinkedList<Order> orders, T data,
+			Limit limit, Map<String, Object> params) {
+		this(fetchs, filters, orders, data, limit);
+		this.params = params;
 	}
 
 	public LinkedList<Filter> getFilters() {
@@ -78,5 +87,13 @@ public class RequestHeader<T> implements Serializable {
 	public void setFetchs(LinkedList<Fetch> fetchs) {
 		this.fetchs = fetchs;
 	}
-	
+
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, Object> params) {
+		this.params = params;
+	}
+
 }
