@@ -197,7 +197,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 					this.fixFiltersInCriteria(criteria, builder, root, filter.getFilters(), predicate);
 				}
 
-				if (parentPredicate != null) {
+				if (parentPredicate != null && predicate != null) {
 					parentPredicate.getExpressions().add(predicate);
 				} else {
 					restrinctions.add(predicate);
@@ -225,6 +225,10 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 
 		if (value != null) {
 			switch (EnumConditionFilter.convert(condition)) {
+
+			case DISTINCT:
+				predicate = builder.notEqual(expresion, value);
+				break;
 
 			case DISJUNCTION:
 				predicate = builder.disjunction();
@@ -308,6 +312,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 		if (operator != null) {
 			switch (EnumOperatorFilter.convert(operator)) {
 			case AND:
+
 				predicateCondition = builder.and(predicateCondition);
 				break;
 			case OR:
