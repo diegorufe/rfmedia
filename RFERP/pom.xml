@@ -60,7 +60,7 @@
 		
 		<dependency>
 			<groupId>com</groupId>
-			<artifactId>RFRestERP</artifactId>
+			<artifactId>RFRestCoreERP</artifactId>
 			<version>${rfresteerp.version}</version>
 		</dependency>
 
