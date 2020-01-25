@@ -10,6 +10,6 @@ import com.RFRest.controller.IBaseController;
  * @author diego
  *
  */
-public interface IModulesController extends IBaseController<IModuleService, IModuleDao, Module, Integer> {
+public interface IModuleController extends IBaseController<IModuleService, IModuleDao, Module, Integer> {
 
 }

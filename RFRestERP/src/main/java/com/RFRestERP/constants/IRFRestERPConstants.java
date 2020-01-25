@@ -11,4 +11,9 @@ public interface IRFRestERPConstants {
 	 */
 	public static final String REST_ADMIN_MODULES = "/admin/modules";
 	
+	/**
+	 * Url for admin rf clients
+	 */
+	public static final String REST_ADMIN_RF_CLIENTS = "/admin/rfclients";
+	
 }
