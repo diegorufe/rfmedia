@@ -22,6 +22,8 @@ public enum EnumConditionFilter {
 
 	DISJUNCTION("disjunction"),
 
+	CONJUNCTION("conjunction"),
+
 	IN("in"),
 
 	NOT_IN("not in"),
@@ -29,6 +31,8 @@ public enum EnumConditionFilter {
 	IS_NULL("is null"),
 
 	IS_NOT_NULL("is not null"),
+
+	FILTERS("filters"),
 
 	;
 

@@ -190,7 +190,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 
 				if (predicate == null && filter.getFilters() != null && filter.getFilters().size() > 0) {
 					predicate = this.getPredicateConditionCriteria(builder, filter.getOperator(),
-							EnumConditionFilter.DISJUNCTION.getValue(), null, true);
+							EnumConditionFilter.FILTERS.getValue(), null, true);
 				}
 
 				if (filter.getFilters() != null && filter.getFilters().size() > 0) {
@@ -234,6 +234,10 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 				predicate = builder.equal(expresion, value);
 				break;
 
+			case FILTERS:
+				predicate = builder.equal(builder.literal(1), 1);
+				break;
+
 			case GE:
 				if (value instanceof String) {
 					predicate = builder.greaterThan(expresion, (String) value);
@@ -246,7 +250,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 				if (value instanceof String) {
 					predicate = builder.greaterThanOrEqualTo(expresion, (String) value);
 				} else {
-					predicate = builder.gt(expresion, (Expression<? extends Number>) value);
+					predicate = builder.gt(expresion, (Number) value);
 				}
 				break;
 
@@ -274,7 +278,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 				if (value instanceof String) {
 					predicate = builder.lessThan(expresion, (String) value);
 				} else {
-					predicate = builder.le(expresion, (Expression<? extends Number>) value);
+					predicate = builder.le(expresion, (Number) value);
 				}
 				break;
 
@@ -282,7 +286,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 				if (value instanceof String) {
 					predicate = builder.lessThanOrEqualTo(expresion, (String) value);
 				} else {
-					predicate = builder.lt(expresion, (Expression<? extends Number>) value);
+					predicate = builder.lt(expresion, (Number) value);
 				}
 				break;
 
