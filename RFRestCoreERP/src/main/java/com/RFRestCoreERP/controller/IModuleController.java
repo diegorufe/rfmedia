@@ -1,4 +1,4 @@
-package com.RFRestERP.controller;
+package com.RFRestCoreERP.controller;
 
 import com.RFCoreERP.dao.IModuleDao;
 import com.RFCoreERP.entities.Module;

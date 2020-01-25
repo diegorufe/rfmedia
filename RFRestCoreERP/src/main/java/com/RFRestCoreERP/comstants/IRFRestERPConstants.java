@@ -1,4 +1,4 @@
-package com.RFRestERP.constants;
+package com.RFRestCoreERP.comstants;
 /**
  * 
  * @author diego
