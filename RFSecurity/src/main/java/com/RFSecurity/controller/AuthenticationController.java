@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.RFCoreSecurity.constants.EnumParamOptionsSecurity;
 import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFCoreSecurity.service.IPostAutenticationService;
 import com.RFRest.beans.RequestResponse;
@@ -77,6 +78,7 @@ public class AuthenticationController {
 
 		// Load extra data post autentication
 		if (this.postAutenticationService != null) {
+			params.put(EnumParamOptionsSecurity.PARAM_SECURITY_USER_ID.getValue(), rfUserDetails.getUserId());
 			params = this.postAutenticationService.postAutenticate(params);
 		}
 
