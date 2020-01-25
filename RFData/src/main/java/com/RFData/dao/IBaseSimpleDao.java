@@ -14,6 +14,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.RFCore.utils.collection.UtilsCollection;
 import com.RFData.beans.Fetch;
 import com.RFData.beans.Filter;
 import com.RFData.beans.Order;
@@ -136,7 +137,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 	@SuppressWarnings("rawtypes")
 	public default Predicate fixFiltersInCriteria(CriteriaQuery criteria, CriteriaBuilder builder, Root<T> root,
 			List<Filter> filters) {
-		return this.fixFiltersInCriteria(criteria, builder, root, filters, null);
+		return this.fixFiltersInCriteria(criteria, builder, root, filters, true);
 	}
 
 	/**
@@ -150,9 +151,13 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 	 */
 	@SuppressWarnings({ "rawtypes" })
 	public default Predicate fixFiltersInCriteria(CriteriaQuery criteria, CriteriaBuilder builder, Root<T> root,
-			List<Filter> filters, Predicate parentPredicate) {
+			List<Filter> filters, boolean first) {
+
+		Predicate predicate = null;
+
 		if (filters != null) {
 			List<Predicate> restrinctions = new ArrayList<Predicate>();
+
 			Expression expresion = null;
 			// Expression<Date> campoFecha = null;
 			// Date fecha1 = null;
@@ -160,7 +165,10 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 			Join otherEntity = null;
 			String[] splitValues = null;
 			Object value = null;
-			Predicate predicate = null;
+			Predicate predicateFilters = null;
+			Predicate oldPredicate = null;
+			EnumOperatorFilter enumOperatorFilter = null;
+
 			for (Filter filter : filters) {
 				otherEntity = null;
 				value = filter.getValue();
@@ -184,32 +192,57 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 					}
 
 					predicate = this.getPredicateConditionCriteria(builder, filter.getOperator(), filter.getCondition(),
-							expresion, filter.getValue());
+							expresion, filter.getValue(), oldPredicate);
 
-				}
-
-				if (predicate == null && filter.getFilters() != null && filter.getFilters().size() > 0) {
-					predicate = this.getPredicateConditionCriteria(builder, filter.getOperator(),
-							EnumConditionFilter.FILTERS.getValue(), null, true);
 				}
 
 				if (filter.getFilters() != null && filter.getFilters().size() > 0) {
-					this.fixFiltersInCriteria(criteria, builder, root, filter.getFilters(), predicate);
+					predicateFilters = this.fixFiltersInCriteria(criteria, builder, root, filter.getFilters(), false);
+
+					if (predicateFilters != null) {
+
+						enumOperatorFilter = EnumOperatorFilter.AND;
+
+						if (filter.getFilters().get(0) != null && filter.getFilters().get(0).getOperator() != null) {
+							enumOperatorFilter = EnumOperatorFilter.convert(filter.getFilters().get(0).getOperator());
+						}
+						
+						if(predicate == null) {
+							predicate = oldPredicate;
+						}
+
+						switch (enumOperatorFilter) {
+						case AND:
+							if (predicate == null) {
+								predicate = builder.and(predicateFilters);
+							} else {
+								predicate = builder.and(predicate, predicateFilters);
+							}
+
+							break;
+						case OR:
+							if (predicate == null) {
+								predicate = builder.or(predicateFilters);
+							} else {
+								predicate = builder.or(predicate, predicateFilters);
+							}
+
+							break;
+						}
+
+					}
 				}
 
-				if (parentPredicate != null && predicate != null) {
-					parentPredicate.getExpressions().add(predicate);
-				} else {
-					restrinctions.add(predicate);
-				}
+				oldPredicate = predicate;
 
 			}
 
-			if (parentPredicate == null) {
+			if (first) {
+				restrinctions.add(predicate);
 				criteria.where(restrinctions.toArray(new Predicate[restrinctions.size()]));
 			}
 		}
-		return parentPredicate;
+		return predicate;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -220,7 +253,7 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public default Predicate getPredicateConditionCriteria(CriteriaBuilder builder, String operator, String condition,
-			Expression expresion, Object value) {
+			Expression expresion, Object value, Predicate oldPredicate) {
 		Predicate predicate = null;
 
 		if (value != null) {
@@ -300,24 +333,26 @@ public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
 		}
 
 		if (predicate != null) {
-			predicate = this.getPredicateOperatorCriteria(builder, operator, predicate);
+			predicate = this.getPredicateOperatorCriteria(builder, operator, predicate, oldPredicate);
 		}
 
 		return predicate;
 	}
 
 	public default Predicate getPredicateOperatorCriteria(CriteriaBuilder builder, String operator,
-			Predicate predicateCondition) {
+			Predicate predicateCondition, Predicate oldPredicate) {
 
-		if (operator != null) {
-			switch (EnumOperatorFilter.convert(operator)) {
-			case AND:
+		if (oldPredicate != null) {
+			if (operator != null) {
+				switch (EnumOperatorFilter.convert(operator)) {
+				case AND:
 
-				predicateCondition = builder.and(predicateCondition);
-				break;
-			case OR:
-				predicateCondition = builder.or(predicateCondition);
-				break;
+					predicateCondition = builder.and(oldPredicate, predicateCondition);
+					break;
+				case OR:
+					predicateCondition = builder.or(oldPredicate, predicateCondition);
+					break;
+				}
 			}
 		}
 
