@@ -46,14 +46,14 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_LIST, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> list(@RequestBody RequestHeader<T> requestHeader) {
+	public ResponseEntity<RequestResponse<List<T>>> list(@RequestBody RequestHeader<T> requestHeader) {
 		List<T> dataRes = null;
 		if (requestHeader != null) {
 
 			dataRes = getService().find(requestHeader.getFetchs(), requestHeader.getFilters(),
 					requestHeader.getOrders(), requestHeader.getLimit());
 		}
-		return new ResponseEntity<RequestResponse>(new RequestResponse(dataRes, null), HttpStatus.OK);
+		return new ResponseEntity<RequestResponse<List<T>>>(new RequestResponse<List<T>>(dataRes, null), HttpStatus.OK);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_EDIT, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> edit(@RequestBody RequestHeader<T> requestHeader) throws Exception {
+	public ResponseEntity<RequestResponse<T>> edit(@RequestBody RequestHeader<T> requestHeader) throws Exception {
 		T entity = null;
 		if (requestHeader != null) {
 			entity = (T) requestHeader.getData();
@@ -79,12 +79,12 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		} else {
 			throw new Exception();
 		}
-		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.OK);
+		return new ResponseEntity<RequestResponse<T>>(new RequestResponse<T>(entity, null), HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_ADD, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> add(@RequestBody RequestHeader<T> requestHeader) throws Exception {
+	public ResponseEntity<RequestResponse<T>> add(@RequestBody RequestHeader<T> requestHeader) throws Exception {
 		T entity = null;
 		if (requestHeader != null) {
 			entity = (T) requestHeader.getData();
@@ -95,7 +95,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 		} else {
 			throw new Exception();
 		}
-		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.CREATED);
+		return new ResponseEntity<RequestResponse<T>>(new RequestResponse<T>(entity, null), HttpStatus.CREATED);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_READ, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> read(@RequestBody RequestHeader<T> requestHeader) {
+	public ResponseEntity<RequestResponse<T>> read(@RequestBody RequestHeader<T> requestHeader) {
 		List<T> dataRes = null;
 		T entity = null;
 		if (requestHeader != null) {
@@ -127,7 +127,7 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 				entity = dataRes.get(0);
 			}
 		}
-		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.OK);
+		return new ResponseEntity<RequestResponse<T>>(new RequestResponse<T>(entity, null), HttpStatus.OK);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -139,10 +139,10 @@ public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK
 
 	@Override
 	@RequestMapping(value = IConstantsRest.URL_LAOD_NEW, method = RequestMethod.POST)
-	public ResponseEntity<RequestResponse> loadNew(@RequestBody RequestHeader<T> requestHeader)
+	public ResponseEntity<RequestResponse<T>> loadNew(@RequestBody RequestHeader<T> requestHeader)
 			throws InstantiationException, IllegalAccessException {
 		T entity = this.getService().loadNew(null);
-		return new ResponseEntity<RequestResponse>(new RequestResponse(entity, null), HttpStatus.OK);
+		return new ResponseEntity<RequestResponse<T>>(new RequestResponse<T>(entity, null), HttpStatus.OK);
 	}
 
 }

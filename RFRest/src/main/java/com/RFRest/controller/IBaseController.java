@@ -1,5 +1,7 @@
 package com.RFRest.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import com.RFData.dao.IBaseDao;
@@ -20,21 +22,21 @@ public interface IBaseController<SERVICE extends IBaseService<DAO, T, PK>, DAO e
 
 	public void setService(SERVICE service);
 
-	public ResponseEntity<RequestResponse> list(RequestHeader<T> requestHeader);
+	public ResponseEntity<RequestResponse<List<T>>> list(RequestHeader<T> requestHeader);
 
 	public ResponseEntity<RequestResponse> count(RequestHeader<T> requestHeader);
 
-	public ResponseEntity<RequestResponse> edit(RequestHeader<T> requestHeader) throws Exception;
+	public ResponseEntity<RequestResponse<T>> edit(RequestHeader<T> requestHeader) throws Exception;
 
-	public ResponseEntity<RequestResponse> add(RequestHeader<T> requestHeader) throws Exception;
+	public ResponseEntity<RequestResponse<T>> add(RequestHeader<T> requestHeader) throws Exception;
 
 	public ResponseEntity<RequestResponse> delete(RequestHeader<T> requestHeader) throws Exception;
 
-	public ResponseEntity<RequestResponse> read(RequestHeader<T> requestHeader);
+	public ResponseEntity<RequestResponse<T>> read(RequestHeader<T> requestHeader);
 
 	public Class<T> getGenericClass();
 
-	public ResponseEntity<RequestResponse> loadNew(RequestHeader<T> requestHeader)
+	public ResponseEntity<RequestResponse<T>> loadNew(RequestHeader<T> requestHeader)
 			throws InstantiationException, IllegalAccessException;
 
 }
