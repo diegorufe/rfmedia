@@ -1,7 +1,9 @@
 package com.RFSecurity.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.RFCoreSecurity.constants.IConstantsSecurity;
+import com.RFCoreSecurity.service.IPostAutenticationService;
 import com.RFRest.beans.RequestResponse;
 import com.RFRest.constants.IConstantsRest;
 import com.RFSecurity.beans.LoginUser;
@@ -55,8 +58,12 @@ public class AuthenticationController {
 	@Autowired
 	private UserSecurityServiceImpl userSecurityService;
 
+	@Autowired(required = false)
+	private IPostAutenticationService postAutenticationService;
+
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_GENERATE_TOKEN, method = RequestMethod.POST)
-	public ResponseEntity<?> token(@RequestBody LoginUser loginUser, HttpServletResponse res) throws AuthenticationException {
+	public ResponseEntity<?> token(@RequestBody LoginUser loginUser, HttpServletResponse res)
+			throws AuthenticationException {
 		if (LOG.isDebugEnabled()) {
 			LOG.debug("User is triying auntetication...");
 		}
@@ -65,6 +72,13 @@ public class AuthenticationController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		RFUserDetails rfUserDetails = (RFUserDetails) authentication.getPrincipal();
+
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		// Load extra data post autentication
+		if (this.postAutenticationService != null) {
+			params = this.postAutenticationService.postAutenticate(params);
+		}
 
 		String token = jwtTokenUtil.generateToken(authentication);
 		// Se token in header for refresh in header
@@ -77,15 +91,15 @@ public class AuthenticationController {
 
 		return ResponseEntity.ok(new RequestResponse<Principal>(principal, null));
 	}
-	
+
 	@RequestMapping(value = IConstantsSecurity.REST_URL_AUTHENTICATION_TEST_PERFORMANCE, method = RequestMethod.POST)
-	public ResponseEntity<?> performance(){
+	public ResponseEntity<?> performance() {
 		List<Performance> listPerformance = new ArrayList<Performance>();
 		Performance performance = null;
 		for (int i = 0; i < 1000; i++) {
 			performance = new Performance();
 			performance.setId(15);
-			performance.setCode("Code "+i);
+			performance.setCode("Code " + i);
 			listPerformance.add(performance);
 		}
 		return ResponseEntity.ok(new RequestResponse<List<Performance>>(listPerformance, null));

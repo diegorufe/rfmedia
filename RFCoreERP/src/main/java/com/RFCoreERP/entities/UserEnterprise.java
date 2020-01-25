@@ -3,6 +3,7 @@ package com.RFCoreERP.entities;
 import java.beans.Transient;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,12 +28,23 @@ public class UserEnterprise extends BaseCoreEntity {
 	@EmbeddedId
 	private UserEnterpriseId id;
 
+	@Column(name = IUserEnterpriseDao.COLUMN_SELECTED, nullable = false)
+	private boolean selected;
+
 	public UserEnterpriseId getId() {
 		return id;
 	}
 
 	public void setId(UserEnterpriseId id) {
 		this.id = id;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	@Transient

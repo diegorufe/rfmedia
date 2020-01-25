@@ -1,4 +1,4 @@
-package com.RFRestCoreERP.controller.impl;
+package com.RFRestCoreERP.controller.admin.impl;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

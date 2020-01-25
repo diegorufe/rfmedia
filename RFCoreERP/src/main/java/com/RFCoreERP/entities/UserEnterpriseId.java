@@ -23,7 +23,7 @@ public class UserEnterpriseId extends BaseCoreEntity {
 
 	private Integer userId;
 	private Integer enterpriseId;
-	private boolean selected;
+	
 
 	public Integer getUserId() {
 		return userId;
@@ -41,13 +41,7 @@ public class UserEnterpriseId extends BaseCoreEntity {
 		this.enterpriseId = enterpriseId;
 	}
 
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
+	
 
 	@Override
 	public int hashCode() {

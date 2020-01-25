@@ -29,4 +29,9 @@ public interface IConstantsCoreERP {
 	 * Service for user access
 	 */
 	public static final String SERVICE_USER_ACESS = "userAccessService";
+	
+	/**
+	 * Service for user enterprises
+	 */
+	public static final String SERVICE_USER_ENTERPRISE_CLIENT = "userEnterpriseService";
 }

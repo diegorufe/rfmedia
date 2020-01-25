@@ -30,6 +30,10 @@ public interface IBaseCrudService<DAO extends IBaseDao<T, PK>, T extends BaseCor
 		return getDao().delete(entidad);
 	}
 
+	public default ResponseData<T> findById(PK id, Map<String, Object> params) {
+		return getDao().findById(id);
+	}
+
 	/**
 	 * Method to load new instance
 	 * 

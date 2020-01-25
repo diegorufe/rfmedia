@@ -1,4 +1,4 @@
-package com.RFRestCoreERP.controller;
+package com.RFRestCoreERP.controller.admin;
 
 import com.RFData.dao.IRFClientDao;
 import com.RFData.entities.RFClient;

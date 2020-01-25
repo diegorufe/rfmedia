@@ -37,6 +37,8 @@ public interface IBaseSimpleDao<T extends BaseCoreEntity, PK> {
 	public static final String CODE = "code";
 	public static final String DESCRIPTION = "description";
 
+	public static final String SEPARATOR_FIELD_QUERY = ".";
+
 	public EntityManager getEntityManager();
 
 	public IAuditEventFactory getAuditEventFactory();
@@ -247,7 +249,7 @@ public interface IBaseSimpleDao<T extends BaseCoreEntity, PK> {
 	@SuppressWarnings("unchecked")
 	public default Class<T> getGenericClass() {
 		ParameterizedType thisType = (ParameterizedType) getClass().getGenericSuperclass();
-		return (Class<T>) thisType.getActualTypeArguments()[1];
+		return (Class<T>) thisType.getActualTypeArguments()[0];
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
