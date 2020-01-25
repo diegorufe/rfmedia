@@ -1,4 +1,5 @@
 package com.RFData.dao.impl;
+
 /**
  * 
  * @author diego
@@ -20,7 +21,7 @@ import com.RFData.event.IAuditEventFactory;
  * @param <BaseCoreEntity> is the base class form database
  *                         {@link #BaseCoreEntity}
  */
-public abstract class BaseDaoImpl<PK, T extends BaseCoreEntity> implements IBaseDao<PK, T> {
+public abstract class BaseDaoImpl<T extends BaseCoreEntity, PK> implements IBaseDao<T, PK> {
 
 	@PersistenceContext
 	private EntityManager entityManager;

@@ -18,7 +18,7 @@ import com.RFData.entities.BaseCoreEntity;
  * @param <BaseCoreEntity> is the base class form database
  *                         {@link #BaseCoreEntity}
  */
-public interface IBaseSearchService<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+public interface IBaseSearchService<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
 		extends IBaseSimpleService<DAO, T, PK> {
 
 	public default int count(List<Filter> filters) {

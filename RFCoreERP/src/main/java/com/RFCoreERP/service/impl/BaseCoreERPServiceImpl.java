@@ -10,7 +10,7 @@ import com.RFData.service.impl.BaseServiceImpl;
  * @author diego
  *
  */
-public abstract class BaseCoreERPServiceImpl<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+public abstract class BaseCoreERPServiceImpl<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
 		extends BaseServiceImpl<DAO, T, PK> implements IBaseCoreERPService<DAO, T, PK> {
 
 }

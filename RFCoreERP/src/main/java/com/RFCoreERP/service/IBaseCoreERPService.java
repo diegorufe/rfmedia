@@ -16,7 +16,7 @@ import com.RFData.service.IBaseService;
  * @param <T>
  * @param <PK>
  */
-public interface IBaseCoreERPService<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+public interface IBaseCoreERPService<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
 		extends IBaseService<DAO, T, PK> {
 
 	public default ResponseData<T> save(T entidad, RFClient rfClient, Enterprise enterprise, User user) {

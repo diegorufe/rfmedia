@@ -11,7 +11,7 @@ import com.RFData.service.IBaseService;
  * @author diego
  *
  */
-public abstract class BaseServiceImpl<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+public abstract class BaseServiceImpl<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
 		implements IBaseService<DAO, T, PK> {
 
 	@Autowired

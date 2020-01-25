@@ -3,13 +3,12 @@ package com.RFCoreERP.dao;
 import com.RFCoreERP.entities.Module;
 import com.RFData.dao.IBaseDao;
 
-
 /**
  * 
  * @author diego
  *
  */
-public interface IModuleDao extends IBaseDao<Integer, Module> {
+public interface IModuleDao extends IBaseDao<Module, Integer> {
 
 	public static final String TABLE_NAME = "modules";
 	public static final String NAME_DAO = "moduleDao";

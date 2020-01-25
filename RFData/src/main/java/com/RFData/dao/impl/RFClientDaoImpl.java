@@ -11,6 +11,6 @@ import com.RFData.entities.RFClient;
  *
  */
 @Repository(IRFClientDao.NAME_DAO)
-public class RFClientDaoImpl extends BaseDaoImpl<Integer, RFClient> implements IRFClientDao {
+public class RFClientDaoImpl extends BaseDaoImpl<RFClient, Integer> implements IRFClientDao {
 
 }

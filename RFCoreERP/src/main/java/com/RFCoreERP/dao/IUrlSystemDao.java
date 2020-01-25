@@ -3,13 +3,12 @@ package com.RFCoreERP.dao;
 import com.RFCoreERP.entities.UrlSystem;
 import com.RFData.dao.IBaseDao;
 
-
 /**
  * 
  * @author diego
  *
  */
-public interface IUrlSystemDao extends IBaseDao<Integer, UrlSystem> {
+public interface IUrlSystemDao extends IBaseDao<UrlSystem, Integer> {
 
 	public static final String TABLE_NAME = "urlssystem";
 	public static final String NAME_DAO = "urlSystemDao";

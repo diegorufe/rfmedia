@@ -9,7 +9,7 @@ import com.RFData.dao.IBaseDao;
  * @author diego
  *
  */
-public interface IModuleRFClientDao extends IBaseDao<ModuleRFClientId, ModuleRFClient> {
+public interface IModuleRFClientDao extends IBaseDao<ModuleRFClient, ModuleRFClientId> {
 
 	public static final String TABLE_NAME = "modulesrfclients";
 	public static final String NAME_DAO = "moduleRFClientsDao";

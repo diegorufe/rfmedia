@@ -10,7 +10,7 @@ import com.RFData.entities.BaseCoreEntity;
  * @param <BaseCoreEntity> is the base class form database
  *                         {@link #BaseCoreEntity}
  */
-public interface IBaseDao<PK, T extends BaseCoreEntity>
-		extends IBaseSearchDao<PK, T>, IBaseCrudDao<PK, T>, IBaseSimpleDao<PK, T> {
+public interface IBaseDao<T extends BaseCoreEntity, PK>
+		extends IBaseSearchDao<T, PK>, IBaseCrudDao<T, PK>, IBaseSimpleDao<T, PK> {
 
 }

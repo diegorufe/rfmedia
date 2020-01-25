@@ -11,7 +11,7 @@ import com.RFData.entities.BaseCoreEntity;
  * @param <PK>
  * @param <T>
  */
-public interface IBaseCrudDao<PK, T extends BaseCoreEntity> extends IBaseSimpleDao<PK, T> {
+public interface IBaseCrudDao<T extends BaseCoreEntity, PK> extends IBaseSimpleDao<T, PK> {
 
 	/**
 	 * Method to save a entity

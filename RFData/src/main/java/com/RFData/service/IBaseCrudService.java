@@ -15,7 +15,7 @@ import com.RFData.entities.BaseCoreEntity;
  * @param <BaseCoreEntity> is the base class form database
  *                         {@link #BaseCoreEntity}
  */
-public interface IBaseCrudService<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+public interface IBaseCrudService<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
 		extends IBaseSimpleService<DAO, T, PK> {
 
 	public default ResponseData<T> save(T entidad, Map<String, Object> params) {

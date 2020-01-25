@@ -31,7 +31,7 @@ import com.RFData.event.IAuditEventFactory;
  * @param <PK>
  * @param <T>
  */
-public interface IBaseSimpleDao<PK, T extends BaseCoreEntity> {
+public interface IBaseSimpleDao<T extends BaseCoreEntity, PK> {
 
 	public static final String ID = "id";
 	public static final String CODE = "code";

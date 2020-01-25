@@ -28,7 +28,7 @@ import com.RFRest.controller.IBaseController;
  *
  * @param <T>
  */
-public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK>
+public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
 		implements IBaseController<SERVICE, DAO, T, PK> {
 
 	@Autowired

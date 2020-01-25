@@ -12,6 +12,6 @@ import com.RFData.dao.impl.BaseDaoImpl;
  *
  */
 @Repository(IUrlSystemDao.NAME_DAO)
-public class UrlSystemDaoImpl extends BaseDaoImpl<Integer, UrlSystem> implements IUrlSystemDao {
+public class UrlSystemDaoImpl extends BaseDaoImpl<UrlSystem, Integer> implements IUrlSystemDao {
 
 }

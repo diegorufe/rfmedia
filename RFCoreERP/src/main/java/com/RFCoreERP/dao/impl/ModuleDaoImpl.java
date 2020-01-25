@@ -12,6 +12,6 @@ import com.RFData.dao.impl.BaseDaoImpl;
  *
  */
 @Repository(IModuleDao.NAME_DAO)
-public class ModuleDaoImpl extends BaseDaoImpl<Integer, Module> implements IModuleDao {
+public class ModuleDaoImpl extends BaseDaoImpl<Module, Integer> implements IModuleDao {
 
 }

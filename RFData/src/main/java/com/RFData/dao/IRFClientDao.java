@@ -7,7 +7,7 @@ import com.RFData.entities.RFClient;
  * @author diego
  *
  */
-public interface IRFClientDao extends IBaseDao<Integer, RFClient> {
+public interface IRFClientDao extends IBaseDao<RFClient, Integer> {
 
 	public static final String TABLE_NAME = "rfclients";
 	public static final String NAME_DAO = "rfclientsDao";

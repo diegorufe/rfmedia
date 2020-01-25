@@ -13,6 +13,6 @@ import com.RFData.dao.impl.BaseDaoImpl;
  *
  */
 @Repository(IModuleRFClientDao.NAME_DAO)
-public class ModuleRFClientDaoImpl extends BaseDaoImpl<ModuleRFClientId, ModuleRFClient> implements IModuleRFClientDao {
+public class ModuleRFClientDaoImpl extends BaseDaoImpl<ModuleRFClient, ModuleRFClientId> implements IModuleRFClientDao {
 
 }

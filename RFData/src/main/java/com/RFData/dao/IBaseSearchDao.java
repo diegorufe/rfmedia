@@ -21,7 +21,7 @@ import com.RFData.entities.BaseCoreEntity;
  * @param <PK>
  * @param <T>
  */
-public interface IBaseSearchDao<PK, T extends BaseCoreEntity> extends IBaseSimpleDao<PK, T> {
+public interface IBaseSearchDao<T extends BaseCoreEntity, PK> extends IBaseSimpleDao<T, PK> {
 
 	/**
 	 * Mhetod to find all

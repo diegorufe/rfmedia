@@ -12,6 +12,6 @@ import com.RFData.dao.impl.BaseDaoImpl;
  *
  */
 @Repository(IUserDao.NAME_DAO)
-public class UserDaoImpl extends BaseDaoImpl<Integer, User> implements IUserDao {
+public class UserDaoImpl extends BaseDaoImpl<User, Integer> implements IUserDao {
 
 }

@@ -16,7 +16,7 @@ import com.RFRest.beans.RequestResponse;
  *
  * @param <T>
  */
-public interface IBaseController<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK> {
+public interface IBaseController<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK> {
 
 	public SERVICE getService();
 

@@ -10,7 +10,7 @@ import com.RFData.entities.BaseCoreEntity;
  * @param <T>
  * @param <PK>
  */
-public interface IBaseSimpleService<DAO extends IBaseDao<PK, T>, T extends BaseCoreEntity, PK> {
+public interface IBaseSimpleService<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK> {
 	
 	public DAO getDao();
 	

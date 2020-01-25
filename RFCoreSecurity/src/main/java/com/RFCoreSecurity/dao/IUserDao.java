@@ -10,7 +10,7 @@ import com.RFData.dao.IBaseDao;
  * @author diego
  *
  */
-public interface IUserDao extends IBaseDao<Integer, User> {
+public interface IUserDao extends IBaseDao<User, Integer> {
 
 	public static final String TABLE_NAME = "users";
 	public static final String NAME_DAO = "userDao";
@@ -32,7 +32,7 @@ public interface IUserDao extends IBaseDao<Integer, User> {
 		TypedQuery<User> query = this.getEntityManager().createNamedQuery(IUserDao.NAMED_QUERY_FIND_BY_USERNAME,
 				User.class);
 		query.setParameter("name", username);
-		
+
 		User result = null;
 
 		try {

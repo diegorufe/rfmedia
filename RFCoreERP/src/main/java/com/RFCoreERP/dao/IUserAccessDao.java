@@ -8,7 +8,7 @@ import com.RFData.dao.IBaseDao;
  * @author diego
  *
  */
-public interface IUserAccessDao extends IBaseDao<Integer, UserAccess> {
+public interface IUserAccessDao extends IBaseDao<UserAccess, Integer> {
 
 	public static final String TABLE_NAME = "usersaccess";
 	public static final String NAME_DAO = "userAccessDao";
