@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.RFCoreSecurity.constants.IConstantsSecurity;
 import com.RFSecurity.beans.RFUserDetails;
+import com.RFSecurity.utils.UtilsSecurity;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -40,7 +41,7 @@ public class TokenProvider {
 	}
 
 	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(IConstantsSecurity.SIGNING_KEY).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(UtilsSecurity.getSecurityKey()).parseClaimsJws(token).getBody();
 	}
 
 	private Boolean isTokenExpired(String token) {
@@ -55,7 +56,7 @@ public class TokenProvider {
 		return Jwts.builder().setSubject(authentication.getName())
 				.claim(IConstantsSecurity.AUTHORITIES_KEY, authorities)
 				.claim(IConstantsSecurity.USER_ID, user.getUserId())
-				.signWith(SignatureAlgorithm.HS256, IConstantsSecurity.SIGNING_KEY)
+				.signWith(SignatureAlgorithm.HS256, UtilsSecurity.getSecurityKey())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(
 						new Date(System.currentTimeMillis() + IConstantsSecurity.ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
@@ -70,7 +71,7 @@ public class TokenProvider {
 	public UsernamePasswordAuthenticationToken getAuthentication(final String token, final Authentication existingAuth,
 			final String username) {
 
-		final JwtParser jwtParser = Jwts.parser().setSigningKey(IConstantsSecurity.SIGNING_KEY);
+		final JwtParser jwtParser = Jwts.parser().setSigningKey(UtilsSecurity.getSecurityKey());
 
 		final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
 
