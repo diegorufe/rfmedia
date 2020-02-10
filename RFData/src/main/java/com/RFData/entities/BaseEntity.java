@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
  *
  */
 @MappedSuperclass
-public abstract class BaseEntity extends BaseIdEntity {
+public abstract class BaseEntity<PK> extends BaseIdEntity<PK> {
 
 	/**
 	 * 

@@ -13,7 +13,7 @@ import com.RFData.entities.BaseEntity;
  *
  */
 @MappedSuperclass
-public abstract class BaseAuditEntity extends BaseEntity {
+public abstract class BaseAuditEntity<PK> extends BaseEntity<PK> {
 
 	/**
 	 * 

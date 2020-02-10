@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = IRFClientDao.TABLE_NAME)
-public class RFClient extends BaseRFClient {
+public class RFClient extends BaseRFClient<Integer> {
 
 	/**
 	 * 

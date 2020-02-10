@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = IRFClientDao.TABLE_NAME)
 @AttributeOverride(name = IRFClientDao.ID, column = @Column(name = IRFClientDao.ID))
-public class RFClientMongo extends BaseRFClient {
+public class RFClientMongo extends BaseRFClient<String> {
 
 	/**
 	 * 

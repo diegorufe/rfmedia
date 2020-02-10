@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = IModuleDao.TABLE_NAME)
-public class Module extends BaseIdEntity {
+public class Module extends BaseIdEntity<Integer> {
 
 	/**
 	 * 

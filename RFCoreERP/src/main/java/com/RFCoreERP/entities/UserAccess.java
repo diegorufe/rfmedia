@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = IUserAccessDao.TABLE_NAME)
-public class UserAccess extends BaseAuditEntity {
+public class UserAccess extends BaseAuditEntity<Integer> {
 
 	/**
 	 * 

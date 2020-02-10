@@ -7,7 +7,7 @@ import java.util.Set;
  * @author diego
  *
  */
-public abstract class BaseRole extends BaseEntity {
+public abstract class BaseRole extends BaseEntity<Integer> {
 
 	/**
 	 * 

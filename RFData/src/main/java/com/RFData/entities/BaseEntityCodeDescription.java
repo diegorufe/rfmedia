@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
  *
  */
 @MappedSuperclass
-public class BaseEntityCodeDescription extends BaseEntity {
+public class BaseEntityCodeDescription<PK> extends BaseEntity<PK> {
 
 	/**
 	 * 

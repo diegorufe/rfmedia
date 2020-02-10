@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass;
  *
  */
 @MappedSuperclass
-public abstract class BaseIdEntity extends BaseCoreEntity {
+public abstract class BaseIdEntity<PK> extends BaseCoreEntity {
 
 	/**
 	 * 
@@ -28,13 +28,13 @@ public abstract class BaseIdEntity extends BaseCoreEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Object id;
+	private PK id;
 
-	public Object getId() {
+	public PK getId() {
 		return id;
 	}
 
-	public void setId(Object id) {
+	public void setId(PK id) {
 		this.id = id;
 	}
 

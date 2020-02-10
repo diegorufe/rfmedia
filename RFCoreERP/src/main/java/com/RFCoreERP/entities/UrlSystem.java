@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = IUrlSystemDao.TABLE_NAME)
-public class UrlSystem extends BaseIdEntity {
+public class UrlSystem extends BaseIdEntity<Integer> {
 
 	/**
 	 * 

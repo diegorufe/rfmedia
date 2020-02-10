@@ -11,7 +11,7 @@ import com.RFData.dao.IRFClientDao;
  *
  */
 @MappedSuperclass
-public class BaseRFClient extends BaseEntity {
+public class BaseRFClient<PK> extends BaseEntity<PK> {
 
 	/**
 	 * 

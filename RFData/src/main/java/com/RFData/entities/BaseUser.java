@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
  *
  */
 @MappedSuperclass
-public abstract class BaseUser extends BaseEntity {
+public abstract class BaseUser extends BaseEntity<Integer> {
 
 	/**
 	 * 
