@@ -36,8 +36,11 @@ public interface IBaseSimpleDao<T extends BaseCoreEntity, PK> {
 	public static final String ID = "id";
 	public static final String CODE = "code";
 	public static final String DESCRIPTION = "description";
+	public static final String UUID = "uuid";
 
 	public static final String SEPARATOR_FIELD_QUERY = ".";
+
+	public static final String UUID_STRATEGY = "uuid2";
 
 	public EntityManager getEntityManager();
 

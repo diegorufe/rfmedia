@@ -14,7 +14,7 @@ public class Principal implements Serializable {
 	 */
 	private static final long serialVersionUID = -6841347646771955035L;
 
-	private Integer id;
+	private Object id;
 	private String nick;
 	private Object permisions;
 	private String token;
@@ -22,11 +22,11 @@ public class Principal implements Serializable {
 	public Principal() {
 	}
 
-	public Integer getId() {
+	public Object getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Object id) {
 		this.id = id;
 	}
 

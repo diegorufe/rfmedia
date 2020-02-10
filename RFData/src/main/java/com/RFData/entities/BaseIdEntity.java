@@ -28,13 +28,13 @@ public abstract class BaseIdEntity extends BaseCoreEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
+	private Object id;
 
-	public Integer getId() {
+	public Object getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Object id) {
 		this.id = id;
 	}
 

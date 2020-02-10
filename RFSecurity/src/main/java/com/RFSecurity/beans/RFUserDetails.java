@@ -15,19 +15,22 @@ public class RFUserDetails extends org.springframework.security.core.userdetails
 	 * 
 	 */
 	private static final long serialVersionUID = -5397933083192990112L;
-	private Integer userId;
+	/**
+	 * This use object because object id sometimes is String
+	 */
+	private Object userId;
 
 	public RFUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities,
-			Integer userId) {
+			Object userId) {
 		super(username, password, authorities);
 		this.userId = userId;
 	}
 
-	public Integer getUserId() {
+	public Object getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Object userId) {
 		this.userId = userId;
 	}
 

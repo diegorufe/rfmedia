@@ -25,8 +25,8 @@ public class UtilsSecurity {
 	 * 
 	 * @return
 	 */
-	public static Integer getUserId() {
-		Integer id = null;
+	public static Object getUserId() {
+		Object id = null;
 		UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder
 				.getContext().getAuthentication();
 		if (authentication != null) {
