@@ -58,9 +58,15 @@ public class RFERPDbConfig {
 	@Primary
 	@Bean(name = "dataSourceERP")
 	public DataSource dataSourceERP() {
-		return new HikariDataSource(
-				EnumRFProfiles.convert(this.profile).equals(EnumRFProfiles.DEV) ? this.dataSourceDev()
-						: this.dataSourceProd());
+		switch (EnumRFProfiles.convert(this.profile)) {
+		case DEV:
+			return new HikariDataSource(this.dataSourceDev());
+		case PROD:
+			return new HikariDataSource(this.dataSourceProd());
+		default:
+			break;
+		}
+		return null;
 	}
 
 	private HikariConfig dataSourceProd() {
@@ -94,52 +100,78 @@ public class RFERPDbConfig {
 	@Primary
 	@Bean(name = "erpManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		switch (EnumRFProfiles.convert(this.profile)) {
+		case DEV:
+		case PROD:
+			HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+			vendorAdapter.setGenerateDdl(true);
 
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setGenerateDdl(true);
-
-		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("com");
-		factory.setDataSource(dataSourceERP());
-		// Inspect query without params
+			LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+			factory.setJpaVendorAdapter(vendorAdapter);
+			factory.setPackagesToScan("com");
+			factory.setDataSource(dataSourceERP());
+			// Inspect query without params
 //		Properties properties = new Properties();
 //		properties.put("hibernate.session_factory.statement_inspector", "com.RFERP.config.DbInspector");
 //		factory.setJpaProperties(properties);
-		
+
 //		Properties properties = new Properties();
 //		properties.put("hibernate.bytecode.use_reflection_optimizer", "true");
 //		factory.setJpaProperties(properties);
-		
-		
-		return factory;
+
+			return factory;
+		default:
+			break;
+		}
+		return null;
 	}
 
 	@Primary
 	@Bean(name = "erpTransactionManager")
 	public PlatformTransactionManager transactionManagerERP(
 			@Qualifier("erpManagerFactory") EntityManagerFactory customerEntityManagerFactory) {
-		return new JpaTransactionManager(customerEntityManagerFactory);
+		switch (EnumRFProfiles.convert(this.profile)) {
+		case DEV:
+		case PROD:
+			return new JpaTransactionManager(customerEntityManagerFactory);
+		default:
+			break;
+		}
+		return null;
 	}
 
 	@Bean(name = "erpTransactionInterceptor")
 	public TransactionInterceptor transactionInterceptor(
 			@Qualifier("erpTransactionManager") PlatformTransactionManager platformTransactionManager) {
-		TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
-		transactionInterceptor.setTransactionManager(platformTransactionManager);
-		Properties transactionAttributes = new Properties();
-		transactionAttributes.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
-		transactionAttributes.setProperty("tranNew*", "PROPAGATION_REQUIRES_NEW,-Throwable");
-		transactionInterceptor.setTransactionAttributes(transactionAttributes);
-		return transactionInterceptor;
+		switch (EnumRFProfiles.convert(this.profile)) {
+		case DEV:
+		case PROD:
+			TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
+			transactionInterceptor.setTransactionManager(platformTransactionManager);
+			Properties transactionAttributes = new Properties();
+			transactionAttributes.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
+			transactionAttributes.setProperty("tranNew*", "PROPAGATION_REQUIRES_NEW,-Throwable");
+			transactionInterceptor.setTransactionAttributes(transactionAttributes);
+			return transactionInterceptor;
+		default:
+			break;
+		}
+		return null;
 	}
 
 	@Bean
 	public BeanNameAutoProxyCreator transactionAutoProxy() {
-		BeanNameAutoProxyCreator transactionAutoProxy = new BeanNameAutoProxyCreator();
-		transactionAutoProxy.setProxyTargetClass(true);
-		transactionAutoProxy.setBeanNames("*Service");
-		transactionAutoProxy.setInterceptorNames("erpTransactionInterceptor");
-		return transactionAutoProxy;
+		switch (EnumRFProfiles.convert(this.profile)) {
+		case DEV:
+		case PROD:
+			BeanNameAutoProxyCreator transactionAutoProxy = new BeanNameAutoProxyCreator();
+			transactionAutoProxy.setProxyTargetClass(true);
+			transactionAutoProxy.setBeanNames("*Service");
+			transactionAutoProxy.setInterceptorNames("erpTransactionInterceptor");
+			return transactionAutoProxy;
+		default:
+			break;
+		}
+		return null;
 	}
 }

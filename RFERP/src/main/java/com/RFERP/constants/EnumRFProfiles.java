@@ -11,6 +11,22 @@ public enum EnumRFProfiles {
 
 	PROD("Prod"),
 
+	TEST("Test"),
+
+	DEV_1("Dev1"),
+
+	PROD_1("Prod1"),
+
+	TEST_1("Test1"),
+
+	DEV_2("Dev2"),
+
+	PROD_2("Prod2"),
+
+	TEST_2("Test2"),
+
+	ANY("any"),
+
 	;
 
 	private String value;
