@@ -19,6 +19,6 @@ import com.RFRestCoreERP.comstants.IRFRestERPConstants;
 @CrossOrigin(origins = IConstantsRest.REST_URL_CROSS_ORIGIN, maxAge = IConstantsRest.MAX_AGE_CROSS_ORIGIN)
 @RestController
 @RequestMapping(IRFRestERPConstants.REST_ADMIN_MODULES)
-public class ModuleController extends BaseControllerImpl<IModuleService, IModuleDao, Module, Integer> {
+public class ModuleControllerImpl extends BaseControllerImpl<IModuleService, IModuleDao, Module, Integer> {
 
 }

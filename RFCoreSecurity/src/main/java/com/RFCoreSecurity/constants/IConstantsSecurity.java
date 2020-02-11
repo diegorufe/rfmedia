@@ -18,6 +18,7 @@ public interface IConstantsSecurity {
 	public static final String SERVICE_USER_SECURITY = "userSecurityService";
 	public static final String REST_URL_AUTHENTICATION = "/auth";
 	public static final String REST_URL_AUTHENTICATION_GENERATE_TOKEN = "/token";
+	public static final String REST_URL_AUTHENTICATION_REFRESH_TOKEN = "/refresh";
 	public static final String USER_ID = "userId";
 	public static final String REST_URL_AUTHENTICATION_TEST_PERFORMANCE = "/performance";
 	public static final String SERVICE_POST_LOAD_AUTENTICATION = "postAutenticationService";

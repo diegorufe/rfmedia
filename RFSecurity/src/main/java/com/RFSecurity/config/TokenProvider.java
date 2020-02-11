@@ -6,14 +6,16 @@ import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.RFCore.utils.string.UtilsString;
 import com.RFCoreSecurity.constants.IConstantsSecurity;
+import com.RFSecurity.beans.AuthToken;
 import com.RFSecurity.beans.RFUserDetails;
-import com.RFSecurity.utils.UtilsSecurity;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -27,6 +29,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
  *
  */
 public class TokenProvider {
+
+	@Value("${security.jwt.secret}")
+	private String secretKey;
+
+	public byte[] getSecurityKey() {
+		return secretKey.getBytes();
+	}
+
 	public String getUsernameFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
@@ -41,7 +51,7 @@ public class TokenProvider {
 	}
 
 	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(UtilsSecurity.getSecurityKey()).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(getSecurityKey()).parseClaimsJws(token).getBody();
 	}
 
 	private Boolean isTokenExpired(String token) {
@@ -56,8 +66,7 @@ public class TokenProvider {
 		return Jwts.builder().setSubject(authentication.getName())
 				.claim(IConstantsSecurity.AUTHORITIES_KEY, authorities)
 				.claim(IConstantsSecurity.USER_ID, user.getUserId())
-				.signWith(SignatureAlgorithm.HS256, UtilsSecurity.getSecurityKey())
-				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.signWith(SignatureAlgorithm.HS256, getSecurityKey()).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(
 						new Date(System.currentTimeMillis() + IConstantsSecurity.ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
 				.compact();
@@ -71,7 +80,7 @@ public class TokenProvider {
 	public UsernamePasswordAuthenticationToken getAuthentication(final String token, final Authentication existingAuth,
 			final String username) {
 
-		final JwtParser jwtParser = Jwts.parser().setSigningKey(UtilsSecurity.getSecurityKey());
+		final JwtParser jwtParser = Jwts.parser().setSigningKey(getSecurityKey());
 
 		final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
 
@@ -84,5 +93,20 @@ public class TokenProvider {
 		return new UsernamePasswordAuthenticationToken(
 				new RFUserDetails(username, "", authorities, (Integer) claims.get(IConstantsSecurity.USER_ID)), "",
 				authorities);
+	}
+
+	/**
+	 * Method to refresh token
+	 * 
+	 * @param token
+	 * @return
+	 */
+	public String refreshToken(AuthToken token) {
+		String refreshToken = null;
+		if (token != null && !UtilsString.isBlank(token.getToken()) && !this.isTokenExpired(token.getToken())) {
+			refreshToken = generateToken(
+					getAuthentication(token.getToken(), null, getUsernameFromToken(token.getToken())));
+		}
+		return refreshToken;
 	}
 }

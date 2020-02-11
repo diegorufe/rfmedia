@@ -1,16 +1,10 @@
 package com.RFSecurity.config;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.RFCoreSecurity.constants.IConstantsSecurity;
@@ -23,24 +17,10 @@ import com.RFSecurity.filters.JwtAuthenticationFilter;
  */
 public abstract class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Resource(name = IConstantsSecurity.SERVICE_USER_SECURITY)
-	private UserDetailsService userDetailsService;
-
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
 	private boolean enableCors = true;
 	private boolean crsfDisabled = true;
-
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
-
-	@Autowired
-	public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-	}
 
 	@Bean
 	public JwtAuthenticationFilter authenticationTokenFilterBean() {
@@ -50,11 +30,6 @@ public abstract class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		this.defaultConfiguration(http);
-	}
-
-	@Bean
-	public BCryptPasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
 	}
 
 	/**

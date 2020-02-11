@@ -18,8 +18,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import com.RFERP.constants.EnumRFProfiles;
-import com.RFERP.constants.IERPConstants;
+import com.RFCore.constants.EnumRFProfiles;
+import com.RFCore.constants.ICoreConstants;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -29,7 +29,7 @@ import com.zaxxer.hikari.HikariDataSource;
  *
  */
 @Configuration
-@ComponentScan(basePackages = { IERPConstants.PACKAGES_SCAN_COMPONENTS })
+@ComponentScan(basePackages = { ICoreConstants.PACKAGES_SCAN_COMPONENTS })
 public class RFERPDbConfig {
 
 	@Value("${rferp.profile}")
@@ -58,15 +58,9 @@ public class RFERPDbConfig {
 	@Primary
 	@Bean(name = "dataSourceERP")
 	public DataSource dataSourceERP() {
-		switch (EnumRFProfiles.convert(this.profile)) {
-		case DEV:
-			return new HikariDataSource(this.dataSourceDev());
-		case PROD:
-			return new HikariDataSource(this.dataSourceProd());
-		default:
-			break;
-		}
-		return null;
+		return new HikariDataSource(
+				EnumRFProfiles.convert(this.profile).equals(EnumRFProfiles.DEV) ? this.dataSourceDev()
+						: this.dataSourceProd());
 	}
 
 	private HikariConfig dataSourceProd() {
@@ -100,78 +94,42 @@ public class RFERPDbConfig {
 	@Primary
 	@Bean(name = "erpManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		switch (EnumRFProfiles.convert(this.profile)) {
-		case DEV:
-		case PROD:
-			HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-			vendorAdapter.setGenerateDdl(true);
 
-			LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-			factory.setJpaVendorAdapter(vendorAdapter);
-			factory.setPackagesToScan("com");
-			factory.setDataSource(dataSourceERP());
-			// Inspect query without params
-//		Properties properties = new Properties();
-//		properties.put("hibernate.session_factory.statement_inspector", "com.RFERP.config.DbInspector");
-//		factory.setJpaProperties(properties);
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setGenerateDdl(true);
 
-//		Properties properties = new Properties();
-//		properties.put("hibernate.bytecode.use_reflection_optimizer", "true");
-//		factory.setJpaProperties(properties);
-
-			return factory;
-		default:
-			break;
-		}
-		return null;
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setJpaVendorAdapter(vendorAdapter);
+		factory.setPackagesToScan("com");
+		factory.setDataSource(dataSourceERP());
+		return factory;
 	}
 
 	@Primary
 	@Bean(name = "erpTransactionManager")
 	public PlatformTransactionManager transactionManagerERP(
 			@Qualifier("erpManagerFactory") EntityManagerFactory customerEntityManagerFactory) {
-		switch (EnumRFProfiles.convert(this.profile)) {
-		case DEV:
-		case PROD:
-			return new JpaTransactionManager(customerEntityManagerFactory);
-		default:
-			break;
-		}
-		return null;
+		return new JpaTransactionManager(customerEntityManagerFactory);
 	}
 
 	@Bean(name = "erpTransactionInterceptor")
 	public TransactionInterceptor transactionInterceptor(
 			@Qualifier("erpTransactionManager") PlatformTransactionManager platformTransactionManager) {
-		switch (EnumRFProfiles.convert(this.profile)) {
-		case DEV:
-		case PROD:
-			TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
-			transactionInterceptor.setTransactionManager(platformTransactionManager);
-			Properties transactionAttributes = new Properties();
-			transactionAttributes.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
-			transactionAttributes.setProperty("tranNew*", "PROPAGATION_REQUIRES_NEW,-Throwable");
-			transactionInterceptor.setTransactionAttributes(transactionAttributes);
-			return transactionInterceptor;
-		default:
-			break;
-		}
-		return null;
+		TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
+		transactionInterceptor.setTransactionManager(platformTransactionManager);
+		Properties transactionAttributes = new Properties();
+		transactionAttributes.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
+		transactionAttributes.setProperty("tranNew*", "PROPAGATION_REQUIRES_NEW,-Throwable");
+		transactionInterceptor.setTransactionAttributes(transactionAttributes);
+		return transactionInterceptor;
 	}
 
 	@Bean
 	public BeanNameAutoProxyCreator transactionAutoProxy() {
-		switch (EnumRFProfiles.convert(this.profile)) {
-		case DEV:
-		case PROD:
-			BeanNameAutoProxyCreator transactionAutoProxy = new BeanNameAutoProxyCreator();
-			transactionAutoProxy.setProxyTargetClass(true);
-			transactionAutoProxy.setBeanNames("*Service");
-			transactionAutoProxy.setInterceptorNames("erpTransactionInterceptor");
-			return transactionAutoProxy;
-		default:
-			break;
-		}
-		return null;
+		BeanNameAutoProxyCreator transactionAutoProxy = new BeanNameAutoProxyCreator();
+		transactionAutoProxy.setProxyTargetClass(true);
+		transactionAutoProxy.setBeanNames("*Service");
+		transactionAutoProxy.setInterceptorNames("erpTransactionInterceptor");
+		return transactionAutoProxy;
 	}
 }

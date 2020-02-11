@@ -16,9 +16,9 @@ import com.RFSecurity.beans.RFUserDetails;
  */
 public class UtilsSecurity {
 
-	private static byte[] SECURITY_KEY_AUTH = UUID.randomUUID().toString().concat(UUID.randomUUID().toString())
+	private static byte[] securityKeyAuth = UUID.randomUUID().toString().concat(UUID.randomUUID().toString())
 			.getBytes();
-	private static LocalDateTime UPDATE_SECURITY_KEY = LocalDateTime.now();
+	private static LocalDateTime updateSecurityKey = LocalDateTime.now();
 
 	/**
 	 * Method to get user id from security context
@@ -47,14 +47,14 @@ public class UtilsSecurity {
 		LocalDateTime now = LocalDateTime.now();
 
 		// Change key one time at least once a day
-		if (now.getDayOfYear() != UPDATE_SECURITY_KEY.getDayOfYear() || now.getYear() != UPDATE_SECURITY_KEY.getYear()
-				|| now.getMonthValue() != UPDATE_SECURITY_KEY.getMonthValue()) {
-			synchronized (UPDATE_SECURITY_KEY) {
+		if (securityKeyAuth == null || now.getDayOfYear() != updateSecurityKey.getDayOfYear() || now.getYear() != updateSecurityKey.getYear()
+				|| now.getMonthValue() != updateSecurityKey.getMonthValue()) {
+			synchronized (updateSecurityKey) {
 				fixSecurityKey();
 			}
 		}
 
-		return SECURITY_KEY_AUTH;
+		return securityKeyAuth;
 	}
 
 	/**
@@ -72,10 +72,10 @@ public class UtilsSecurity {
 	 */
 	private synchronized static void fixSecurityKey() {
 		LocalDateTime now = LocalDateTime.now();
-		if (now.getDayOfYear() != UPDATE_SECURITY_KEY.getDayOfYear() || now.getYear() != UPDATE_SECURITY_KEY.getYear()
-				|| now.getMonthValue() != UPDATE_SECURITY_KEY.getMonthValue()) {
-			SECURITY_KEY_AUTH = UUID.randomUUID().toString().concat(UUID.randomUUID().toString()).getBytes();
-			UPDATE_SECURITY_KEY = now;
+		if (now.getDayOfYear() != updateSecurityKey.getDayOfYear() || now.getYear() != updateSecurityKey.getYear()
+				|| now.getMonthValue() != updateSecurityKey.getMonthValue()) {
+			securityKeyAuth = UUID.randomUUID().toString().concat(UUID.randomUUID().toString()).getBytes();
+			updateSecurityKey = now;
 		}
 	}
 }

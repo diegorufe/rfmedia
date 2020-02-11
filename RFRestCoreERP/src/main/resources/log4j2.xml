@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%highlight{%d{HH:mm:ss.SSS} | [%t] | %-5level | %logger{36} |  %msg%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=black, DEBUG=green, TRACE=blue}" />
+		</Console>
+		<!-- <Gelf name="gelf" host="tcp:localhost" port="12201" version="1.0" -->
+		<!-- extractStackTrace="true" filterStackTrace="true" mdcProfiling="true" -->
+		<!-- includeFullMdc="true" maximumMessageSize="8192" originHost="%host" -->
+		<!-- ignoreExceptions="true"> -->
+		<!-- <Field name="timestamp" pattern="%d{dd MMM yyyy HH:mm:ss,SSS}" /> -->
+		<!-- <Field name="level" pattern="%level" /> -->
+		<!-- <Field name="simpleClassName" pattern="%C{1}" /> -->
+		<!-- <Field name="className" pattern="%C" /> -->
+		<!-- <Field name="server.simple" pattern="%host{simple}" /> -->
+		<!-- <Field name="server.fqdn" pattern="%host{fqdn}" /> -->
+		<!-- <Field name="application" literal="${applicationName}" /> -->
+		<!-- </Gelf> -->
+	</Appenders>
+
+	<Loggers>
+		<AsyncLogger name="com.RFERP" level="debug"
+			additivity="false">
+			<AppenderRef ref="LogToConsole" />
+			<!-- <AppenderRef ref="gelf" /> -->
+		</AsyncLogger>
+		<AsyncLogger name="com.RFSecurity" level="debug"
+			additivity="false">
+			<AppenderRef ref="LogToConsole" />
+			<!-- <AppenderRef ref="gelf" /> -->
+		</AsyncLogger>
+		<AsyncLogger name="org.springframework.boot" level="error"
+			additivity="false">
+			<AppenderRef ref="LogToConsole" />
+			<!-- <AppenderRef ref="gelf" /> -->
+		</AsyncLogger>
+		<Root level="info">
+			<AppenderRef ref="LogToConsole" />
+			<!-- <AppenderRef ref="gelf" /> -->
+		</Root>
+	</Loggers>
+</Configuration>
