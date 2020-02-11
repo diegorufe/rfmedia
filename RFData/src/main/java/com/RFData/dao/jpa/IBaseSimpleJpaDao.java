@@ -22,7 +22,6 @@ import com.RFData.constants.EnumOperatorFilter;
 import com.RFData.constants.EnumOrders;
 import com.RFData.dao.IBaseDao;
 import com.RFData.entities.BaseCoreEntity;
-import com.RFData.event.IAuditEventFactory;
 
 /**
  * 
@@ -33,20 +32,7 @@ import com.RFData.event.IAuditEventFactory;
  */
 public interface IBaseSimpleJpaDao<T extends BaseCoreEntity, PK> extends IBaseDao<T, PK> {
 
-	public static final String ID = "id";
-	public static final String CODE = "code";
-	public static final String DESCRIPTION = "description";
-	public static final String UUID = "uuid";
-
-	public static final String SEPARATOR_FIELD_QUERY = ".";
-
-	public static final String UUID_STRATEGY = "uuid2";
-
 	public EntityManager getEntityManager();
-
-	public IAuditEventFactory getAuditEventFactory();
-
-	public void setAuditEventFactory(IAuditEventFactory auditEventFactory);
 
 	/**
 	 * Method to create query by fetch, filters and orders
