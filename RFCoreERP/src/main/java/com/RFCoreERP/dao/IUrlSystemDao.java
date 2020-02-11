@@ -1,14 +1,14 @@
 package com.RFCoreERP.dao;
 
 import com.RFCoreERP.entities.UrlSystem;
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 
 /**
  * 
  * @author diego
  *
  */
-public interface IUrlSystemDao extends IBaseDao<UrlSystem, Integer> {
+public interface IUrlSystemDao extends IBaseJpaDao<UrlSystem, Integer> {
 
 	public static final String TABLE_NAME = "urlssystem";
 	public static final String NAME_DAO = "urlSystemDao";

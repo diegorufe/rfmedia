@@ -3,7 +3,7 @@ package com.RFCoreERP.service;
 import com.RFCoreERP.entities.Enterprise;
 import com.RFCoreSecurity.entities.User;
 import com.RFData.beans.ResponseData;
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.entities.RFClient;
 import com.RFData.service.IBaseService;
@@ -16,7 +16,7 @@ import com.RFData.service.IBaseService;
  * @param <T>
  * @param <PK>
  */
-public interface IBaseCoreERPService<DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
+public interface IBaseCoreERPService<DAO extends IBaseJpaDao<T, PK>, T extends BaseCoreEntity, PK>
 		extends IBaseService<DAO, T, PK> {
 
 	public default ResponseData<T> save(T entidad, RFClient rfClient, Enterprise enterprise, User user) {

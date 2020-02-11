@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.service.IBaseService;
 import com.RFRest.beans.RequestHeader;
@@ -16,7 +16,7 @@ import com.RFRest.beans.RequestResponse;
  *
  * @param <T>
  */
-public interface IBaseController<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK> {
+public interface IBaseController<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseJpaDao<T, PK>, T extends BaseCoreEntity, PK> {
 
 	public SERVICE getService();
 

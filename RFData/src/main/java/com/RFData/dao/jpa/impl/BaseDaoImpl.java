@@ -1,4 +1,4 @@
-package com.RFData.dao.impl;
+package com.RFData.dao.jpa.impl;
 
 /**
  * 
@@ -9,7 +9,7 @@ package com.RFData.dao.impl;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.event.IAuditEventFactory;
 
@@ -21,7 +21,7 @@ import com.RFData.event.IAuditEventFactory;
  * @param <BaseCoreEntity> is the base class form database
  *                         {@link #BaseCoreEntity}
  */
-public abstract class BaseDaoImpl<T extends BaseCoreEntity, PK> implements IBaseDao<T, PK> {
+public abstract class BaseDaoImpl<T extends BaseCoreEntity, PK> implements IBaseJpaDao<T, PK> {
 
 	@PersistenceContext
 	private EntityManager entityManager;

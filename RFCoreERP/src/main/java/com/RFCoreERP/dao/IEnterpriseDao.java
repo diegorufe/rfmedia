@@ -1,14 +1,14 @@
 package com.RFCoreERP.dao;
 
 import com.RFCoreERP.entities.Enterprise;
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 
 /**
  * 
  * @author diego
  *
  */
-public interface IEnterpriseDao extends IBaseDao<Enterprise, Integer> {
+public interface IEnterpriseDao extends IBaseJpaDao<Enterprise, Integer> {
 
 	public static final String TABLE_NAME = "enterprises";
 	public static final String NAME_DAO = "enterpriseDao";

@@ -3,7 +3,7 @@ package com.RFData.entities;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import com.RFData.dao.IRFClientDao;
+import com.RFData.dao.jpa.IRFClientDao;
 
 /**
  * 

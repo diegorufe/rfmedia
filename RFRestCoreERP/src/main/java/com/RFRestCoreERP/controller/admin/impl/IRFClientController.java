@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RFData.dao.IRFClientDao;
+import com.RFData.dao.jpa.IRFClientDao;
 import com.RFData.entities.RFClient;
 import com.RFData.service.IRFClientService;
 import com.RFRest.constants.IConstantsRest;

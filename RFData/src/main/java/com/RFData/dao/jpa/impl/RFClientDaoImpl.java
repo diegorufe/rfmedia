@@ -1,8 +1,8 @@
-package com.RFData.dao.impl;
+package com.RFData.dao.jpa.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.RFData.dao.IRFClientDao;
+import com.RFData.dao.jpa.IRFClientDao;
 import com.RFData.entities.RFClient;
 
 /**

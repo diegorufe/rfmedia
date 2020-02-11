@@ -3,14 +3,14 @@ package com.RFCoreSecurity.dao;
 import javax.persistence.TypedQuery;
 
 import com.RFCoreSecurity.entities.User;
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 
 /**
  * 
  * @author diego
  *
  */
-public interface IUserDao extends IBaseDao<User, Integer> {
+public interface IUserDao extends IBaseJpaDao<User, Integer> {
 
 	public static final String TABLE_NAME = "users";
 	public static final String NAME_DAO = "userDao";

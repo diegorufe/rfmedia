@@ -1,14 +1,14 @@
 package com.RFCoreERP.dao;
 
 import com.RFCoreERP.entities.UserAccess;
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 
 /**
  * 
  * @author diego
  *
  */
-public interface IUserAccessDao extends IBaseDao<UserAccess, Integer> {
+public interface IUserAccessDao extends IBaseJpaDao<UserAccess, Integer> {
 
 	public static final String TABLE_NAME = "usersaccess";
 	public static final String NAME_DAO = "userAccessDao";

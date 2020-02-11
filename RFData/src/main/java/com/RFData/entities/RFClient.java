@@ -3,7 +3,7 @@ package com.RFData.entities;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.RFData.dao.IRFClientDao;
+import com.RFData.dao.jpa.IRFClientDao;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**

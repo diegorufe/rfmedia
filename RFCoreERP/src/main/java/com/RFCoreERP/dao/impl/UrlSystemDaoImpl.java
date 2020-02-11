@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.RFCoreERP.dao.IUrlSystemDao;
 import com.RFCoreERP.entities.UrlSystem;
-import com.RFData.dao.impl.BaseDaoImpl;
+import com.RFData.dao.jpa.impl.BaseDaoImpl;
 
 /**
  * 

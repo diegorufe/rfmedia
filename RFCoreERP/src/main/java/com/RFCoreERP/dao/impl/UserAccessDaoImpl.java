@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.RFCoreERP.dao.IUserAccessDao;
 import com.RFCoreERP.entities.UserAccess;
-import com.RFData.dao.impl.BaseDaoImpl;
+import com.RFData.dao.jpa.impl.BaseDaoImpl;
 
 /**
  * 

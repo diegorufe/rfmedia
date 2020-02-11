@@ -14,7 +14,7 @@ import com.RFCore.utils.collection.UtilsCollection;
 import com.RFCore.utils.reflection.UtilsReflection;
 import com.RFData.beans.Limit;
 import com.RFData.constants.EnumResponseCode;
-import com.RFData.dao.IBaseDao;
+import com.RFData.dao.jpa.IBaseJpaDao;
 import com.RFData.entities.BaseCoreEntity;
 import com.RFData.service.IBaseService;
 import com.RFRest.beans.RequestHeader;
@@ -28,7 +28,7 @@ import com.RFRest.controller.IBaseController;
  *
  * @param <T>
  */
-public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseDao<T, PK>, T extends BaseCoreEntity, PK>
+public abstract class BaseControllerImpl<SERVICE extends IBaseService<DAO, T, PK>, DAO extends IBaseJpaDao<T, PK>, T extends BaseCoreEntity, PK>
 		implements IBaseController<SERVICE, DAO, T, PK> {
 
 	@Autowired

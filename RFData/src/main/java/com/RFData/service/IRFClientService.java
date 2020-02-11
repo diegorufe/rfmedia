@@ -1,6 +1,6 @@
 package com.RFData.service;
 
-import com.RFData.dao.IRFClientDao;
+import com.RFData.dao.jpa.IRFClientDao;
 import com.RFData.entities.RFClient;
 
 /**
