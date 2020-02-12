@@ -8,8 +8,29 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RFERP</name>
 	<description>Security for boot applications</description>
-	<!-- <packaging>war</packaging> -->
-	<packaging>jar</packaging>
+	<packaging>${packaging.type}</packaging>
+
+
+	<profiles>
+		<profile>
+			<id>jar</id>
+
+			<properties>
+				<packaging.type>jar</packaging.type>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>war</id>
+			<properties>
+				<packaging.type>war</packaging.type>
+				<failOnMissingWebXml>false</failOnMissingWebXml>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
 
 	<properties>
 		<java.version>8</java.version>
@@ -20,6 +41,7 @@
 		<rfrest.version>0.0.1-SNAPSHOT</rfrest.version>
 		<rfsecurity.version>0.0.1-SNAPSHOT</rfsecurity.version>
 		<rfboot.version>2.1.3.RELEASE</rfboot.version>
+		<start-class>com.RFERP.RFERPApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -57,30 +79,14 @@
 			<version>${rfsecurity.version}</version>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<classifier>spring-boot</classifier>
-							<mainClass>
-								com.RFERP.RFERPApplication
-							</mainClass>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
