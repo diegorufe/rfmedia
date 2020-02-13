@@ -14,9 +14,10 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<rfdata.version>0.0.1-SNAPSHOT</rfdata.version>
-		<boot.version>2.1.3.RELEASE</boot.version>
-		<rfboot.version>2.1.3.RELEASE</rfboot.version>
-		<datatype.hiberante.jackson.version>2.9.9</datatype.hiberante.jackson.version>
+		<boot.version>2.2.4.RELEASE</boot.version>
+		<rfboot.version>2.2.4.RELEASE</rfboot.version>
+		<jackson.version>2.10.2</jackson.version>
+		<gsjon.version>2.8.6</gsjon.version>
 	</properties>
 
 	<dependencies>
@@ -30,7 +31,13 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate5</artifactId>
-			<version>${datatype.hiberante.jackson.version}</version>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<dependency>
@@ -43,6 +50,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>${rfboot.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gsjon.version}</version>
 		</dependency>
 
 	</dependencies>
