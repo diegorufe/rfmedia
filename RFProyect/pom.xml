@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com</groupId>
+	<artifactId>RFProyect</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>RFProyect</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<boot.version>2.2.4.RELEASE</boot.version>
+		<rfboot.version>2.2.4.RELEASE</rfboot.version>
+		<rfcoreerp>0.0.1-SNAPSHOT</rfcoreerp>
+	</properties>
+
+	<dependencies>
+	
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>RFBoot</artifactId>
+			<version>${rfboot.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>RFCoreERP</artifactId>
+			<version>${rfcoreerp}</version>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

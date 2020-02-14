@@ -33,7 +33,7 @@ public class Enterprise extends BaseAuditEntity<Integer> {
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "rfClientId", referencedColumnName = "id")
+	@JoinColumn(name = IEnterpriseDao.COLUMN_RFCLIENT, referencedColumnName = "id")
 	private RFClient rfClient;
 
 	public String getCode() {

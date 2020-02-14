@@ -41,6 +41,7 @@
 		<rfrest.version>0.0.1-SNAPSHOT</rfrest.version>
 		<rfsecurity.version>0.0.1-SNAPSHOT</rfsecurity.version>
 		<rfboot.version>2.2.4.RELEASE</rfboot.version>
+		<rfrestcoreerp.version>0.0.1-SNAPSHOT</rfrestcoreerp.version>
 		<start-class>com.RFERP.RFERPApplication</start-class>
 	</properties>
 
@@ -77,6 +78,12 @@
 			<groupId>com</groupId>
 			<artifactId>RFSecurity</artifactId>
 			<version>${rfsecurity.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>RFRestCoreERP</artifactId>
+			<version>${rfrestcoreerp.version}</version>
 		</dependency>
 
 	</dependencies>
