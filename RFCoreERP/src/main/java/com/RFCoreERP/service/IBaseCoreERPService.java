@@ -1,11 +1,10 @@
 package com.RFCoreERP.service;
 
-import com.RFCoreERP.entities.Enterprise;
-import com.RFCoreSecurity.entities.User;
+import java.util.Map;
+
 import com.RFData.beans.ResponseData;
 import com.RFData.dao.jpa.IBaseJpaDao;
 import com.RFData.entities.BaseCoreEntity;
-import com.RFData.entities.RFClient;
 import com.RFData.service.IBaseService;
 
 /**
@@ -19,21 +18,24 @@ import com.RFData.service.IBaseService;
 public interface IBaseCoreERPService<DAO extends IBaseJpaDao<T, PK>, T extends BaseCoreEntity, PK>
 		extends IBaseService<DAO, T, PK> {
 
-	public default ResponseData<T> save(T entidad, RFClient rfClient, Enterprise enterprise, User user) {
-		return getDao().save(entidad);
+	public default ResponseData<T> save(T entidad, int rfClientId, int enterpriseId, int userId,
+			Map<String, Object> params) {
+		return this.save(entidad, params);
 	}
 
-	public default ResponseData<T> update(T entidad, RFClient rfClient, Enterprise enterprise, User user) {
-		return getDao().update(entidad);
+	public default ResponseData<T> update(T entidad, int rfClientId, int enterpriseId, int userId,
+			Map<String, Object> params) {
+		return this.update(entidad, params);
 	}
 
-	public default ResponseData<T> delete(T entidad, RFClient rfClient, Enterprise enterprise, User user) {
-		return getDao().delete(entidad);
+	public default ResponseData<T> delete(T entidad, int rfClientId, int enterpriseId, int userId,
+			Map<String, Object> params) {
+		return this.delete(entidad, params);
 	}
 
-	public default T loadNew(RFClient rfClient, Enterprise enterprise, User user)
-			throws InstantiationException, IllegalAccessException {
-		return this.getDao().getGenericClass().newInstance();
+	public default T loadNew(int rfClientId, int enterpriseId, int userId, Map<String, Object> mapPropertiesFixLoad,
+			Map<String, Object> params) throws InstantiationException, IllegalAccessException {
+		return this.loadNew(mapPropertiesFixLoad, params);
 	}
 
 }
