@@ -17,7 +17,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<jpa.version>2.2.1</jpa.version>
 		<rfcore.version>0.0.1-SNAPSHOT</rfcore.version>
-		<mylsq.version>8.0.15</mylsq.version>
+		<mylsq.version>8.0.16</mylsq.version>
 		<p6spy.version>3.8.5</p6spy.version>
 		<rfboot.version>2.2.4.RELEASE</rfboot.version>
 		<mongodbemebed.version>2.2.0</mongodbemebed.version>
