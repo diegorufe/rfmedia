@@ -45,7 +45,7 @@ window.RFReport = window.RFReport || {};
             container.appendChild(containerTools);
 
             // Load tools data
-            rfrt.loadToosDataPaper(containerTools , dataPaper);
+            rfrt.loadToolsDataPaper(containerTools , dataPaper);
 
 
             // Create div for paper 
@@ -74,7 +74,7 @@ window.RFReport = window.RFReport || {};
     /**
      * Method to load data for tools
      */
-    rfrt.loadToosDataPaper = function (containerTools, options) {
+    rfrt.loadToolsDataPaper = function (containerTools, options) {
 
     }
 
